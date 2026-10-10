@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>CodeArena – 540 Questions Placement Prep</title>
+    <style>
+         :root {
+            --bg: #1e1e1e;
+            --side: #252526;
+            --bar: #333;
+            --bd: #3c3c3c;
+            --tx: #d4d4d4;
+            --mut: #8b8b8b;
+            --acc: #0e7ad1;
+            --e: #4ec9b0;
+            --m: #e5b84b;
+            --h: #f2616b
+        }
+        
+        * {
+            box-sizing: border-box
+        }
+        
+        html,
+        body {
+            height: 100%;
+            margin: 0
+        }
+        
+        body {
+            background: var(--bg);
+            color: var(--tx);
+            font: 14px system-ui, -apple-system, Segoe UI, sans-serif;
+            display: flex;
+            flex-direction: column;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+        
+        header {
+            background: var(--bar);
+            padding: 8px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+        
+        .r1,
+        .r2 {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap
+        }
+        
+        .r1 b {
+            font-size: 16px
+        }
+        
+        .sp {
+            flex: 1
+        }
+        
+        #today {
+            border-color: var(--e);
+            color: var(--e);
+            font-weight: 600
+        }
+        
+        .pill {
+            background: #2b2b2b;
+            border: 1px solid var(--bd);
+            border-radius: 12px;
+            padding: 2px 10px;
+            font-size: 12px
+        }
+        
+        .bar {
+            width: 120px;
+            height: 6px;
+            background: #111;
+            border-radius: 3px;
+            overflow: hidden
+        }
+        
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--e)
+        }
+        
+        .hist {
+            display: flex;
+            gap: 3px;
+            align-items: center
+        }
+        
+        .hist i {
+            width: 10px;
+            height: 14px;
+            border-radius: 2px;
+            background: #444
+        }
+        
+        .chips {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 2px
+        }
+        
+        .chip {
+            flex: none;
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            border: 1px solid var(--bd);
+            background: #2b2b2b;
+            cursor: pointer;
+            white-space: nowrap
+        }
+        
+        .chip.on {
+            background: var(--acc);
+            border-color: var(--acc);
+            color: #fff
+        }
+        
+        main {
+            flex: 1;
+            display: flex;
+            min-height: 0
+        }
+        
+        aside {
+            width: 310px;
+            background: var(--side);
+            border-right: 1px solid var(--bd);
+            display: flex;
+            flex-direction: column;
+            min-height: 0
+        }
+        
+        .flt {
+            padding: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px
+        }
+        
+        .flt input {
+            grid-column: 1/3
+        }
+        
+        input,
+        select,
+        button {
+            background: #3a3d41;
+            color: var(--tx);
+            border: 1px solid var(--bd);
+            border-radius: 4px;
+            padding: 5px 8px;
+            font: inherit
+        }
+        
+        button {
+            cursor: pointer
+        }
+        
+        button:hover {
+            background: #4a4d52
+        }
+        
+        button.pr {
+            background: var(--acc);
+            border-color: var(--acc);
+            color: #fff
+        }
+        
+        #list {
+            overflow: auto;
+            flex: 1
+        }
+        
+        .it {
+            padding: 7px 10px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid #2d2d2d
+        }
+        
+        .it:hover {
+            background: #2a2d2e
+        }
+        
+        .it.on {
+            background: #37373d
+        }
+        
+        .it .t {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+        
+        .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            border: 1px solid var(--mut);
+            flex: none
+        }
+        
+        .dot.att {
+            background: var(--m);
+            border-color: var(--m)
+        }
+        
+        .dot.done {
+            background: var(--e);
+            border-color: var(--e)
+        }
+        
+        .E {
+            color: var(--e)
+        }
+        
+        .M {
+            color: var(--m)
+        }
+        
+        .H {
+            color: var(--h)
+        }
+        
+        .sm {
+            font-size: 11px
+        }
+        
+        .mu {
+            color: var(--mut)
+        }
+        
+        .ok {
+            color: var(--e)
+        }
+        
+        .bad {
+            color: var(--h)
+        }
+        
+        section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            min-height: 0
+        }
+        
+        #prob {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--bd);
+            max-height: 28%;
+            overflow: auto
+        }
+        
+        #prob h2 {
+            margin: 0 0 4px;
+            font-size: 16px
+        }
+        
+        #prob p {
+            margin: 6px 0;
+            line-height: 1.5
+        }
+        
+        .tag {
+            font-size: 11px;
+            background: #3a3d41;
+            border-radius: 10px;
+            padding: 1px 8px;
+            margin-left: 6px;
+            color: var(--tx)
+        }
+        
+        .tabs {
+            background: var(--side);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            padding: 4px 8px;
+            border-bottom: 1px solid var(--bd);
+            font-size: 12px;
+            flex-wrap: wrap
+        }
+        
+        .tabs .fn {
+            background: var(--bg);
+            padding: 4px 10px;
+            border-top: 2px solid var(--acc)
+        }
+        
+        .ed {
+            flex: 1;
+            display: flex;
+            min-height: 120px
+        }
+        
+        #ln {
+            padding: 8px 6px;
+            text-align: right;
+            color: #6b6b6b;
+            font: 13px/1.5 Consolas, Menlo, monospace;
+            overflow: hidden;
+            user-select: none;
+            min-width: 38px;
+            white-space: pre
+        }
+        
+        #code {
+            flex: 1;
+            resize: none;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            color: var(--tx);
+            font: 13px/1.5 Consolas, Menlo, monospace;
+            padding: 8px;
+            tab-size: 2;
+            white-space: pre;
+            overflow: auto
+        }
+        
+        #out {
+            height: 28%;
+            min-height: 90px;
+            overflow: auto;
+            background: #181818;
+            border-top: 1px solid var(--bd);
+            padding: 8px 12px;
+            font: 12.5px/1.5 Consolas, Menlo, monospace;
+            white-space: pre-wrap
+        }
+        
+        #calm {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9
+        }
+        
+        #calm .box {
+            background: var(--side);
+            border: 1px solid var(--bd);
+            border-radius: 8px;
+            padding: 14px;
+            width: min(560px, 94vw);
+            max-height: 90vh;
+            overflow: auto
+        }
+        
+        .ch {
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+        
+        #cs {
+            margin-top: 8px;
+            line-height: 1.5
+        }
+        
+        #cg {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+            margin-top: 10px
+        }
+        
+        .cd {
+            border: 1px solid var(--bd);
+            border-radius: 6px;
+            padding: 4px 2px;
+            text-align: center;
+            min-height: 64px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-size: 10.5px;
+            background: #2b2b2b
+        }
+        
+        .cd b {
+            font-size: 18px
+        }
+        
+        .cd .dn,
+        .cd .dd {
+            color: var(--tx);
+            opacity: .7
+        }
+        
+        .cd.td {
+            outline: 2px solid var(--acc)
+        }
+        
+        .cd.fu {
+            opacity: .45
+        }
+        
+        @media(max-width:760px) {
+            #cg {
+                grid-template-columns: repeat(5, 1fr)
+            }
+        }
+        
+        @media(max-width:760px) {
+            main {
+                flex-direction: column
+            }
+            aside {
+                width: 100%;
+                height: 36%;
+                border-right: 0;
+                border-bottom: 1px solid var(--bd)
+            }
+            #prob {
+                max-height: 26%
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="r1"><b>⌨️ CodeArena</b><span class="pill" id="tot"></span><span class="pill E" id="pe"></span><span class="pill M" id="pm"></span><span class="pill H" id="ph"></span>
+            <div class="bar"><i id="pb" style="width:0"></i></div><span class="sp"></span>
+            <button id="cal">📅 30-Day Calendar</button><button id="nx">Next unsolved ▶</button><button id="ex">Export</button><button id="im">Import</button><input type="file" id="fi" accept=".json" hidden></div>
+        <div class="r2"><span class="pill" id="today"></span><span class="pill" id="yest"></span><span class="pill" id="streak"></span><span class="pill" id="sv"></span><span class="hist" id="hist" title="Last 14 days (oldest → today)"></span></div>
+        <div class="chips" id="chips"></div>
+    </header>
+    <div id="calm">
+        <div class="box">
+            <div class="ch"><b>📅 30-Day Calendar</b><span class="sp"></span><button id="cr">Restart from today</button><button id="cx">✕</button></div>
+            <div id="cs" class="mu sm"></div>
+            <div id="cg"></div>
+        </div>
+    </div>
+    <main>
+        <aside>
+            <div class="flt"><input id="q" placeholder="Search problems…">
+                <select id="fd"><option value="">All levels</option><option value="E">Easy</option><option value="M">Medium</option><option value="H">Hard</option></select>
+                <select id="fs"><option value="">Any status</option><option value="todo">Todo</option><option value="att">Attempted</option><option value="done">Solved</option></select>
+                <span class="mu sm" id="cnt"></span></div>
+            <div id="list"></div>
+        </aside>
+        <section>
+            <div id="prob">
+                <p class="mu">Pick a problem from the list to begin.</p>
+            </div>
+            <div class="tabs"><span class="fn" id="fname">solution.js</span><span class="sp"></span>
+                <select id="lg" title="Language"><option value="js">JavaScript</option><option value="py">Python</option></select><select id="st"><option value="todo">Todo</option><option value="att">Attempted</option><option value="done">Solved</option></select>
+                <button id="rs">Reset</button><button class="pr" id="run">▶ Run (Ctrl+Enter)</button></div>
+            <div class="ed">
+                <div id="ln">1</div><textarea id="code" spellcheck="false" autocapitalize="off"></textarea></div>
+            <div id="out"></div>
+        </section>
+    </main>
+    <script>
+        /* ===== QUESTION BANK: 9 topics x (30 Easy + 20 Medium + 10 Hard) = 540. Line format: Level|Title|Statement ===== */
+        const RAW = {
+            Array: `E|Two Sum|Return indices (ascending) of the two numbers that add up to target.
+E|Contains Duplicate|Return true if any value appears at least twice.
+E|Best Time to Buy and Sell Stock|Max profit from one buy then one sell given daily prices (0 if none).
+E|Binary Search|Return the index of target in a sorted array, or -1.
+E|Move Zeroes|Return the array with all zeroes moved to the end, keeping the order of the rest.
+E|Remove Duplicates from Sorted Array|Remove duplicates in place and return the new length.
+E|Merge Sorted Array|Merge two sorted arrays into one sorted array.
+E|Single Number|Every element appears twice except one. Find it.
+E|Missing Number|Array holds n distinct numbers from 0..n. Return the missing one.
+E|Majority Element|Return the element that appears more than n/2 times.
+E|Plus One|Add one to a number stored as an array of digits.
+E|Pascal's Triangle|Generate the first numRows rows of Pascal's triangle.
+E|Squares of a Sorted Array|Return the sorted squares of a sorted array.
+E|Intersection of Two Arrays|Return the unique elements common to both arrays.
+E|Third Maximum Number|Return the third distinct maximum, or the maximum if it does not exist.
+E|Maximum Average Subarray I|Find the contiguous subarray of length k with the largest average.
+E|Find All Numbers Disappeared in an Array|Values are in 1..n; return those that never appear.
+E|Rotate Array|Rotate the array to the right by k steps.
+E|Check if Array Is Sorted and Rotated|Was the array originally sorted and then rotated?
+E|Find Pivot Index|Index where the left sum equals the right sum.
+E|Running Sum of 1D Array|Return the running (prefix) sum of the array.
+E|Remove Element|Remove all occurrences of val in place; return the new length.
+E|Search Insert Position|Index where target is or would be inserted in a sorted array.
+E|Valid Mountain Array|Check whether the array strictly rises then strictly falls.
+E|Height Checker|Count positions where the height differs from the sorted order.
+E|Max Consecutive Ones|Longest run of 1s in a binary array.
+E|Degree of an Array|Smallest subarray length having the same degree as the array.
+E|Fair Candy Swap|Find one candy bar each to swap so both totals match.
+E|Monotonic Array|Is the array entirely non-increasing or non-decreasing?
+E|Richest Customer Wealth|Max row sum in a matrix of account balances.
+M|Maximum Subarray|Largest sum of any contiguous subarray.
+M|Product of Array Except Self|out[i] is the product of all other elements, without division.
+M|Container With Most Water|Pick two lines forming the container holding the most water.
+M|Merge Intervals|Merge all overlapping intervals.
+M|3Sum|Find all unique triplets that sum to zero.
+M|Next Permutation|Rearrange into the next lexicographically greater permutation.
+M|Search in Rotated Sorted Array|Search a target in a rotated sorted array in O(log n).
+M|Find First and Last Position of Element|First and last index of target in a sorted array.
+M|Sort Colors|Sort an array of 0s, 1s and 2s in one pass.
+M|Jump Game|Can you reach the last index given maximum jump lengths?
+M|Jump Game II|Minimum number of jumps to reach the last index.
+M|Rotate Image|Rotate an n x n matrix 90 degrees clockwise in place.
+M|Spiral Matrix|Return all matrix elements in spiral order.
+M|Set Matrix Zeroes|If a cell is 0, zero its entire row and column.
+M|Subarray Product Less Than K|Count contiguous subarrays with product less than k.
+M|Insert Interval|Insert a new interval into sorted non-overlapping intervals.
+M|Find Minimum in Rotated Sorted Array|Find the minimum in a rotated sorted array.
+M|Maximum Product Subarray|Largest product of any contiguous subarray.
+M|Find the Duplicate Number|n+1 numbers in 1..n; find the repeated one without modifying the array.
+M|Search a 2D Matrix|Search a target in a row/column sorted matrix.
+H|Trapping Rain Water|Compute how much rain water is trapped between bars.
+H|Median of Two Sorted Arrays|Median of two sorted arrays in O(log(m+n)).
+H|First Missing Positive|Smallest missing positive integer in O(n) time, O(1) space.
+H|Sliding Window Maximum|Maximum of each window of size k.
+H|Candy|Minimum candies so higher-rated children get more than neighbours.
+H|Count of Smaller Numbers After Self|For each element count smaller elements to its right.
+H|Split Array Largest Sum|Split into m subarrays minimising the largest subarray sum.
+H|Maximum Gap|Max gap between successive elements of the sorted array, in O(n).
+H|Minimum Number of Refueling Stops|Fewest refuelling stops needed to reach the target.
+H|Find Median from Data Stream|Design a structure that returns the running median.`,
+            String: `E|Reverse String|Return the reversed string.
+E|Valid Anagram|Is t an anagram of s?
+E|Valid Palindrome|Ignoring case and non-alphanumerics, is s a palindrome?
+E|First Unique Character in a String|Index of the first non-repeating character, or -1.
+E|Longest Common Prefix|Longest common prefix among an array of strings.
+E|Implement strStr|Index of first occurrence of needle in haystack, or -1.
+E|Roman to Integer|Convert a Roman numeral to an integer.
+E|Add Binary|Add two binary strings and return the sum as a binary string.
+E|Length of Last Word|Length of the last word in a string.
+E|Isomorphic Strings|Can characters of s be replaced one-to-one to get t?
+E|Word Pattern|Does the string follow the same pattern as the given letters?
+E|Reverse Words in a String III|Reverse each word, keeping word order and spaces.
+E|Valid Palindrome II|Palindrome after deleting at most one character?
+E|Count and Say|Generate the nth term of the count-and-say sequence.
+E|Ransom Note|Can ransomNote be built from the letters of magazine?
+E|Reverse Vowels of a String|Reverse only the vowels of a string.
+E|Detect Capital|Is capital usage in the word correct?
+E|Add Strings|Add two numeric strings without converting to integers.
+E|Number of Segments in a String|Count space-separated segments.
+E|Repeated Substring Pattern|Can s be built by repeating a substring?
+E|Find the Difference|t is s shuffled plus one extra letter. Find it.
+E|Goat Latin|Convert a sentence to Goat Latin.
+E|Excel Sheet Column Number|Convert a column title like AB to its number.
+E|Backspace String Compare|Compare two strings where # means backspace.
+E|Buddy Strings|Can one swap in s make it equal to goal?
+E|Check if the Sentence Is Pangram|Does the sentence contain every letter a-z?
+E|Merge Strings Alternately|Merge two strings by alternating letters.
+E|Truncate Sentence|Keep only the first k words of a sentence.
+E|Defanging an IP Address|Replace every . with [.] in an IP address.
+E|Jewels and Stones|Count how many stones are also jewels.
+M|Longest Substring Without Repeating Characters|Length of the longest substring without repeating characters.
+M|Longest Palindromic Substring|Return the longest palindromic substring.
+M|Group Anagrams|Group strings that are anagrams of each other.
+M|String to Integer (atoi)|Implement atoi with whitespace, sign and overflow handling.
+M|Zigzag Conversion|Write the string in a zigzag of numRows and read row by row.
+M|Longest Repeating Character Replacement|Longest substring that becomes uniform with at most k replacements.
+M|Palindromic Substrings|Count palindromic substrings.
+M|Permutation in String|Does s2 contain a permutation of s1?
+M|Find All Anagrams in a String|Start indices of all anagrams of p in s.
+M|Decode String|Decode strings like 3[a2[c]].
+M|Multiply Strings|Multiply two numeric strings without big-integer libraries.
+M|Compare Version Numbers|Compare two dotted version strings.
+M|Reverse Words in a String|Reverse word order, trimming extra spaces.
+M|Integer to Roman|Convert an integer to a Roman numeral.
+M|Encode and Decode Strings|Design encode/decode for a list of strings.
+M|Minimum Add to Make Parentheses Valid|Fewest insertions to balance parentheses.
+M|Basic Calculator II|Evaluate an expression with + - * / and no parentheses.
+M|Custom Sort String|Sort s following the character order in order.
+M|Partition Labels|Split into the most parts so each letter appears in one part.
+M|Longest Common Subsequence|Length of the longest common subsequence of two strings.
+H|Minimum Window Substring|Smallest window of s containing all characters of t.
+H|Edit Distance|Minimum edits to convert word1 to word2.
+H|Regular Expression Matching|Match with support for . and *.
+H|Wildcard Matching|Match with support for ? and *.
+H|Longest Valid Parentheses|Length of the longest valid parentheses substring.
+H|Distinct Subsequences|Count distinct subsequences of s equal to t.
+H|Shortest Palindrome|Shortest palindrome by adding characters in front.
+H|Text Justification|Fully justify words into lines of maxWidth.
+H|Substring with Concatenation of All Words|Start indices of substrings that concatenate all given words.
+H|Longest Duplicate Substring|Longest substring that appears at least twice.`,
+            "Linked List": `E|Reverse Linked List|Reverse a singly linked list (node = {val,next}).
+E|Merge Two Sorted Lists|Merge two sorted lists into one sorted list.
+E|Linked List Cycle|Does the list contain a cycle?
+E|Middle of the Linked List|Return the middle node (second middle if two).
+E|Remove Linked List Elements|Remove all nodes with a given value.
+E|Palindrome Linked List|Is the list a palindrome?
+E|Intersection of Two Linked Lists|Find the node where two lists intersect.
+E|Remove Duplicates from Sorted List|Delete duplicates from a sorted list.
+E|Delete Node in a Linked List|Delete a node given only access to that node.
+E|Convert Binary Number in a Linked List to Integer|Bits in a list; return the decimal value.
+E|Design Linked List|Implement get, addAtHead, addAtTail, addAtIndex, deleteAtIndex.
+E|Length of a Linked List|Count nodes iteratively and recursively.
+E|Insert at Head and Tail|Insert a node at the beginning and at the end.
+E|Delete Node at Position|Delete the node at a given position.
+E|Search an Element in a Linked List|Return the index of a value or -1.
+E|Get Kth Node from Head|Return the value at the k-th node.
+E|Nth Node from the End|Find the n-th node from the end in one pass.
+E|Count Nodes with Value X|Count occurrences of x in the list.
+E|Print Linked List in Reverse|Print values in reverse without modifying the list.
+E|Reverse a Doubly Linked List|Reverse a doubly linked list.
+E|Insert into a Sorted Linked List|Insert a value keeping the list sorted.
+E|Merge Alternate Nodes of Two Lists|Take nodes alternately from two lists.
+E|Check if Two Linked Lists Are Identical|Compare two lists node by node.
+E|Find Maximum Element in a Linked List|Return the largest value.
+E|Sum of All Nodes|Return the sum of all node values.
+E|Append Last N Nodes to Front|Move the last n nodes to the front.
+E|Remove Duplicates from Unsorted List|Remove duplicate values from an unsorted list.
+E|Move Last Node to Front|Move the last node to the head.
+E|Pairwise Swap of Values|Swap values of adjacent nodes.
+E|Implement Stack using Linked List|Build push, pop and peek on a linked list.
+M|Remove Nth Node From End of List|Remove the n-th node from the end in one pass.
+M|Reorder List|Reorder L0,L1,...,Ln to L0,Ln,L1,Ln-1,... in place.
+M|Add Two Numbers|Add two numbers stored as reversed digit lists.
+M|Odd Even Linked List|Group odd-indexed nodes then even-indexed nodes.
+M|Swap Nodes in Pairs|Swap every two adjacent nodes.
+M|Rotate List|Rotate the list to the right by k places.
+M|Linked List Cycle II|Return the node where the cycle begins.
+M|Sort List|Sort a linked list in O(n log n).
+M|Partition List|Partition around x keeping relative order.
+M|Copy List with Random Pointer|Deep copy a list with random pointers.
+M|Reverse Linked List II|Reverse the nodes between positions left and right.
+M|Remove Duplicates from Sorted List II|Remove every value that appears more than once.
+M|Flatten a Multilevel Doubly Linked List|Flatten child lists into a single list.
+M|Delete the Middle Node of a Linked List|Delete the middle node.
+M|Maximum Twin Sum of a Linked List|Max sum of node i and node n-1-i.
+M|Add Two Numbers II|Add numbers stored most-significant digit first.
+M|Insertion Sort List|Sort the list using insertion sort.
+M|Split Linked List in Parts|Split into k consecutive parts of near-equal size.
+M|Next Greater Node In Linked List|Next greater value for each node.
+M|Merge Nodes in Between Zeros|Merge the sums between consecutive zero nodes.
+H|Merge k Sorted Lists|Merge k sorted lists into one.
+H|Reverse Nodes in k-Group|Reverse nodes in groups of k.
+H|LFU Cache|Design a least-frequently-used cache with O(1) operations.
+H|All O` + "`" + `one Data Structure|Inc, dec, getMaxKey and getMinKey all in O(1).
+H|Design Skiplist|Implement a skip list with search, add and erase.
+H|Copy List With Random Pointer in O(1) Space|Deep copy without a hash map.
+H|Reverse a Linked List in Groups of Alternating Sizes|Reverse k nodes, skip k nodes, repeat.
+H|Sort a Linked List Sorted by Absolute Values|Sort a list that is sorted by absolute value.
+H|Subtract Two Numbers Represented as Linked Lists|Return the difference as a linked list.
+H|Merge K Sorted Lists With Divide and Conquer|Merge k lists using pairwise merging.`,
+            Tree: `E|Maximum Depth of Binary Tree|Return the max depth of a tree (node = {val,left,right}).
+E|Invert Binary Tree|Mirror the tree.
+E|Same Tree|Are two trees identical?
+E|Symmetric Tree|Is the tree a mirror of itself?
+E|Path Sum|Is there a root-to-leaf path with the given sum?
+E|Minimum Depth of Binary Tree|Shortest root-to-leaf depth.
+E|Balanced Binary Tree|Is the tree height-balanced?
+E|Diameter of Binary Tree|Length of the longest path between any two nodes.
+E|Subtree of Another Tree|Does the tree contain another tree as a subtree?
+E|Merge Two Binary Trees|Merge two trees by summing overlapping nodes.
+E|Binary Tree Inorder Traversal|Return the inorder traversal.
+E|Binary Tree Preorder Traversal|Return the preorder traversal.
+E|Binary Tree Postorder Traversal|Return the postorder traversal.
+E|Convert Sorted Array to Binary Search Tree|Build a height-balanced BST from a sorted array.
+E|Lowest Common Ancestor of a BST|Find the LCA of two nodes in a BST.
+E|Binary Tree Paths|Return all root-to-leaf paths.
+E|Sum of Left Leaves|Sum of all left leaf values.
+E|Count Complete Tree Nodes|Count nodes of a complete tree faster than O(n).
+E|Search in a Binary Search Tree|Find the node with a given value.
+E|Minimum Absolute Difference in BST|Min difference between any two node values.
+E|Range Sum of BST|Sum of node values within [low, high].
+E|Leaf-Similar Trees|Do two trees have the same leaf sequence?
+E|Average of Levels in Binary Tree|Average value on each level.
+E|Univalued Binary Tree|Do all nodes hold the same value?
+E|Cousins in Binary Tree|Are two nodes cousins?
+E|Two Sum IV - Input is a BST|Do two nodes in a BST sum to k?
+E|Insert into a Binary Search Tree|Insert a value into a BST.
+E|Find Mode in Binary Search Tree|Most frequent value(s) in a BST.
+E|Binary Tree Tilt|Sum of tilts of all nodes.
+E|Increasing Order Search Tree|Rearrange a BST into a right-skewed increasing tree.
+M|Validate Binary Search Tree|Is the tree a valid BST?
+M|Binary Tree Level Order Traversal|Return values level by level.
+M|Binary Tree Zigzag Level Order Traversal|Alternate level direction.
+M|Kth Smallest Element in a BST|Return the k-th smallest value.
+M|Construct Binary Tree from Preorder and Inorder Traversal|Rebuild the tree.
+M|Binary Tree Right Side View|Values visible from the right side.
+M|Lowest Common Ancestor of a Binary Tree|Find the LCA in a general binary tree.
+M|Path Sum II|Return all root-to-leaf paths with a given sum.
+M|Flatten Binary Tree to Linked List|Flatten in place into a preorder right-skewed list.
+M|Count Good Nodes in Binary Tree|Count nodes not smaller than any ancestor.
+M|Delete Node in a BST|Delete a key and keep BST property.
+M|Populating Next Right Pointers in Each Node|Connect each node to its right neighbour.
+M|Sum Root to Leaf Numbers|Sum numbers formed by root-to-leaf paths.
+M|Binary Search Tree Iterator|Implement next() and hasNext() on a BST.
+M|Construct Binary Search Tree from Preorder Traversal|Build a BST from preorder.
+M|Construct Binary Tree from Inorder and Postorder Traversal|Rebuild the tree.
+M|Path Sum III|Count downward paths summing to target.
+M|All Nodes Distance K in Binary Tree|Nodes at distance K from a target node.
+M|Unique Binary Search Trees|Count structurally unique BSTs with n nodes.
+M|Maximum Width of Binary Tree|Maximum width among all levels.
+H|Binary Tree Maximum Path Sum|Maximum path sum between any two nodes.
+H|Serialize and Deserialize Binary Tree|Encode a tree to a string and decode it back.
+H|Recover Binary Search Tree|Fix a BST where two nodes were swapped.
+H|Vertical Order Traversal of a Binary Tree|Report nodes by column, then row, then value.
+H|Binary Tree Cameras|Minimum cameras to monitor all nodes.
+H|Maximum Sum BST in Binary Tree|Max sum of any subtree that is a BST.
+H|Number of Ways to Reorder Array to Get Same BST|Count orderings that build the same BST.
+H|Sum of Distances in Tree|Sum of distances from each node to all others.
+H|Unique Binary Search Trees II|Generate all structurally unique BSTs.
+H|Largest BST Subtree|Size of the largest BST inside a binary tree.`,
+            Stack: `E|Valid Parentheses|Are the brackets ()[]{} valid and properly nested?
+E|Implement Queue using Stacks|Build a FIFO queue using two stacks.
+E|Implement Stack using Queues|Build a LIFO stack using queues.
+E|Remove All Adjacent Duplicates in String|Repeatedly remove adjacent equal letters.
+E|Next Greater Element I|Next greater element for each element of nums1 within nums2.
+E|Baseball Game|Compute the score from operations, with + D and C.
+E|Make The String Great|Remove adjacent letters of the same letter in opposite case.
+E|Crawler Log Folder|Steps needed to return to the main folder.
+E|Final Prices With a Special Discount|Apply discount of the next smaller-or-equal price.
+E|Remove Outermost Parentheses|Strip the outermost parentheses of each primitive.
+E|Maximum Nesting Depth of the Parentheses|Max depth of nested parentheses.
+E|Reverse a String Using Stack|Reverse a string using a stack.
+E|Delete Middle Element of a Stack|Remove the middle element of a stack.
+E|Evaluate Postfix Expression|Evaluate a postfix expression.
+E|Next Smaller Element|Next smaller element for each element.
+E|Previous Smaller Element|Previous smaller element for each element.
+E|Check for Redundant Brackets|Does the expression have redundant brackets?
+E|Number of Students Unable to Eat Lunch|Simulate sandwich and student queues.
+E|Time Needed to Buy Tickets|Time for person k to finish buying tickets.
+E|Build an Array With Stack Operations|Produce Push/Pop operations to build the target.
+E|Implement Stack Using Array|Build push, pop, peek and isEmpty on an array.
+E|Two Stacks in One Array|Implement two stacks sharing one array.
+E|Reverse Words Using Stack|Reverse the order of words in a sentence.
+E|Decimal to Binary Using Stack|Convert a decimal number to binary.
+E|Palindrome Check Using Stack|Check palindrome using a stack.
+E|Peek Maximum in Stack in O(1)|Support push, pop and getMax in O(1).
+E|Count Valid Bracket Pairs|Count matched bracket pairs in a string.
+E|Reverse Each Word Using Stack|Reverse every word in place using a stack.
+E|Check if Two Stacks Are Equal|Compare two stacks without losing them.
+E|Copy a Stack Preserving Order|Copy one stack into another keeping order.
+M|Min Stack|Stack with push, pop, top and getMin in O(1).
+M|Daily Temperatures|Days to wait for a warmer temperature.
+M|Evaluate Reverse Polish Notation|Evaluate an RPN expression.
+M|Next Greater Element II|Next greater element in a circular array.
+M|Asteroid Collision|Simulate asteroid collisions.
+M|Online Stock Span|Design a stock span calculator.
+M|Remove K Digits|Remove k digits to get the smallest number.
+M|Simplify Path|Simplify a Unix absolute path.
+M|Validate Stack Sequences|Could pushed and popped sequences come from one stack?
+M|Car Fleet|Count car fleets arriving at the target.
+M|Score of Parentheses|Score a balanced parentheses string.
+M|Minimum Remove to Make Valid Parentheses|Remove the fewest parentheses to make it valid.
+M|Remove Duplicate Letters|Smallest lexicographic result with each letter once.
+M|132 Pattern|Does a 132 pattern exist in the array?
+M|Sum of Subarray Minimums|Sum of minimums over all subarrays.
+M|Design a Stack With Increment Operation|Stack with an increment-bottom-k operation.
+M|Check If a String Is Valid After Substitutions|Valid if repeatedly removing abc yields empty.
+M|Exclusive Time of Functions|Compute exclusive run time from function logs.
+M|Flatten Nested List Iterator|Iterate over a nested list of integers.
+M|Infix to Postfix Conversion|Convert an infix expression to postfix.
+H|Largest Rectangle in Histogram|Largest rectangle area in a histogram.
+H|Maximal Rectangle|Largest rectangle of 1s in a binary matrix.
+H|Basic Calculator|Evaluate expressions with + - and parentheses.
+H|Basic Calculator III|Evaluate with + - * / and parentheses.
+H|Maximum Frequency Stack|Pop the most frequent element.
+H|Max Stack|Stack supporting peekMax and popMax.
+H|Number of Atoms|Count atoms in a chemical formula.
+H|Sum of Total Strength of Wizards|Sum of strength over all subarrays.
+H|Number of Visible People in a Queue|How many people each person can see to the right.
+H|Parsing A Boolean Expression|Evaluate a nested boolean expression.`,
+            Hash: `E|Happy Number|Repeatedly sum squares of digits; does n reach 1?
+E|Contains Duplicate II|Duplicates within distance k?
+E|Intersection of Two Arrays II|Intersection including multiplicity.
+E|Keyboard Row|Words typeable using one keyboard row.
+E|Find Common Characters|Characters common to all words, with multiplicity.
+E|Uncommon Words from Two Sentences|Words appearing exactly once across both sentences.
+E|Distribute Candies|Max distinct candy types you can eat (n/2 candies).
+E|Longest Harmonious Subsequence|Longest subsequence where max-min is exactly 1.
+E|Number of Good Pairs|Count pairs i<j with nums[i]==nums[j].
+E|Sort Array by Increasing Frequency|Sort by frequency, ties by larger value first.
+E|Check if All Characters Have Equal Number of Occurrences|Do all letters occur equally often?
+E|Maximum Number of Balloons|How many times can balloon be formed?
+E|Sum of Unique Elements|Sum of elements that appear exactly once.
+E|Find Lucky Integer in an Array|Largest value whose frequency equals itself.
+E|Unique Number of Occurrences|Are all occurrence counts unique?
+E|Count Elements|Count x such that x+1 is also in the array.
+E|Minimum Index Sum of Two Lists|Common strings with the least index sum.
+E|Design HashSet|Implement a hash set without built-ins.
+E|Design HashMap|Implement a hash map without built-ins.
+E|Check Array Formation Through Concatenation|Form arr by concatenating the given pieces.
+E|Find Words That Can Be Formed by Characters|Sum of lengths of words buildable from chars.
+E|Verifying an Alien Dictionary|Are words sorted in the alien order?
+E|Subdomain Visit Count|Count visits for every subdomain.
+E|Word Frequency Counter|Return the frequency of each word.
+E|First Repeating Element in an Array|Return the first element that repeats.
+E|Count Distinct Elements in Every Window|Distinct count in each window of size k.
+E|Find Pair With Given Difference|Is there a pair with difference k?
+E|Check if Two Arrays Are Equal|Same elements with same frequencies?
+E|Most Frequent Element|Return the most frequent element.
+E|Find Duplicates in an Array|Return all duplicate values.
+M|Longest Consecutive Sequence|Longest run of consecutive integers in O(n).
+M|Top K Frequent Elements|Return the k most frequent elements.
+M|Subarray Sum Equals K|Count subarrays summing to k.
+M|LRU Cache|Cache with O(1) get/put and LRU eviction.
+M|Group Shifted Strings|Group strings that belong to the same shifting sequence.
+M|4Sum II|Count tuples across four arrays that sum to zero.
+M|Insert Delete GetRandom O(1)|Set with O(1) insert, remove and random.
+M|Sort Characters By Frequency|Sort letters by decreasing frequency.
+M|Continuous Subarray Sum|Subarray of length >=2 whose sum is a multiple of k?
+M|Contiguous Array|Longest subarray with equal 0s and 1s.
+M|Find All Duplicates in an Array|Find all values appearing twice, O(n) time.
+M|Encode and Decode TinyURL|Design a URL shortener.
+M|Brick Wall|Fewest bricks crossed by a vertical line.
+M|Top K Frequent Words|k most frequent words, ties alphabetical.
+M|Time Based Key-Value Store|Store values by timestamp; get latest <= t.
+M|Find Duplicate Subtrees|Return roots of all duplicate subtrees.
+M|Subarray Sums Divisible by K|Count subarrays with sum divisible by k.
+M|Max Number of K-Sum Pairs|Max number of pairs that sum to k.
+M|Longest Substring with At Most K Distinct Characters|Longest substring with at most k distinct characters.
+M|Fraction to Recurring Decimal|Return a fraction as a string with repeating part in parentheses.
+H|Max Points on a Line|Maximum points lying on one straight line.
+H|Insert Delete GetRandom O(1) - Duplicates allowed|Randomized multiset with O(1) operations.
+H|Design Twitter|Post tweets, follow users, get the news feed.
+H|Subarrays with K Different Integers|Count subarrays with exactly k distinct values.
+H|Minimum Window Subsequence|Smallest window of s containing t as a subsequence.
+H|Count Different Palindromic Subsequences|Count distinct palindromic subsequences mod 1e9+7.
+H|Number of Distinct Islands II|Count islands distinct under rotation and reflection.
+H|Find the Shortest Superstring|Shortest string containing all given strings.
+H|Smallest Range Covering Elements from K Lists|Smallest range including one element from each list.
+H|Palindrome Pairs|All pairs of words whose concatenation is a palindrome.`,
+            Graph: `E|Find if Path Exists in Graph|Is there a path between source and destination?
+E|Flood Fill|Flood fill a region of an image.
+E|Find the Town Judge|Find the person trusted by everyone who trusts nobody.
+E|Find Center of Star Graph|Return the center of a star graph.
+E|Island Perimeter|Perimeter of the island in a grid.
+E|Employee Importance|Total importance of an employee and subordinates.
+E|Maximum Depth of N-ary Tree|Max depth of an n-ary tree.
+E|N-ary Tree Preorder Traversal|Preorder of an n-ary tree.
+E|N-ary Tree Level Order Traversal|Level order of an n-ary tree.
+E|Build Adjacency List from Edge List|Convert edges to an adjacency list.
+E|BFS Traversal of a Graph|Return the BFS order from a start node.
+E|DFS Traversal of a Graph|Return the DFS order from a start node.
+E|Count Edges in an Undirected Graph|Count edges from an adjacency list.
+E|Degree of Each Vertex|Return the degree of every vertex.
+E|Find Isolated Nodes|Nodes with no edges.
+E|Shortest Path in Unweighted Graph|Fewest edges between two nodes using BFS.
+E|Check if Two Nodes Are Connected|Are two nodes in the same component?
+E|Transpose of a Graph|Reverse all directed edges.
+E|Matrix Cells in Distance Order|Cells sorted by Manhattan distance from a point.
+E|Convert Adjacency Matrix to Adjacency List|Convert representations.
+E|Convert Adjacency List to Adjacency Matrix|Convert representations.
+E|Count Sink Nodes|Nodes with zero outgoing edges.
+E|Count Source Nodes|Nodes with zero incoming edges.
+E|Check if Directed Graph Is Symmetric|Does every edge have its reverse?
+E|Find Level of Each Node|BFS level of every node.
+E|Number of Nodes at a Given Level|Count nodes at level L from the source.
+E|Number of Edges in Complete Graph|Edges in a complete graph of n nodes.
+E|Detect Self-Loops|Does the graph contain a self-loop?
+E|Detect Parallel Edges|Does the graph contain parallel edges?
+E|Reachable Nodes in 2 Steps|Nodes reachable within two edges.
+M|Number of Islands|Count islands of 1s in a grid.
+M|Clone Graph|Deep copy a connected undirected graph.
+M|Course Schedule|Can all courses be finished given prerequisites?
+M|Rotting Oranges|Minutes until all oranges rot, or -1.
+M|Pacific Atlantic Water Flow|Cells that flow to both oceans.
+M|Network Delay Time|Time for a signal to reach all nodes.
+M|Number of Provinces|Count connected components in an adjacency matrix.
+M|Max Area of Island|Largest island area.
+M|Surrounded Regions|Capture regions of O surrounded by X.
+M|Is Graph Bipartite?|Can the graph be 2-coloured?
+M|Course Schedule II|Return a valid course order.
+M|Redundant Connection|Edge whose removal leaves a tree.
+M|Number of Connected Components in an Undirected Graph|Count components.
+M|Graph Valid Tree|Do the edges form a valid tree?
+M|All Paths From Source to Target|All paths in a DAG.
+M|Cheapest Flights Within K Stops|Cheapest price with at most k stops.
+M|Walls and Gates|Fill each room with distance to nearest gate.
+M|Keys and Rooms|Can you visit all rooms?
+M|01 Matrix|Distance of each cell to nearest 0.
+M|Shortest Path in Binary Matrix|Shortest clear path in an 8-directional grid.
+H|Word Ladder|Shortest transformation sequence length.
+H|Alien Dictionary|Derive letter order from sorted alien words.
+H|Reconstruct Itinerary|Rebuild itinerary using all tickets lexicographically.
+H|Critical Connections in a Network|Find all bridges.
+H|Swim in Rising Water|Min time to swim from top-left to bottom-right.
+H|Longest Increasing Path in a Matrix|Longest strictly increasing path in a grid.
+H|Making A Large Island|Largest island after flipping one 0.
+H|Shortest Path Visiting All Nodes|Shortest path visiting every node.
+H|Bus Routes|Fewest buses to go from source to target.
+H|Word Ladder II|All shortest transformation sequences.`,
+            Recursion: `E|Fibonacci Number|Return the nth Fibonacci number.
+E|Climbing Stairs|Ways to climb n stairs taking 1 or 2 steps.
+E|Power of Two|Is n a power of two?
+E|Power of Three|Is n a power of three?
+E|Power of Four|Is n a power of four?
+E|Factorial of a Number|Return n factorial.
+E|Sum of Digits|Return the sum of the digits of n.
+E|Reverse String Recursively|Reverse a string using recursion.
+E|Palindrome Check Recursively|Check palindrome using recursion.
+E|Sum of Array Recursively|Sum all elements using recursion.
+E|Count Digits|Count digits of a number recursively.
+E|GCD of Two Numbers|Greatest common divisor of a and b.
+E|Print 1 to N and N to 1|Print numbers using recursion.
+E|Binary Representation of a Number|Return the binary form recursively.
+E|Tribonacci Number|Return the nth Tribonacci number.
+E|Linear Search Recursively|Return the index of a value or -1.
+E|Maximum Element Recursively|Find the max element using recursion.
+E|Count Zeros in a Number|Count the zeros in the digits.
+E|Is Array Sorted Recursively|Check sorted order recursively.
+E|Pascal's Triangle II|Return row k of Pascal's triangle.
+E|Add Digits|Repeatedly add digits until one digit remains.
+E|Ugly Number|Is the number only divisible by 2, 3 and 5?
+E|Remove Character Recursively|Remove every occurrence of a character.
+E|Replace pi with 3.14|Replace each pi in a string with 3.14.
+E|String to Integer Recursively|Convert a numeric string to an integer.
+E|Sum of First N Natural Numbers|Return 1+2+...+n recursively.
+E|Print Pattern Recursively|Print a triangle pattern recursively.
+E|Calculate Power a^b|Compute a to the power b recursively.
+E|Count Occurrences in Array Recursively|Count occurrences of x.
+E|Last Index of Element Recursively|Last index of x, or -1.
+M|Pow(x, n)|Implement x to the power n (fast exponentiation).
+M|Decode Ways|Count ways to decode a digit string.
+M|Generate Parentheses|Generate all valid parentheses of n pairs.
+M|Tower of Hanoi|Moves needed for n disks.
+M|Unique Paths|Paths from top-left to bottom-right of a grid.
+M|Coin Change|Fewest coins to make an amount.
+M|House Robber|Max loot without robbing adjacent houses.
+M|Longest Increasing Subsequence|Length of the LIS.
+M|Word Break|Can s be segmented into dictionary words?
+M|Partition Equal Subset Sum|Can the array be split into two equal-sum subsets?
+M|Target Sum|Ways to assign + or - to reach the target.
+M|Perfect Squares|Fewest perfect squares summing to n.
+M|Triangle|Minimum path sum from top to bottom.
+M|Minimum Path Sum|Minimum path sum in a grid.
+M|Unique Paths II|Paths in a grid with obstacles.
+M|Integer Break|Max product after breaking n into parts.
+M|Combination Sum IV|Count ordered ways to reach the target.
+M|Delete and Earn|Max points deleting neighbours.
+M|Best Time to Buy and Sell Stock with Cooldown|Max profit with a cooldown day.
+M|Longest Palindromic Subsequence|Length of the longest palindromic subsequence.
+H|Burst Balloons|Max coins from bursting balloons wisely.
+H|Interleaving String|Is s3 an interleaving of s1 and s2?
+H|Scramble String|Can s2 be a scramble of s1?
+H|Palindrome Partitioning II|Minimum cuts for palindrome partitioning.
+H|Super Egg Drop|Minimum moves to find the critical floor.
+H|Strange Printer|Minimum turns for a strange printer.
+H|Cherry Pickup|Max cherries on a round trip through a grid.
+H|Dungeon Game|Min initial health to rescue the princess.
+H|Russian Doll Envelopes|Max envelopes that can be nested.
+H|Student Attendance Record II|Count eligible attendance records.`,
+            Backtracking: `E|Binary Watch|All possible times for n lit LEDs.
+E|Generate Binary Strings of Length N|List all binary strings of length n.
+E|Print All Subsequences of a String|Generate all subsequences.
+E|Print All Subsets of an Array|Generate all subsets.
+E|Sum of All Subsets|Sum of the sums of all subsets.
+E|Count Subsets with Given Sum|Count subsets that add to target.
+E|Print All Permutations of 3 Elements|Generate permutations of three items.
+E|Letter Combinations of 2 Digits|Phone-keypad combinations for two digits.
+E|Coin Combinations Summing to Target|Count coin combinations for a target.
+E|Check if Subset Sum Exists|Does any subset sum to target?
+E|All Paths in a 2x2 Grid|List all right/down paths.
+E|Rat in a Maze (Small)|Find a path through a small maze.
+E|Print All Strings of Length N from Alphabet|Generate every string of length n.
+E|Generate Binary Strings Without Consecutive 1s|Generate valid binary strings.
+E|Keypad Combinations (Two Digits)|Generate keypad combinations.
+E|Find All Pairs Summing to Target|Backtracking pair finder.
+E|Print All Increasing Sequences of Length K|Generate increasing sequences from 1..n.
+E|Count Ways to Tile a 2xN Board|Tilings with 2x1 dominoes.
+E|Partition Array Into Two Equal Sum Subsets|Can the array be split into two equal halves?
+E|Print All Substrings of a String|Generate all substrings.
+E|Count Paths in Grid (Right/Down)|Count monotone grid paths.
+E|Jump Game Paths Enumeration|List all jump paths to the end.
+E|Subset XOR Count|Count subsets with a given XOR.
+E|Generate Binary Strings with K Ones|Generate strings with exactly k ones.
+E|Combinations of Two Numbers (n choose 2)|List all 2-combinations of 1..n.
+E|Subsequences with Sum Divisible by K|Count subsequences with sum divisible by k.
+E|Print All Palindromic Substrings|List palindromic substrings.
+E|Count Balanced Parentheses for n=3|List valid strings for n=3.
+E|Maze: Is Target Reachable?|Can you reach the target in a maze?
+E|Word Break Check (Backtracking)|Segment a string using a dictionary.
+M|Subsets|Return all subsets of distinct numbers.
+M|Permutations|Return all permutations of distinct numbers.
+M|Combination Sum|Combinations summing to target (reuse allowed).
+M|Word Search|Does the word exist in the grid?
+M|Palindrome Partitioning|All palindrome partitions of s.
+M|Letter Combinations of a Phone Number|All keypad combinations.
+M|Combinations|All k-combinations from 1..n.
+M|Subsets II|All subsets of numbers with duplicates.
+M|Permutations II|All unique permutations with duplicates.
+M|Combination Sum II|Unique combinations, each number used once.
+M|Letter Case Permutation|All letter-case permutations.
+M|Gray Code|Generate an n-bit Gray code sequence.
+M|Restore IP Addresses|All valid IP addresses from a digit string.
+M|Combination Sum III|k numbers 1-9 that sum to n.
+M|Beautiful Arrangement|Count beautiful arrangements.
+M|Matchsticks to Square|Can matchsticks form a square?
+M|Partition to K Equal Sum Subsets|Can the array split into k equal-sum subsets?
+M|Path with Maximum Gold|Max gold collectable on a path.
+M|Split a String Into the Max Number of Unique Substrings|Max unique pieces.
+M|Non-decreasing Subsequences|All non-decreasing subsequences of length >= 2.
+H|N-Queens|All solutions to the n-queens puzzle.
+H|Sudoku Solver|Solve a 9x9 Sudoku.
+H|Word Search II|Find all dictionary words in a grid.
+H|Expression Add Operators|Insert + - * to reach a target.
+H|Word Break II|All sentences from segmenting a string.
+H|N-Queens II|Count n-queens solutions.
+H|Remove Invalid Parentheses|All results after minimum removals.
+H|Unique Paths III|Count paths visiting every empty cell.
+H|Android Unlock Patterns|Count valid unlock patterns.
+H|Number of Squareful Arrays|Count permutations where adjacent sums are squares.`
+        };
+        /* ===== Built-in test cases: title -> [fnName, args, [[argsArray, expected], ...]] ===== */
+        const T = {
+            "Two Sum": ["twoSum", "nums, target", [
+                [
+                    [
+                        [2, 7, 11, 15], 9
+                    ],
+                    [0, 1]
+                ],
+                [
+                    [
+                        [3, 2, 4], 6
+                    ],
+                    [1, 2]
+                ],
+                [
+                    [
+                        [3, 3], 6
+                    ],
+                    [0, 1]
+                ]
+            ]],
+            "Contains Duplicate": ["containsDuplicate", "nums", [
+                [
+                    [
+                        [1, 2, 3, 1]
+                    ], true
+                ],
+                [
+                    [
+                        [1, 2, 3]
+                    ], false
+                ]
+            ]],
+            "Best Time to Buy and Sell Stock": ["maxProfit", "prices", [
+                [
+                    [
+                        [7, 1, 5, 3, 6, 4]
+                    ], 5
+                ],
+                [
+                    [
+                        [7, 6, 4, 3, 1]
+                    ], 0
+                ]
+            ]],
+            "Binary Search": ["search", "nums, target", [
+                [
+                    [
+                        [-1, 0, 3, 5, 9, 12], 9
+                    ], 4
+                ],
+                [
+                    [
+                        [-1, 0, 3, 5, 9, 12], 2
+                    ], -1
+                ]
+            ]],
+            "Move Zeroes": ["moveZeroes", "nums", [
+                [
+                    [
+                        [0, 1, 0, 3, 12]
+                    ],
+                    [1, 3, 12, 0, 0]
+                ],
+                [
+                    [
+                        [0]
+                    ],
+                    [0]
+                ]
+            ]],
+            "Single Number": ["singleNumber", "nums", [
+                [
+                    [
+                        [2, 2, 1]
+                    ], 1
+                ],
+                [
+                    [
+                        [4, 1, 2, 1, 2]
+                    ], 4
+                ]
+            ]],
+            "Missing Number": ["missingNumber", "nums", [
+                [
+                    [
+                        [3, 0, 1]
+                    ], 2
+                ],
+                [
+                    [
+                        [0, 1]
+                    ], 2
+                ]
+            ]],
+            "Majority Element": ["majorityElement", "nums", [
+                [
+                    [
+                        [3, 2, 3]
+                    ], 3
+                ],
+                [
+                    [
+                        [2, 2, 1, 1, 1, 2, 2]
+                    ], 2
+                ]
+            ]],
+            "Plus One": ["plusOne", "digits", [
+                [
+                    [
+                        [1, 2, 3]
+                    ],
+                    [1, 2, 4]
+                ],
+                [
+                    [
+                        [9, 9]
+                    ],
+                    [1, 0, 0]
+                ]
+            ]],
+            "Running Sum of 1D Array": ["runningSum", "nums", [
+                [
+                    [
+                        [1, 2, 3, 4]
+                    ],
+                    [1, 3, 6, 10]
+                ]
+            ]],
+            "Maximum Subarray": ["maxSubArray", "nums", [
+                [
+                    [
+                        [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+                    ], 6
+                ],
+                [
+                    [
+                        [1]
+                    ], 1
+                ]
+            ]],
+            "Product of Array Except Self": ["productExceptSelf", "nums", [
+                [
+                    [
+                        [1, 2, 3, 4]
+                    ],
+                    [24, 12, 8, 6]
+                ],
+                [
+                    [
+                        [-1, 1, 0, -3, 3]
+                    ],
+                    [0, 0, 9, 0, 0]
+                ]
+            ]],
+            "Reverse String": ["reverseString", "s", [
+                [
+                    ["hello"], "olleh"
+                ],
+                [
+                    ["abc"], "cba"
+                ]
+            ]],
+            "Valid Anagram": ["isAnagram", "s, t", [
+                [
+                    ["anagram", "nagaram"], true
+                ],
+                [
+                    ["rat", "car"], false
+                ]
+            ]],
+            "Valid Palindrome": ["isPalindrome", "s", [
+                [
+                    ["A man, a plan, a canal: Panama"], true
+                ],
+                [
+                    ["race a car"], false
+                ]
+            ]],
+            "First Unique Character in a String": ["firstUniqChar", "s", [
+                [
+                    ["leetcode"], 0
+                ],
+                [
+                    ["aabb"], -1
+                ]
+            ]],
+            "Longest Common Prefix": ["longestCommonPrefix", "strs", [
+                [
+                    [
+                        ["flower", "flow", "flight"]
+                    ], "fl"
+                ],
+                [
+                    [
+                        ["dog", "racecar", "car"]
+                    ], ""
+                ]
+            ]],
+            "Roman to Integer": ["romanToInt", "s", [
+                [
+                    ["III"], 3
+                ],
+                [
+                    ["LVIII"], 58
+                ],
+                [
+                    ["MCMXCIV"], 1994
+                ]
+            ]],
+            "Add Binary": ["addBinary", "a, b", [
+                [
+                    ["11", "1"], "100"
+                ],
+                [
+                    ["1010", "1011"], "10101"
+                ]
+            ]],
+            "Length of Last Word": ["lengthOfLastWord", "s", [
+                [
+                    ["Hello World"], 5
+                ],
+                [
+                    ["   fly me   to   the moon  "], 4
+                ]
+            ]],
+            "Ransom Note": ["canConstruct", "ransomNote, magazine", [
+                [
+                    ["a", "b"], false
+                ],
+                [
+                    ["aa", "aab"], true
+                ]
+            ]],
+            "Longest Substring Without Repeating Characters": ["lengthOfLongestSubstring", "s", [
+                [
+                    ["abcabcbb"], 3
+                ],
+                [
+                    ["bbbbb"], 1
+                ],
+                [
+                    ["pwwkew"], 3
+                ]
+            ]],
+            "Valid Parentheses": ["isValid", "s", [
+                [
+                    ["()[]{}"], true
+                ],
+                [
+                    ["(]"], false
+                ],
+                [
+                    ["([)]"], false
+                ]
+            ]],
+            "Happy Number": ["isHappy", "n", [
+                [
+                    [19], true
+                ],
+                [
+                    [2], false
+                ]
+            ]],
+            "Number of Good Pairs": ["numIdenticalPairs", "nums", [
+                [
+                    [
+                        [1, 2, 3, 1, 1, 3]
+                    ], 4
+                ],
+                [
+                    [
+                        [1, 1, 1, 1]
+                    ], 6
+                ]
+            ]],
+            "Fibonacci Number": ["fib", "n", [
+                [
+                    [10], 55
+                ],
+                [
+                    [2], 1
+                ],
+                [
+                    [0], 0
+                ]
+            ]],
+            "Climbing Stairs": ["climbStairs", "n", [
+                [
+                    [2], 2
+                ],
+                [
+                    [3], 3
+                ],
+                [
+                    [10], 89
+                ]
+            ]],
+            "Power of Two": ["isPowerOfTwo", "n", [
+                [
+                    [16], true
+                ],
+                [
+                    [3], false
+                ],
+                [
+                    [1], true
+                ]
+            ]],
+            "Power of Three": ["isPowerOfThree", "n", [
+                [
+                    [27], true
+                ],
+                [
+                    [0], false
+                ],
+                [
+                    [45], false
+                ]
+            ]],
+            "Factorial of a Number": ["factorial", "n", [
+                [
+                    [5], 120
+                ],
+                [
+                    [0], 1
+                ]
+            ]],
+            "GCD of Two Numbers": ["gcd", "a, b", [
+                [
+                    [48, 18], 6
+                ],
+                [
+                    [7, 13], 1
+                ]
+            ]],
+            "Sum of Digits": ["sumOfDigits", "n", [
+                [
+                    [1234], 10
+                ],
+                [
+                    [0], 0
+                ]
+            ]],
+            "Pow(x, n)": ["myPow", "x, n", [
+                [
+                    [2, 10], 1024
+                ],
+                [
+                    [2, -2], 0.25
+                ]
+            ]]
+        };
+        const DN = {
+            E: "Easy",
+            M: "Medium",
+            H: "Hard"
+        };
+        const P = [];
+        for (const tp in RAW) RAW[tp].trim().split("\n").forEach(l => {
+            const a = l.split("|"),
+                t = a[1],
+                x = T[t];
+            P.push({
+                k: tp + "@" + t,
+                t,
+                d: a[0],
+                tp,
+                s: a[2] || "",
+                fn: x && x[0],
+                a: x && x[1],
+                tc: x && x[2]
+            })
+        });
+        const TOPICS = Object.keys(RAW);
+        const $ = id => document.getElementById(id);
+        const esc = s => String(s).replace(/[&<>]/g, c => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;"
+        }[c]));
+        const KEY = "codearena_v2";
+        let S = {},
+            cur = null,
+            tm, topic = "";
+        try {
+            S = JSON.parse(localStorage.getItem(KEY) || "{}") || {}
+        } catch (e) {
+            S = {}
+        }
+        let storageOK = true;
+        try {
+            localStorage.setItem("codearena_t", "1");
+            storageOK = localStorage.getItem("codearena_t") === "1";
+            localStorage.removeItem("codearena_t")
+        } catch (e) {
+            storageOK = false
+        }
+        const save = () => {
+            try {
+                localStorage.setItem(KEY, JSON.stringify(S));
+                storageOK = localStorage.getItem(KEY) !== null
+            } catch (e) {
+                storageOK = false
+            }
+        };
+        const rec = k => S[k] || (S[k] = {
+            s: "todo",
+            c: ""
+        });
+        const ymd = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+        const today = () => ymd(new Date());
+        const fnName = p => {
+            if (p.fn) return p.fn;
+            let w = p.t.replace(/[^a-zA-Z0-9 ]/g, "").split(" ").filter(Boolean);
+            let n = w[0].toLowerCase() + w.slice(1).map(x => x[0].toUpperCase() + x.slice(1).toLowerCase()).join("");
+            return /^[0-9]/.test(n) ? "solve" + n : n
+        };
+        let lang = "js";
+        try {
+            lang = localStorage.getItem("codearena_lang") === "py" ? "py" : "js"
+        } catch (e) {}
+        const CK = () => lang === "py" ? "p" : "c";
+        const starter = p => lang === "py" ? "# " + p.t + " (" + DN[p.d] + " | " + p.tp + ")\n# " + p.s + "\ndef " + fnName(p) + "(" + (p.a || "input") + "):\n    pass\n" : "/**\n * " + p.t + " (" + DN[p.d] + " | " + p.tp + ")\n * " + p.s + "\n */\nfunction " + fnName(p) + "(" + (p.a || "input") + ") {\n  \n}\n";
+
+        /* ---------- stats ---------- */
+        function updSv() {
+            const sv = $("sv");
+            sv.textContent = storageOK ? "💾 Saved on this device" : "⚠ NOT saving - open this file directly in Chrome/Edge (double-click it)";
+            sv.style.borderColor = storageOK ? "" : "var(--h)";
+            sv.style.color = storageOK ? "" : "var(--h)"
+        }
+
+        function stats() {
+            updSv();
+            const c = {
+                    E: [0, 0],
+                    M: [0, 0],
+                    H: [0, 0]
+                },
+                tc = {};
+            TOPICS.forEach(t => tc[t] = [0, 0]);
+            P.forEach(p => {
+                const d = (S[p.k] || {}).s === "done";
+                c[p.d][1]++;
+                tc[p.tp][1]++;
+                if (d) {
+                    c[p.d][0]++;
+                    tc[p.tp][0]++
+                }
+            });
+            const n = c.E[0] + c.M[0] + c.H[0];
+            $("tot").textContent = "Solved " + n + " / " + P.length;
+            $("pe").textContent = "Easy " + c.E.join("/");
+            $("pm").textContent = "Medium " + c.M.join("/");
+            $("ph").textContent = "Hard " + c.H.join("/");
+            $("pb").style.width = (n / P.length * 100) + "%";
+            const by = {};
+            Object.values(S).forEach(r => {
+                if (r.s === "done" && r.at) by[r.at] = (by[r.at] || 0) + 1
+            });
+            const now = new Date(),
+                day = o => {
+                    const d = new Date(now);
+                    d.setDate(d.getDate() - o);
+                    return ymd(d)
+                };
+            $("today").textContent = "✅ Today: " + (by[day(0)] || 0) + " solved";
+            $("yest").textContent = "Yesterday: " + (by[day(1)] || 0) + " solved";
+            let st = 0,
+                o = by[day(0)] ? 0 : 1;
+            while (by[day(o)]) {
+                st++;
+                o++
+            }
+            $("streak").textContent = "Streak: " + st + (st ? " 🔥" : "") + " day" + (st === 1 ? "" : "s");
+            let h = "";
+            for (let i = 13; i >= 0; i--) {
+                const v = by[day(i)] || 0;
+                h += '<i title="' + day(i) + ": " + v + ' solved" style="' + (v ? "background:var(--e);opacity:" + Math.min(1, .35 + v * .2) : "") + '"></i>'
+            }
+            $("hist").innerHTML = h;
+            $("chips").innerHTML = '<span class="chip' + (topic === "" ? " on" : "") + '" data-t="">All ' + n + "/" + P.length + "</span>" + TOPICS.map(t => '<span class="chip' + (topic === t ? " on" : "") + '" data-t="' + t + '">' + t + " " + tc[t][0] + "/" + tc[t][1] + "</span>").join("");
+        }
+
+        function renderList() {
+            const q = $("q").value.toLowerCase(),
+                d = $("fd").value,
+                s = $("fs").value;
+            const l = P.filter(p => (!q || p.t.toLowerCase().includes(q)) && (!d || p.d === d) && (!topic || p.tp === topic) && (!s || ((S[p.k] || {}).s || "todo") === s));
+            $("cnt").textContent = l.length + " shown";
+            $("list").innerHTML = l.map(p => '<div class="it' + (cur && cur.k === p.k ? " on" : "") + '" data-k="' + esc(p.k).replace(/"/g, "&quot;") + '"><i class="dot ' + ((S[p.k] || {}).s || "") + '"></i><span class="t">' + esc(p.t) + '</span><span class="sm ' + p.d + '">' + DN[p.d] + "</span></div>").join("");
+            stats();
+        }
+
+        function lines() {
+            const n = $("code").value.split("\n").length;
+            let s = "";
+            for (let i = 1; i <= n; i++) s += i + "\n";
+            $("ln").textContent = s
+        }
+
+        function open(p) {
+            cur = p;
+            const r = rec(p.k);
+            $("prob").innerHTML = "<h2>" + esc(p.t) + '<span class="tag ' + p.d + '">' + DN[p.d] + '</span><span class="tag">' + p.tp + "</span></h2><p>" + esc(p.s) + "</p>" + (p.tc ? '<p class="mu sm">Built-in tests: ' + p.tc.length + " cases. Passing all marks it Solved automatically.</p>" : '<p class="mu sm">Write your solution, test it with console.log (JS) or print (Python), then mark it Solved yourself.</p>');
+            $("code").value = r[CK()] || starter(p);
+            $("st").value = r.s;
+            $("fname").textContent = fnName(p) + (lang === "py" ? ".py" : ".js");
+            lines();
+            renderList();
+            $("out").innerHTML = '<span class="mu">Ready. Your code and progress save automatically on this device.</span>';
+        }
+
+        function setStatus(s) {
+            if (!cur) return;
+            const r = rec(cur.k);
+            r.s = s;
+            if (s === "done") {
+                if (!r.at) r.at = today()
+            } else delete r.at;
+            $("st").value = s;
+            save();
+            renderList();
+        }
+        /* ---------- runner (Web Worker with 4s timeout, falls back to inline) ---------- */
+        function runJob(j) {
+            const logs = [],
+                con = {
+                    log: (...a) => logs.push(a.map(x => {
+                        try {
+                            return typeof x === "string" ? x : JSON.stringify(x)
+                        } catch (e) {
+                            return String(x)
+                        }
+                    }).join(" "))
+                };
+            let fn = null;
+            try {
+                fn = new Function("console", j.code + "\n;return typeof " + j.name + "==='function'?" + j.name + ":null")(con)
+            } catch (e) {
+                return {
+                    err: e.message,
+                    logs
+                }
+            }
+            if (!j.tests) return {
+                logs,
+                found: !!fn
+            };
+            if (!fn) return {
+                err: "Function " + j.name + " not found",
+                logs
+            };
+            const t0 = Date.now(),
+                res = j.tests.map(c => {
+                    try {
+                        const got = fn(...JSON.parse(JSON.stringify(c[0])));
+                        return {
+                            ok: JSON.stringify(got) === JSON.stringify(c[1]),
+                            got: String(JSON.stringify(got))
+                        }
+                    } catch (e) {
+                        return {
+                            ok: false,
+                            err: e.message
+                        }
+                    }
+                });
+            return {
+                res,
+                logs,
+                ms: Date.now() - t0
+            };
+        }
+
+        function exec(job) {
+            return new Promise(r => {
+                let w;
+                try {
+                    w = new Worker(URL.createObjectURL(new Blob(["const runJob=" + runJob.toString() + ";onmessage=e=>postMessage(runJob(e.data))"], {
+                        type: "text/javascript"
+                    })))
+                } catch (e) {
+                    return r(runJob(job))
+                }
+                const to = setTimeout(() => {
+                    w.terminate();
+                    r({
+                        tle: true
+                    })
+                }, 4000);
+                w.onmessage = e => {
+                    clearTimeout(to);
+                    w.terminate();
+                    r(e.data)
+                };
+                w.onerror = () => {
+                    clearTimeout(to);
+                    w.terminate();
+                    r(runJob(job))
+                };
+                w.postMessage(job);
+            });
+        }
+        async function run() {
+            if (!cur) return;
+            const p = cur,
+                code = $("code").value;
+            rec(p.k)[CK()] = code;
+            save();
+            $("out").innerHTML = '<span class="mu">Running…</span>';
+            const r = await (lang === "py" ? execPy : exec)({
+                code,
+                name: fnName(p),
+                tests: p.tc
+            });
+            if (cur !== p) return;
+            const lgt = Array.isArray(r.logs) ? r.logs.join("\n") : (r.logs || "");
+            const logs = lgt ? '<div class="mu">' + esc(lgt) + "</div>" : "";
+            if (r.tle) {
+                $("out").innerHTML = '<span class="bad">Time Limit Exceeded (4s). Check for an infinite loop.</span>' + logs;
+                if (rec(p.k).s !== "done") setStatus("att");
+                return
+            }
+            if (r.err) {
+                $("out").innerHTML = '<span class="bad">' + esc("Error: " + r.err) + "</span>" + logs;
+                if (rec(p.k).s === "todo") setStatus("att");
+                return
+            }
+            if (!p.tc) {
+                $("out").innerHTML = (logs || '<span class="mu">Ran with no output.</span>');
+                if (rec(p.k).s === "todo") setStatus("att");
+                return
+            }
+            let o = "",
+                pass = 0;
+            r.res.forEach((x, i) => {
+                if (x.ok) pass++;
+                const c = p.tc[i];
+                o += '<div class="' + (x.ok ? "ok" : "bad") + '">' + (x.ok ? "✔" : "✘") + " Case " + (i + 1) + ": " + esc(fnName(p) + "(" + c[0].map(a => JSON.stringify(a)).join(", ") + ")") + (x.ok ? "" : "\n    expected " + esc(JSON.stringify(c[1])) + ", got " + esc(x.err ? "error: " + x.err : x.got)) + "</div>"
+            });
+            const all = pass === p.tc.length;
+            o += '<div class="' + (all ? "ok" : "bad") + '"><b>' + (all ? "Accepted" : "Wrong Answer") + "</b> - " + pass + "/" + p.tc.length + " passed - " + r.ms + " ms</div>" + logs;
+            $("out").innerHTML = o;
+            if (all) setStatus("done");
+            else if (rec(p.k).s !== "done") setStatus("att");
+        }
+        /* ---------- Python runner (Pyodide in a Web Worker, 4s timeout) ---------- */
+        const PYRUN = `def _run(code,name,tests):
+    import sys,io,json,traceback,time
+    buf=io.StringIO();old=sys.stdout;sys.stdout=buf
+    try:
+        g={"__name__":"__main__"}
+        try:
+            exec(code,g)
+        except BaseException:
+            return {"err":traceback.format_exc().strip().splitlines()[-1],"logs":buf.getvalue()}
+        if not tests:
+            return {"logs":buf.getvalue()}
+        fn=g.get(name)
+        if not callable(fn):
+            return {"err":"Function "+name+" not found","logs":buf.getvalue()}
+        t0=time.time();res=[]
+        for a,exp in json.loads(tests):
+            try:
+                got=json.loads(json.dumps(fn(*json.loads(json.dumps(a)))))
+                res.append({"ok":got==exp,"got":json.dumps(got)})
+            except Exception as e:
+                res.append({"ok":False,"err":str(e)})
+        return {"res":res,"logs":buf.getvalue(),"ms":int((time.time()-t0)*1000)}
+    finally:
+        sys.stdout=old
+import json as _j
+_j.dumps(_run(_code,_name,_tests))`;
+        const PYW = 'const IDX="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/";let py=null;const RUNNER=' + JSON.stringify(PYRUN) + ';onmessage=async e=>{const j=e.data;try{if(!py){importScripts(IDX+"pyodide.js");py=await loadPyodide({indexURL:IDX})}py.globals.set("_code",j.code);py.globals.set("_name",j.name);py.globals.set("_tests",j.tests?JSON.stringify(j.tests):"");postMessage(JSON.parse(await py.runPythonAsync(RUNNER)))}catch(err){postMessage({err:String((err&&err.message)||err).split("\\n").slice(-2).join(" ")})}};';
+        let pw = null;
+
+        function execPy(job) {
+            return new Promise(r => {
+                if (!pw) {
+                    try {
+                        pw = new Worker(URL.createObjectURL(new Blob([PYW], {
+                            type: "text/javascript"
+                        })))
+                    } catch (e) {
+                        return r({
+                            err: "Could not start the Python engine: " + e.message
+                        })
+                    }
+                }
+                const w = pw,
+                    ready = !!w.rdy;
+                if (!ready) $("out").innerHTML = '<span class="mu">Loading Python (first run downloads about 10 MB and needs internet)…</span>';
+                const to = setTimeout(() => {
+                    w.terminate();
+                    if (pw === w) pw = null;
+                    r(ready ? {
+                        tle: true
+                    } : {
+                        err: "Python took too long to load. Check your internet connection and try again."
+                    })
+                }, ready ? 4000 : 90000);
+                w.onmessage = e => {
+                    clearTimeout(to);
+                    w.rdy = true;
+                    r(e.data)
+                };
+                w.onerror = () => {
+                    clearTimeout(to);
+                    w.terminate();
+                    if (pw === w) pw = null;
+                    r({
+                        err: "Python engine failed to load. Check your internet connection and try again."
+                    })
+                };
+                w.postMessage(job);
+            });
+        }
+        $("lg").onchange = e => {
+            lang = e.target.value === "py" ? "py" : "js";
+            try {
+                localStorage.setItem("codearena_lang", lang)
+            } catch (x) {}
+            if (cur) open(cur)
+        };
+        /* ---------- 30-day calendar ---------- */
+        function dayCounts() {
+            const by = {};
+            Object.values(S).forEach(r => {
+                if (r && r.s === "done" && r.at) by[r.at] = (by[r.at] || 0) + 1
+            });
+            return by
+        }
+
+        function getStart() {
+            const m = S.__meta || (S.__meta = {});
+            if (!m.start) {
+                m.start = today();
+                save()
+            }
+            return m.start
+        }
+
+        function showCal() {
+            const by = dayCounts(),
+                st = getStart(),
+                s0 = new Date(st + "T00:00:00"),
+                t = today();
+            let h = "",
+                tot = 0,
+                act = 0,
+                best = 0,
+                last = "";
+            for (let i = 0; i < 30; i++) {
+                const d = new Date(s0);
+                d.setDate(s0.getDate() + i);
+                const k = ymd(d),
+                    v = by[k] || 0,
+                    fut = k > t;
+                last = k;
+                if (!fut) {
+                    tot += v;
+                    if (v) act++;
+                    if (v > best) best = v
+                }
+                h += '<div class="cd' + (k === t ? " td" : "") + (fut ? " fu" : "") + '" title="' + k + '"' + (v ? ' style="background:rgba(78,201,176,' + Math.min(.85, .25 + v * .15) + ')"' : "") + '><span class="dn">Day ' + (i + 1) + "</span><b>" + (fut ? "" : v) + '</b><span class="dd">' + d.toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "short"
+                }) + "</span></div>";
+            }
+            $("cg").innerHTML = h;
+            $("cs").innerHTML = "Started <b>" + st + "</b> · Total solved: <b>" + tot + "</b> · Active days: <b>" + act + "</b> · Best day: <b>" + best + "</b>" + (t > last ? '<br><span class="ok">30 days complete! Press "Restart from today" for a new round.</span>' : "");
+            $("calm").style.display = "flex";
+        }
+        $("cal").onclick = showCal;
+        $("cx").onclick = () => {
+            $("calm").style.display = "none"
+        };
+        $("calm").onclick = e => {
+            if (e.target === $("calm")) $("calm").style.display = "none"
+        };
+        $("cr").onclick = () => {
+            if (confirm("Restart the 30-day calendar from today? Your solved questions and history are not deleted.")) {
+                (S.__meta || (S.__meta = {})).start = today();
+                save();
+                showCal()
+            }
+        };
+        /* ---------- events ---------- */
+        $("list").onclick = e => {
+            const it = e.target.closest(".it");
+            if (it) {
+                const p = P.find(x => x.k === it.dataset.k);
+                if (p) open(p)
+            }
+        };
+        $("chips").onclick = e => {
+            const c = e.target.closest(".chip");
+            if (c) {
+                topic = c.dataset.t;
+                renderList()
+            }
+        };
+        ["q", "fd", "fs"].forEach(i => $(i).oninput = renderList);
+        $("st").onchange = e => setStatus(e.target.value);
+        $("run").onclick = run;
+        $("nx").onclick = () => {
+            const l = P.filter(p => (!topic || p.tp === topic) && ((S[p.k] || {}).s || "todo") !== "done");
+            if (l.length) open(l[0]);
+            else $("out").textContent = "Nothing left unsolved here. Great work!"
+        };
+        $("rs").onclick = () => {
+            if (cur && confirm("Reset code to the starter template?")) {
+                rec(cur.k)[CK()] = "";
+                $("code").value = starter(cur);
+                lines();
+                save()
+            }
+        };
+        $("ex").onclick = () => {
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(new Blob([JSON.stringify(S, null, 1)], {
+                type: "application/json"
+            }));
+            a.download = "codearena-progress-" + today() + ".json";
+            a.click()
+        };
+        $("im").onclick = () => $("fi").click();
+        $("fi").onchange = e => {
+            const f = e.target.files[0];
+            if (!f) return;
+            const r = new FileReader();
+            r.onload = () => {
+                try {
+                    const o = JSON.parse(r.result);
+                    if (o && typeof o === "object") {
+                        S = Object.assign(S, o);
+                        save();
+                        renderList();
+                        if (cur) open(cur);
+                        alert("Progress imported.")
+                    }
+                } catch (x) {
+                    alert("That file is not a valid CodeArena backup.")
+                }
+            };
+            r.readAsText(f);
+            e.target.value = ""
+        };
+        $("code").addEventListener("input", () => {
+            lines();
+            if (!cur) return;
+            rec(cur.k)[CK()] = $("code").value;
+            clearTimeout(tm);
+            tm = setTimeout(save, 400)
+        });
+        $("code").addEventListener("scroll", e => {
+            $("ln").scrollTop = e.target.scrollTop
+        });
+        $("code").addEventListener("keydown", e => {
+            const t = e.target;
+            if (e.key === "Tab") {
+                e.preventDefault();
+                t.setRangeText(lang === "py" ? "    " : "  ", t.selectionStart, t.selectionEnd, "end");
+                t.dispatchEvent(new Event("input"))
+            } else if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+                e.preventDefault();
+                run()
+            } else if (e.key === "Enter") {
+                const s = t.selectionStart,
+                    ls = t.value.lastIndexOf("\n", s - 1) + 1,
+                    seg = t.value.slice(ls, s),
+                    ind = (seg.match(/^\s*/) || [""])[0],
+                    ex = lang === "py" ? (/:\s*$/.test(seg) ? "    " : "") : (/[{(\[]\s*$/.test(seg) ? "  " : "");
+                e.preventDefault();
+                t.setRangeText("\n" + ind + ex, s, t.selectionEnd, "end");
+                t.dispatchEvent(new Event("input"))
+            }
+        });
+        /* ---------- start ---------- */
+        $("lg").value = lang;
+        getStart();
+        renderList();
+        const first = P.find(p => ((S[p.k] || {}).s || "todo") !== "done");
+        open(first || P[0]);
+    </script>
+</body>
+
+</html>

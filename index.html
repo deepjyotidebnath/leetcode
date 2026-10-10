@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>CodeArena – 540 Questions Placement Prep</title>
+    <title>CodeArena – 1140 Questions Placement Prep</title>
     <style>
          :root {
             --bg: #1e1e1e;
@@ -1018,6 +1018,609 @@ H|Unique Paths III|Count paths visiting every empty cell.
 H|Android Unlock Patterns|Count valid unlock patterns.
 H|Number of Squareful Arrays|Count permutations where adjacent sums are squares.`
         };
+        /* ===== Part 2: 10 more topics x (30 Easy + 20 Medium + 10 Hard) = 600 more questions ===== */
+        Object.assign(RAW, {
+            "Two Pointers": `E|Two Sum II - Input Array Is Sorted|Return 1-indexed positions of two numbers in a sorted array that add up to target.
+E|Palindrome Number|Is the integer a palindrome?
+E|Reverse Only Letters|Reverse only the letters; keep other characters in place.
+E|Sort Array By Parity|Move all even numbers before odd numbers.
+E|Sort Array By Parity II|Even values at even indices, odd values at odd indices.
+E|Move All Negative Numbers to One Side|Rearrange so all negatives come before positives.
+E|Is Subsequence|Is s a subsequence of t?
+E|Long Pressed Name|Could typed be the name with some characters long-pressed?
+E|Two Sum Less Than K|Largest pair sum strictly less than k, or -1.
+E|Count Pairs With Sum Less Than Target|Count pairs i<j with nums[i]+nums[j] < target.
+E|Intersection of Two Sorted Arrays|Return common elements of two sorted arrays.
+E|Union of Two Sorted Arrays|Return the sorted union without duplicates.
+E|Find Pair With Given Sum in Sorted Array|Does a pair with the given sum exist?
+E|Pair With Difference K in Sorted Array|Does a pair with difference k exist?
+E|Reverse Array In Place|Reverse an array using two pointers.
+E|Find Closest Number to Zero|Value closest to zero (prefer the larger if tied).
+E|Smallest Absolute Difference Between Two Sorted Arrays|Min abs(a-b) with a and b from different arrays.
+E|Check If Two Strings Are Almost Equal|Can one swap make the two strings equal?
+E|Reverse Prefix of Word|Reverse the prefix up to and including the first ch.
+E|Valid Word Abbreviation|Does the abbreviation match the word?
+E|Merge Two Sorted Arrays Into a New Array|Merge two sorted arrays using two pointers.
+E|Move Zeroes to Front|Move all zeroes to the front keeping the order of the rest.
+E|Palindrome After One Replacement|Can the string become a palindrome with exactly one replacement?
+E|Count Pairs Whose Sum Equals Target in Sorted Array|Count pairs summing to target.
+E|Sum of Square Numbers|Do integers a and b exist with a*a + b*b = c?
+E|Shortest Distance to a Character|Distance from each index to the nearest occurrence of c.
+E|Rearrange Array Positive and Negative Alternately|Alternate positive and negative numbers.
+E|Separate Even and Odd Numbers|Evens first then odds, keeping relative order.
+E|Find the Middle Element Using Two Pointers|Return the middle element with slow/fast pointers.
+E|Count Unique Values in a Sorted Array|Return the number of distinct values in a sorted array.
+M|3Sum Closest|Return the sum of three numbers closest to target.
+M|4Sum|Find all unique quadruplets summing to target.
+M|3Sum Smaller|Count triplets with sum less than target.
+M|Remove Duplicates from Sorted Array II|Allow each value at most twice, in place.
+M|Boats to Save People|Min boats given a weight limit, at most two people per boat.
+M|Valid Triangle Number|Count triplets that can form a triangle.
+M|Sort Transformed Array|Apply a quadratic to a sorted array and return it sorted.
+M|Partition Array According to Given Pivot|Less-than, equal, greater-than order, stable.
+M|Find K Closest Elements|The k closest values to x in a sorted array.
+M|Minimum Length of String After Deleting Similar Ends|Delete equal prefix/suffix characters; return min length.
+M|Number of Subsequences That Satisfy the Given Sum Condition|Count subsequences with min+max <= target.
+M|Longest Mountain in Array|Length of the longest mountain subarray.
+M|Bag of Tokens|Maximise score by playing tokens face up or down.
+M|Shortest Unsorted Continuous Subarray|Shortest subarray that, if sorted, sorts the whole array.
+M|Pairs of Songs With Total Durations Divisible by 60|Count pairs whose sum is divisible by 60.
+M|Rearrange Array Elements by Sign|Alternate positives and negatives keeping order.
+M|Count Triplets That Can Form Two Arrays of Equal XOR|Count triplets whose two halves have equal XOR.
+M|Maximum Score of a Good Subarray|Max min*(j-i+1) over subarrays containing index k.
+M|Minimize Maximum Pair Sum in Array|Pair elements to minimise the maximum pair sum.
+M|Find Original Array From Doubled Array|Recover the original array from a doubled one.
+H|Reverse Pairs|Count pairs i<j with nums[i] > 2*nums[j].
+H|Find K-th Smallest Pair Distance|Return the k-th smallest absolute pair difference.
+H|Maximum Width Ramp|Max j-i with nums[i] <= nums[j].
+H|Smallest Range II|Min (max-min) after adding +K or -K to each element.
+H|Longest Chunked Palindrome Decomposition|Max number of chunks in a palindromic split.
+H|Count of Range Sum|Count range sums within [lower, upper].
+H|Minimum Number of Operations to Make Arrays Similar|Min operations to make nums similar to target.
+H|Closest Subsequence Sum|Subsequence sum closest to goal (meet in the middle).
+H|Max Value of Equation|Max yi+yj+abs(xi-xj) where abs(xi-xj) <= k.
+H|Maximum Number of Visible Points|Max points visible within an angle from a location.`,
+            "Sliding Window": `E|Maximum Sum Subarray of Size K|Max sum of any window of size k.
+E|First Negative Number in Every Window of Size K|First negative in each window, or 0.
+E|Count Occurrences of Anagrams|Count windows of text that are anagrams of the pattern.
+E|Subarrays of Size K With Average At Least Threshold|Count windows of size k with average >= threshold.
+E|Maximum Number of Vowels in a Substring of Given Length|Max vowels in any substring of length k.
+E|Substrings of Size Three with Distinct Characters|Count length-3 substrings with all distinct letters.
+E|Minimum Difference Between Highest and Lowest of K Scores|Pick k scores minimising max-min.
+E|Defuse the Bomb|Replace each number by the sum of the next/previous k numbers.
+E|Minimum Recolors to Get K Consecutive Black Blocks|Min recolors for k consecutive black blocks.
+E|Distinct Numbers in Each Window|Distinct count in each window of size k.
+E|Count Subarrays of Size K With Distinct Elements|Windows of size k with all distinct elements.
+E|Find Subarrays With Equal Sum|Do two subarrays of length 2 have equal sum?
+E|Largest Sum of Any Window of Size K|Return the largest k-window sum.
+E|Smallest Window With Sum At Least Target (Positive Numbers)|Min length subarray with sum >= target.
+E|Longest Subarray With Sum at Most K (Positive Numbers)|Longest subarray with sum <= k.
+E|Minimum of Every Window of Size K|Minimum of each window.
+E|Longest Run of Ones in a Binary Array Window|Longest consecutive 1s using a window.
+E|Number of Windows With Sum Divisible by K|Count fixed windows whose sum is divisible by k.
+E|Window Sum of Size K for Every Position|Return the sum of each window.
+E|Maximum of Every Window of Size K|Maximum of each window.
+E|Count Windows With Exactly K Ones|Count windows containing exactly k ones.
+E|Longest Subarray With All Equal Elements|Longest run of equal values.
+E|Maximum Consecutive Days of Sales Window|Best total over k consecutive days.
+E|Count Vowel Windows|Count windows of size k containing at least one vowel.
+E|Check If Any Window Is a Palindrome|Is any window of size k a palindrome?
+E|Average of Each Window of Size K|Return the average of each window.
+E|Sum of Minimum and Maximum of Every Window|Return min+max for each window.
+E|Maximum Product of a Window of Size K|Max product of k consecutive numbers.
+E|Longest Stable Window in Temperatures|Longest window where max-min <= d.
+E|First Window With Sum Greater Than Target|Index of the first window with sum > target.
+M|Maximum Points You Can Obtain from Cards|Take k cards from either end for max points.
+M|Longest Subarray of 1's After Deleting One Element|Longest all-1 subarray after deleting exactly one element.
+M|Max Consecutive Ones III|Longest run of 1s after flipping at most k zeros.
+M|Fruit Into Baskets|Longest subarray with at most two distinct values.
+M|Minimum Size Subarray Sum|Shortest subarray with sum >= target.
+M|Grumpy Bookstore Owner|Max satisfied customers using a secret technique window.
+M|K Radius Subarray Averages|Average of the 2k+1 window around each index.
+M|Maximum Sum of Distinct Subarrays With Length K|Max sum of length-k windows with distinct values.
+M|Repeated DNA Sequences|All 10-letter sequences appearing more than once.
+M|Longest Substring with At Least K Repeating Characters|Longest substring where every letter appears >= k times.
+M|Minimum Swaps to Group All 1's Together|Min swaps to make all 1s contiguous.
+M|Get Equal Substrings Within Budget|Longest substring convertible within maxCost.
+M|Count Number of Nice Subarrays|Subarrays with exactly k odd numbers.
+M|Binary Subarrays With Sum|Subarrays of a binary array with the given sum.
+M|Replace the Substring for Balanced String|Shortest substring to replace for balance.
+M|Frequency of the Most Frequent Element|Max frequency after at most k increments.
+M|Maximum Erasure Value|Max sum of a subarray with unique elements.
+M|Longest Turbulent Subarray|Longest zig-zag subarray.
+M|Subarray With Elements Greater Than Varying Threshold|Find a subarray of length k with all > threshold/k.
+M|Maximum Number of Occurrences of a Substring|Most frequent substring under letter and size limits.
+H|Sliding Window Median|Median of each window of size k.
+H|Minimum Number of K Consecutive Bit Flips|Min k-length flips to make all bits 1.
+H|Shortest Subarray with Sum at Least K|Shortest subarray (with negatives) with sum >= k.
+H|Substring With Largest Variance|Largest difference between counts of two letters in a substring.
+H|Count Subarrays With Fixed Bounds|Subarrays with given min and max.
+H|Maximum Fruits Harvested After at Most K Steps|Max fruits collectable walking at most k steps.
+H|Constrained Subsequence Sum|Max subsequence sum with index gap <= k.
+H|Number of Substrings Containing All Three Characters|Count substrings containing a, b and c.
+H|Sum of Subarray Ranges|Sum of (max-min) over all subarrays.
+H|Longest Continuous Subarray With Absolute Diff at Most Limit|Longest subarray where max-min <= limit.`,
+            "Queues": `E|Implement Queue Using Array|Build enqueue, dequeue, front and isEmpty on an array.
+E|Implement Queue Using Linked List|Build a queue with a linked list.
+E|Design Circular Queue|Implement a fixed-size circular queue.
+E|Implement Deque|Build a double-ended queue.
+E|Reverse a Queue|Reverse the elements of a queue.
+E|Reverse First K Elements of a Queue|Reverse only the first k elements.
+E|Generate Binary Numbers from 1 to N|Return binary strings of 1..n using a queue.
+E|First Non-Repeating Character in a Stream|After each character, report the first non-repeating one.
+E|Number of Recent Calls|Count requests in the last 3000 ms.
+E|Moving Average from Data Stream|Moving average over a window of fixed size.
+E|Interleave the First Half of the Queue With the Second Half|Interleave the two halves.
+E|Check if a Queue Is Sorted|Is the queue sorted using only queue operations?
+E|Sort a Queue Using Extra Queue|Sort a queue with an auxiliary queue.
+E|Rotate a Queue by K Positions|Rotate the queue by k positions.
+E|Josephus Problem|Return the 1-indexed survivor for n people and step k.
+E|Find the Winner of the Circular Game|Return the winner of the circular elimination game.
+E|Hit Counter|Count hits in the past 5 minutes.
+E|Sum of Minimum and Maximum Elements of a Queue|Return min+max of the queue.
+E|Reverse a Queue Using Recursion|Reverse a queue recursively.
+E|Remove Duplicates From a Queue|Remove duplicate values keeping order.
+E|Merge Two Queues Alternately|Interleave two queues.
+E|Check if Two Queues Are Equal|Compare two queues.
+E|Copy a Queue|Copy a queue preserving order.
+E|Queue Using Two Stacks (Costly Dequeue)|Implement a queue with costly dequeue.
+E|Number of People Waiting in a Ticket Line|Count people ahead of a person.
+E|Ticket Counter Simulation|Simulate a ticket counter queue.
+E|Printer Queue Simulation|Simulate a printer queue with priorities.
+E|Round Robin Scheduling Simulation|Simulate round robin CPU scheduling.
+E|Check if a Queue Has Duplicate Elements|Does the queue contain duplicates?
+E|Find the Middle Element of a Queue|Return the middle element.
+M|Design Circular Deque|Implement a circular double-ended queue.
+M|Reveal Cards In Increasing Order|Order the deck so it reveals in increasing order.
+M|Dota2 Senate|Predict which party wins the senate voting.
+M|Open the Lock|Min turns to reach the target on a combination lock.
+M|Task Scheduler|Min intervals to finish tasks with cooldown n.
+M|Minimum Genetic Mutation|Min mutations from start gene to end gene.
+M|Snakes and Ladders|Min moves to reach the last square.
+M|Jump Game III|Can you reach an index with value 0?
+M|Shortest Bridge|Min flips to connect two islands.
+M|Nearest Exit from Entrance in Maze|Steps to the nearest exit.
+M|Design Front Middle Back Queue|Queue with push/pop at front, middle and back.
+M|Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit|Longest subarray with max-min <= limit.
+M|Design Phone Directory|Manage available phone numbers.
+M|Find the Safest Path in a Grid|Path maximising distance from thieves.
+M|As Far from Land as Possible|Water cell with maximum distance to land.
+M|Minimum Knight Moves|Min knight moves to reach (x, y).
+M|Time Needed to Inform All Employees|Time for news to reach all employees.
+M|Shortest Path to Get Food|Shortest path to any food cell.
+M|Sliding Puzzle|Min moves to solve the 2x3 puzzle.
+M|The Maze|Can the ball stop at the destination?
+H|Cut Off Trees for Golf Event|Min steps to cut all trees in height order.
+H|Shortest Path in a Grid with Obstacles Elimination|Shortest path with up to k obstacle removals.
+H|Minimum Moves to Reach Target With Rotations|Snake moves/rotations to reach the target.
+H|Race Car|Fewest instructions to reach a target position.
+H|Minimum Obstacle Removal to Reach Corner|Min obstacles removed to reach the corner.
+H|Escape a Large Maze|Can you escape given blocked cells in a huge grid?
+H|Shortest Path to Get All Keys|Min steps to collect all keys.
+H|Minimum Cost to Make at Least One Valid Path in a Grid|Min sign changes for a valid path.
+H|Trapping Rain Water II|Water trapped on a 2D height map.
+H|The Maze II|Shortest distance for the ball to stop at the destination.`,
+            "Binary Search": `E|Sqrt(x)|Integer square root of x, rounded down.
+E|Guess Number Higher or Lower|Find the picked number with minimum guesses.
+E|First Bad Version|Find the first bad version with minimal API calls.
+E|Valid Perfect Square|Is num a perfect square (no sqrt function)?
+E|Arranging Coins|Count complete staircase rows for n coins.
+E|Find Smallest Letter Greater Than Target|Smallest letter strictly greater than target (wraps around).
+E|Count Negative Numbers in a Sorted Matrix|Count negatives in a row/column sorted grid.
+E|Special Array With X Elements Greater Than or Equal X|Find x with exactly x elements >= x, or -1.
+E|Kth Missing Positive Number|Return the k-th positive integer missing from the sorted array.
+E|Check If N and Its Double Exist|Is there i != j with arr[i] == 2*arr[j]?
+E|First Occurrence in a Sorted Array|Index of the first occurrence of x, or -1.
+E|Last Occurrence in a Sorted Array|Index of the last occurrence of x, or -1.
+E|Count Occurrences in a Sorted Array|Count how many times x appears.
+E|Floor of a Number in a Sorted Array|Largest element <= x.
+E|Ceil of a Number in a Sorted Array|Smallest element >= x.
+E|Number of Times a Sorted Array Is Rotated|Rotation count of a rotated sorted array.
+E|Find Element in an Infinite Sorted Array|Search a target in an array of unknown length.
+E|Cube Root of a Number|Integer cube root.
+E|Nth Root of a Number|Integer nth root, or -1.
+E|Count 1s in a Sorted Binary Array|Count ones in a sorted 0/1 array.
+E|Search in a Sorted Array of Unknown Size|Find target using a reader interface.
+E|Count Elements Less Than X in a Sorted Array|Count elements smaller than x.
+E|Find Missing Number in a Sorted Sequence|Find the missing number in a sorted sequence.
+E|Peak Index in a Mountain Array|Index of the peak of a mountain array.
+E|Compare Strings by Frequency of the Smallest Character|For each query count words with higher smallest-char frequency.
+E|Closest Element to Target in a Sorted Array|Value closest to target.
+E|Check If a Number Is a Perfect Cube|Is n a perfect cube?
+E|Find the Smallest Element Greater Than K|Smallest element strictly greater than k.
+E|Minimum Absolute Difference Between Sorted Array and Target|Min abs(a[i]-target).
+E|Check If Target Exists in a Sorted Matrix Row|Binary search a target in a sorted row.
+M|Find Peak Element|Find any peak index in O(log n).
+M|Capacity To Ship Packages Within D Days|Least ship capacity to deliver in D days.
+M|Koko Eating Bananas|Min eating speed to finish within h hours.
+M|Minimum Number of Days to Make m Bouquets|Earliest day to make m bouquets.
+M|Smallest Divisor Given a Threshold|Smallest divisor with sum of ceilings <= threshold.
+M|Magnetic Force Between Two Balls|Maximise the minimum distance between m balls.
+M|Single Element in a Sorted Array|Find the single non-duplicate in O(log n).
+M|Search in Rotated Sorted Array II|Search in a rotated array with duplicates.
+M|Kth Smallest Element in a Sorted Matrix|k-th smallest in a row/column sorted matrix.
+M|Successful Pairs of Spells and Potions|Count potions making each spell successful.
+M|Random Pick with Weight|Pick an index with probability proportional to weight.
+M|Minimum Time to Complete Trips|Min time so total trips >= totalTrips.
+M|Maximum Candies Allocated to K Children|Max candies each child can get.
+M|Search a 2D Matrix II|Search a matrix sorted by rows and columns.
+M|Heaters|Min heater radius to cover all houses.
+M|Allocate Minimum Number of Pages|Minimise the maximum pages assigned to a student.
+M|Aggressive Cows|Maximise the minimum distance between cows.
+M|Painter's Partition Problem|Minimise the time to paint all boards.
+M|Find Right Interval|For each interval find the interval starting at or after its end.
+M|Maximum Number of Removable Characters|Max removals keeping p a subsequence of s.
+H|Find in Mountain Array|Find the min index of target in a mountain array.
+H|Find Minimum in Rotated Sorted Array II|Find the minimum with duplicates present.
+H|Kth Smallest Prime Fraction|k-th smallest fraction from a sorted array of primes.
+H|Minimize Max Distance to Gas Station|Add k stations to minimise the largest gap.
+H|Maximum Running Time of N Computers|Max minutes to run all n computers.
+H|Nth Magical Number|N-th number divisible by a or b.
+H|Preimage Size of Factorial Zeroes Function|Count x with x! having k trailing zeroes.
+H|Divide Chocolate|Maximise the minimum sweetness you can get.
+H|Kth Smallest Number in Multiplication Table|k-th smallest in an m x n multiplication table.
+H|Smallest Good Base|Smallest base where n is all ones.`,
+            "BST": `E|Convert BST to Greater Tree|Replace each value by the sum of all values >= it.
+E|Trim a Binary Search Tree|Trim the BST so all values lie in [low, high].
+E|Kth Largest Element in a BST|Return the k-th largest value.
+E|Floor in a BST|Largest value <= key.
+E|Ceil in a BST|Smallest value >= key.
+E|Inorder Successor in a BST|Return the inorder successor of a node.
+E|Inorder Predecessor in a BST|Return the inorder predecessor of a node.
+E|Minimum Element in a BST|Return the minimum value.
+E|Maximum Element in a BST|Return the maximum value.
+E|Check if Two BSTs Have the Same Elements|Do two BSTs hold the same set of values?
+E|Count Nodes in a BST Within a Range|Count nodes with value in [low, high].
+E|Height of a BST|Return the height of a BST.
+E|Find Common Nodes in Two BSTs|Return values present in both BSTs.
+E|Delete the Minimum Node in a BST|Delete the smallest node.
+E|Print BST Nodes in a Given Range|List values within a range in sorted order.
+E|Check BST Using Inorder Traversal|Validate a BST via inorder order.
+E|Count Leaf Nodes in a BST|Count leaves.
+E|Sum of All Nodes in a BST|Return the sum of node values.
+E|Closest Value in a BST|Value closest to a target.
+E|Insert a Node in a BST Iteratively|Insert iteratively.
+E|Search in a BST Iteratively|Search iteratively.
+E|Level Order Traversal of a BST|Return values level by level.
+E|BST to Sorted Array|Convert BST to a sorted array.
+E|Count Nodes in a Subtree of a BST|Count nodes under a given node.
+E|Convert Sorted Linked List to Balanced BST|Build a height-balanced BST from a sorted list.
+E|Find the Level of a Key in a BST|Return the depth of a key.
+E|Check if a BST Is Skewed|Is every node having at most one child?
+E|Number of Nodes Greater Than X in a BST|Count nodes with value > x.
+E|Find Median of a BST|Return the median value.
+E|Find the Second Largest Element in a BST|Return the second largest value.
+M|Convert BST to Sorted Circular Doubly Linked List|Convert in place to a circular doubly linked list.
+M|Balance a Binary Search Tree|Return a balanced BST with the same values.
+M|Inorder Successor in BST II|Successor given parent pointers.
+M|Verify Preorder Sequence in Binary Search Tree|Is the sequence a valid BST preorder?
+M|Two Sum BSTs|Do nodes from two BSTs sum to target?
+M|All Elements in Two Binary Search Trees|Return all values of two BSTs in sorted order.
+M|Split BST|Split a BST into two trees around a value.
+M|Binary Search Tree Iterator II|BST iterator with hasPrev and prev.
+M|Minimum Distance Between BST Nodes|Min difference between any two nodes.
+M|Lowest Common Ancestor of Deepest Leaves|LCA of the deepest leaves.
+M|Smallest String Starting From Leaf|Lexicographically smallest leaf-to-root string.
+M|Find Largest Value in Each Tree Row|Largest value on every row.
+M|Closest Nodes Queries in a Binary Search Tree|Floor and ceil values for each query.
+M|Kth Ancestor of a Tree Node|Return the k-th ancestor of a node.
+M|Binary Tree Longest Consecutive Sequence|Longest parent-to-child consecutive path.
+M|Binary Tree Longest Consecutive Sequence II|Longest consecutive path in either direction.
+M|Boundary of Binary Tree|Return the boundary of a binary tree.
+M|Count Univalue Subtrees|Count subtrees with all equal values.
+M|Find Elements in a Contaminated Binary Tree|Recover and query a contaminated tree.
+M|Delete Leaves With a Given Value|Repeatedly delete leaves equal to target.
+H|Closest Binary Search Tree Value II|k values closest to a target.
+H|Contains Duplicate III|Are there i, j close in index and value?
+H|Range Module|Track and query ranges of numbers.
+H|Data Stream as Disjoint Intervals|Summarise a stream as disjoint intervals.
+H|Create Sorted Array through Instructions|Min cost to build a sorted array.
+H|Stock Price Fluctuation|Track latest, max and min stock price.
+H|My Calendar III|Max k-booking after each new event.
+H|Count Good Triplets in an Array|Count triplets in the same order in two arrays.
+H|Longest Increasing Subsequence II|LIS with adjacent difference at most k.
+H|Number of Pairs Satisfying Inequality|Count pairs with a bounded difference inequality.`,
+            "Heaps": `E|Kth Largest Element in a Stream|Design a stream that returns the k-th largest.
+E|Last Stone Weight|Smash the two heaviest stones repeatedly.
+E|Relative Ranks|Assign medals and ranks by score.
+E|Maximum Product of Two Elements in an Array|Max (a-1)*(b-1) for two elements.
+E|The K Weakest Rows in a Matrix|Indices of the k weakest rows.
+E|Heap Sort|Sort an array using a heap.
+E|Implement a Min Heap|Build insert, extractMin and peek.
+E|Implement a Max Heap|Build insert, extractMax and peek.
+E|Build Heap From an Array|Heapify an array in O(n).
+E|Convert Min Heap to Max Heap|Convert array representation.
+E|Check if an Array Is a Min Heap|Verify the heap property.
+E|Find K Largest Elements|Return the k largest elements.
+E|Find K Smallest Elements|Return the k smallest elements.
+E|Sum of K Smallest Elements|Return the sum of the k smallest.
+E|Merge Two Sorted Arrays Using a Heap|Merge with a heap.
+E|Repeatedly Remove the Minimum Element|Simulate repeated min removals.
+E|Minimum Sum of Four Digit Number After Splitting Digits|Split a 4-digit number into two parts with min sum.
+E|Make Array Zero by Subtracting Equal Amounts|Min operations to make all zeros.
+E|Delete Greatest Value in Each Row|Repeatedly delete the max of each row.
+E|Take Gifts From the Richest Pile|Take square roots of the richest pile k times.
+E|Final Array State After K Multiplication Operations|Multiply the min value k times.
+E|Minimum Operations to Exceed Threshold Value|Remove the smallest until all >= k.
+E|Sum of the Largest K Elements|Sum of the k largest.
+E|Top Students by Score|Return the top students by score.
+E|Find the Third Largest Element|Return the third distinct largest.
+E|Minimum Cost of Buying Candies With Discount|Buy two get one free; min cost.
+E|Check if Heap Property Holds After an Insert|Verify after inserting a value.
+E|Replace Elements With Their Rank|Replace each element with its rank.
+E|Priority Queue Using an Array|Implement a priority queue.
+E|Get the Median of Two Heaps Contents|Median from two balanced heaps.
+M|Kth Largest Element in an Array|k-th largest in an unsorted array.
+M|K Closest Points to Origin|k points closest to the origin.
+M|Find K Pairs with Smallest Sums|k pairs with the smallest sums from two arrays.
+M|Reorganize String|Rearrange so no two adjacent characters are equal.
+M|Furthest Building You Can Reach|Furthest building using bricks and ladders.
+M|Ugly Number II|Return the n-th ugly number.
+M|Super Ugly Number|n-th super ugly number for given primes.
+M|Seat Reservation Manager|Reserve/unreserve the smallest seat.
+M|Minimum Cost to Connect Sticks|Min cost to join all sticks.
+M|Longest Happy String|Longest string without three equal letters in a row.
+M|Distant Barcodes|Rearrange barcodes so no two adjacent are equal.
+M|Single-Threaded CPU|Order of task processing on one CPU.
+M|Total Cost to Hire K Workers|Min cost to hire k workers from two ends.
+M|Remove Stones to Minimize the Total|Min total after k halving operations.
+M|Minimum Operations to Halve Array Sum|Fewest halvings to reduce the sum by half.
+M|Path With Minimum Effort|Min max-difference path in a grid.
+M|Hand of Straights|Can cards be grouped into consecutive groups of size w?
+M|Process Tasks Using Servers|Assign tasks to servers by weight.
+M|Maximum Subsequence Score|Max score of k-element subsequence.
+M|Find the Kth Largest Integer in the Array|k-th largest numeric string.
+H|IPO|Max capital after at most k projects.
+H|Maximum Performance of a Team|Max performance of a team of at most k engineers.
+H|The Skyline Problem|Skyline from building rectangles.
+H|Rearrange String k Distance Apart|Same letters at least k apart.
+H|Minimum Cost to Hire K Workers|Min cost to hire k workers by ratio.
+H|Find Servers That Handled Most Number of Requests|Servers handling the most requests.
+H|Maximum Number of Events That Can Be Attended|Max events attendable.
+H|Course Schedule III|Max courses with durations and deadlines.
+H|Minimize Deviation in Array|Min deviation after allowed operations.
+H|Construct Target Array With Multiple Sums|Can you build the target from all 1s?`,
+            "Greedy": `E|Assign Cookies|Maximise content children by matching cookies.
+E|Lemonade Change|Can you give correct change to every customer?
+E|Best Time to Buy and Sell Stock II|Max profit with unlimited transactions.
+E|Maximum Units on a Truck|Max units loaded onto the truck.
+E|Minimum Cost to Move Chips to the Same Position|Min cost to gather chips.
+E|Can Place Flowers|Can n flowers be planted without adjacency?
+E|Array Partition|Max sum of min of pairs.
+E|Maximum 69 Number|Largest number by changing one digit.
+E|Split a String in Balanced Strings|Max number of balanced L/R splits.
+E|Minimum Subsequence in Non-Increasing Order|Smallest subsequence with sum > rest.
+E|Largest Perimeter Triangle|Largest perimeter of a valid triangle.
+E|Maximum Ice Cream Bars|Max ice cream bars with coins.
+E|Minimum Absolute Difference of Pairs|Pairs with minimum absolute difference.
+E|Distribute Candies to People|Distribute candies in rounds.
+E|Water Bottles|Max bottles you can drink with exchanges.
+E|Largest Odd Number in String|Largest odd-valued prefix of a number string.
+E|Minimum Operations to Make the Array Increasing|Min increments for strictly increasing.
+E|Maximum Number of Coins You Can Get|Max coins in the pile game.
+E|Minimum Moves to Seat Everyone|Min moves to seat students.
+E|Minimum Time Visiting All Points|Min time to visit points in order.
+E|Minimum Amount of Time to Collect Garbage|Total time to collect all garbage.
+E|Check If All 1s Are at Least K Places Away|Are all 1s at least k apart?
+E|Maximum Score After Splitting a String|Max zeros-left plus ones-right score.
+E|Make Two Arrays Equal by Reversing Subarrays|Can arrays be made equal?
+E|Minimum Sum of Two Numbers Formed From Digits|Min sum of two numbers from digits.
+E|Maximize Sum of Array After K Negations|Max sum after k sign flips.
+E|Buy Two Chocolates|Buy two items keeping money non-negative.
+E|Maximum Odd Binary Number|Max odd binary number from given bits.
+E|Minimum Changes To Make Alternating Binary String|Min flips to alternate.
+E|Teemo Attacking|Total poison duration.
+M|Gas Station|Starting station to complete the circuit.
+M|Queue Reconstruction by Height|Reconstruct the queue from (height, k).
+M|Wiggle Subsequence|Longest wiggle subsequence.
+M|Two City Scheduling|Min cost to fly half to each city.
+M|Minimum Deletions to Make Character Frequencies Unique|Min deletions for unique frequencies.
+M|Reduce Array Size to Half|Min set size to remove half the array.
+M|Maximum Swap|Largest number with at most one swap.
+M|Monotone Increasing Digits|Largest number with non-decreasing digits <= n.
+M|Broken Calculator|Min operations to reach a target.
+M|Minimum Swaps to Make Strings Equal|Min swaps for two x/y strings.
+M|Valid Parenthesis String|Valid string with * wildcards?
+M|Increasing Triplet Subsequence|Is there an increasing triplet?
+M|Smallest String With A Given Numeric Value|Lexicographically smallest string of length n and value k.
+M|Largest Number|Arrange numbers to form the largest number.
+M|Video Stitching|Min clips to cover the event.
+M|Maximum Length of Pair Chain|Longest chain of pairs.
+M|Minimum Number of Operations to Make Array Empty|Min operations removing 2 or 3 equal elements.
+M|Minimum Increment to Make Array Unique|Min increments for unique values.
+M|Divide Array in Sets of K Consecutive Numbers|Can array be split into k-sized consecutive sets?
+M|Eliminate Maximum Number of Monsters|Max monsters eliminated before reaching the city.
+H|Patching Array|Min patches so every number up to n is formable.
+H|Create Maximum Number|Max number of length k from two arrays.
+H|Minimum Number of Taps to Open to Water a Garden|Min taps to water the garden.
+H|Minimum Number of Moves to Make Palindrome|Min adjacent swaps to make a palindrome.
+H|Best Meeting Point|Min total travel distance to meet.
+H|Max Chunks To Make Sorted II|Max chunks that sort the array when concatenated.
+H|Maximum Number of Tasks You Can Assign|Max tasks with pills and workers.
+H|Minimum Number of Operations to Make Array Continuous|Min changes to make values consecutive.
+H|Jump Game VI|Max score jumping up to k steps.
+H|Minimize the Maximum Difference of Pairs|Choose p pairs minimising the max difference.`,
+            "Intervals": `E|Meeting Rooms|Can a person attend all meetings?
+E|Summary Ranges|Summarise a sorted array as ranges.
+E|Missing Ranges|Return ranges missing within [lower, upper].
+E|Check If Any Two Intervals Overlap|Do any two intervals overlap?
+E|Count Overlapping Intervals|Count overlapping pairs.
+E|Maximum Overlap of Intervals|Max number of intervals overlapping at a point.
+E|Find Interval With Largest Length|Return the longest interval.
+E|Total Length Covered by Intervals|Total covered length (union).
+E|Check If a Point Lies in Any Interval|Is a point covered?
+E|Sort Intervals by Start Time|Sort by start.
+E|Sort Intervals by End Time|Sort by end.
+E|Merge Two Sorted Interval Lists|Merge two sorted lists of intervals.
+E|Find the Gap Between Intervals|Return gaps between sorted intervals.
+E|Count Points Covered by Intervals|Count integer points covered.
+E|Minimum Time Difference|Min minutes between any two time points.
+E|Largest Gap Between Meetings|Largest free gap between meetings.
+E|Count Conflicts Among Meetings|Count conflicting meeting pairs.
+E|Count Non-Overlapping Intervals|Max set of non-overlapping intervals (count).
+E|Count Intervals Contained in Another|Count intervals inside another.
+E|Number of Intervals Containing a Point|Count intervals covering a point.
+E|Intersection of Two Closed Intervals|Return the intersection.
+E|Union of Two Intervals|Return the union.
+E|Duration of Overlap Between Two Meetings|Overlap length of two meetings.
+E|Check If Two Rectangles Overlap|Do two rectangles overlap?
+E|Rectangle Overlap|Do axis-aligned rectangles overlap (positive area)?
+E|Rectangle Area|Total area covered by two rectangles.
+E|Find Free Time Between Two Meetings|Free time between two meetings.
+E|Convert Ranges to Intervals|Convert a list of numbers to intervals.
+E|Earliest Common Slot Check|Is there a common free slot of given length?
+E|Interval Length Statistics|Min, max and average interval length.
+M|Non-overlapping Intervals|Min removals to make intervals non-overlapping.
+M|Meeting Rooms II|Min number of meeting rooms.
+M|Interval List Intersections|Intersect two lists of disjoint intervals.
+M|Minimum Number of Arrows to Burst Balloons|Min arrows to burst all balloons.
+M|Car Pooling|Can all trips be completed within capacity?
+M|My Calendar I|Book events without double booking.
+M|My Calendar II|Book events without triple booking.
+M|Remove Covered Intervals|Count intervals not covered by another.
+M|Divide Intervals Into Minimum Number of Groups|Min groups with no overlaps in a group.
+M|Meeting Scheduler|Earliest common slot for two people.
+M|Range Addition|Apply range updates to an array.
+M|Corporate Flight Bookings|Seats booked per flight.
+M|Add Bold Tag in String|Wrap substrings in bold tags, merging overlaps.
+M|Describe the Painting|Describe the painted segments.
+M|Count Days Without Meetings|Days with no meeting scheduled.
+M|Amount of New Area Painted Each Day|New area painted each day.
+M|Maximum Population Year|Year with the highest population.
+M|Hotel Booking Possible|Can all bookings be satisfied with k rooms?
+M|Find the Maximum Number of Meetings in One Room|Max meetings that fit in one room.
+M|Meeting Rooms III|Room that hosts the most meetings.
+H|Employee Free Time|Common free time for all employees.
+H|Minimum Interval to Include Each Query|Smallest interval containing each query.
+H|Rectangle Area II|Total area covered by many rectangles.
+H|Maximum Profit in Job Scheduling|Max profit from non-overlapping jobs.
+H|Falling Squares|Max height after each square drops.
+H|Number of Flowers in Full Bloom|People seeing flowers in bloom.
+H|Count Integers in Intervals|Add intervals and count covered integers.
+H|Perfect Rectangle|Do rectangles form a perfect rectangle?
+H|Exam Room|Seat students to maximise distance.
+H|Maximum Number of Non-Overlapping Substrings|Max non-overlapping substrings meeting rules.`,
+            "Bit Manipulation": `E|Number of 1 Bits|Count set bits in an integer.
+E|Counting Bits|Return set-bit counts for 0..n.
+E|Reverse Bits|Reverse the bits of a 32-bit integer.
+E|Hamming Distance|Number of differing bit positions.
+E|Binary Number with Alternating Bits|Do bits alternate?
+E|Number Complement|Flip all bits of the number.
+E|Complement of Base 10 Integer|Return the binary complement.
+E|Sum of Two Integers|Add without + or -.
+E|Convert a Number to Hexadecimal|Convert to a hex string.
+E|Prime Number of Set Bits in Binary Representation|Count numbers with a prime set-bit count.
+E|Binary Gap|Longest distance between adjacent 1s.
+E|XOR Operation in an Array|XOR of start+2*i terms.
+E|Decode XORed Array|Decode using the first value.
+E|Minimum Bit Flips to Convert Number|Bits to flip to convert start to goal.
+E|Check if the Kth Bit Is Set|Is the k-th bit set?
+E|Set the Kth Bit|Set the k-th bit.
+E|Clear the Kth Bit|Clear the k-th bit.
+E|Toggle the Kth Bit|Toggle the k-th bit.
+E|Swap Two Numbers Using XOR|Swap without a temp variable.
+E|Check if a Number Is Even Using Bits|Check parity using bit operations.
+E|Find the Only Odd-Occurring Number|Find the value with an odd count.
+E|Rightmost Set Bit Position|1-indexed position of the rightmost set bit.
+E|Find XOR of Numbers From 1 to N|XOR of 1..n in O(1).
+E|Smallest Number With All Bits Set|Smallest number >= n with all bits set.
+E|Check if Binary String Has At Most One Segment of Ones|At most one contiguous block of 1s?
+E|Number of Steps to Reduce a Number to Zero|Steps: halve if even else subtract 1.
+E|Sort Integers by The Number of 1 Bits|Sort by set-bit count, then value.
+E|Bitwise OR of All Elements|OR of the whole array.
+E|Bitwise AND of All Elements|AND of the whole array.
+E|Find the Position of the Only Set Bit|Position of the only set bit, or -1.
+M|Single Number II|Every element appears three times except one.
+M|Single Number III|Two elements appear once; find them.
+M|Bitwise AND of Numbers Range|AND of all numbers in [left, right].
+M|Divide Two Integers|Divide without * / or %.
+M|Total Hamming Distance|Sum of Hamming distances across all pairs.
+M|Maximum XOR of Two Numbers in an Array|Max XOR of any pair.
+M|UTF-8 Validation|Is the byte array valid UTF-8?
+M|XOR Queries of a Subarray|Answer range XOR queries.
+M|Find the Original Array of Prefix Xor|Recover the array from prefix XORs.
+M|Maximum Product of Word Lengths|Max product of two words with no common letters.
+M|Bitwise ORs of Subarrays|Count distinct OR values of subarrays.
+M|Largest Combination With Bitwise AND Greater Than Zero|Largest subset with AND > 0.
+M|Minimum Flips to Make a OR b Equal to c|Min flips so a OR b == c.
+M|Longest Subarray With Maximum Bitwise AND|Longest subarray whose AND is the maximum.
+M|Sum of All Subset XOR Totals|Sum of XOR totals of all subsets.
+M|Count Number of Maximum Bitwise-OR Subsets|Subsets achieving the max OR.
+M|Find XOR Sum of All Pairs Bitwise AND|XOR of (a AND b) over all pairs.
+M|Concatenation of Consecutive Binary Numbers|Value of 1..n binary concatenation mod 1e9+7.
+M|Minimum Array End|Min last element with AND equal to x.
+M|Counting Bits Optimized by Last Set Bit|Counting bits with dp[i] = dp[i & (i-1)] + 1.
+H|Minimum One Bit Operations to Make Integers Zero|Min operations to reach 0.
+H|Maximum XOR With an Element From Array|Max XOR with elements <= limit per query.
+H|Maximum Genetic Difference Query|Max XOR with ancestors on a tree.
+H|Smallest Sufficient Team|Smallest team covering all skills.
+H|Minimum XOR Sum of Two Arrays|Rearrange to minimise XOR sum.
+H|Maximum AND Sum of Array|Place numbers into slots to maximise AND sum.
+H|Parallel Courses II|Min semesters with at most k courses per semester.
+H|Maximum Students Taking Exam|Max students seated without cheating.
+H|Distribute Repeating Integers|Can orders be satisfied from counts?
+H|Find the Maximum Sequence Value of Array|Max OR-XOR sequence value.`,
+            "Dynamic Programming": `E|Min Cost Climbing Stairs|Min cost to reach the top.
+E|Range Sum Query - Immutable|Answer range sums using prefix sums.
+E|Divisor Game|Does Alice win the divisor game?
+E|Get Maximum in Generated Array|Max of the generated array.
+E|Maximum Ascending Subarray Sum|Max sum of an ascending subarray.
+E|Longest Continuous Increasing Subsequence|Longest strictly increasing subarray.
+E|Fibonacci With Memoization|Compute Fibonacci with memoization.
+E|Count Ways to Reach the Nth Stair With 1, 2 or 3 Steps|Count ways with steps 1, 2, 3.
+E|Count Paths in a Grid (Basic)|Right/down paths in an m x n grid.
+E|Minimum Cost Path in a Grid (Basic)|Min cost path in a cost grid.
+E|Nth Catalan Number|Return the n-th Catalan number.
+E|Count Binary Strings Without Consecutive 1s|Count binary strings of length n without 11.
+E|Maximum Sum of Non-Adjacent Elements|Max sum with no two adjacent elements.
+E|Painting Fence Ways (Two Colors)|Ways to paint a fence with no three same in a row.
+E|Count Ways to Make Change|Count coin combinations for an amount.
+E|Longest Common Substring Length|Length of the longest common substring.
+E|Minimum Cost to Reach the End of an Array|Min cost jumping to the end.
+E|Count Number of Hops|Ways to reach step n with hops of 1, 2, 3.
+E|Longest Alternating Subarray|Longest alternating subarray.
+E|Maximum Profit From Multiple Transactions (DP View)|Max profit via DP states.
+E|Number of Ways to Climb With Forbidden Steps|Climb avoiding forbidden steps.
+E|Count Subsets With Sum Using Tabulation|Subsets with sum k via tabulation.
+E|Minimum Number of Coins (Unbounded) for Small Amounts|Min coins for small amounts.
+E|Pascal Triangle Number of Paths Check|Number of paths via Pascal's triangle.
+E|Min Cost to Paint Fence With Two Colors|Min cost painting a fence with two colors.
+E|Count Paths in Grid With Blocked Cells (Basic)|Right/down paths avoiding blocked cells.
+E|Maximum Sum Path in a Triangle (Basic)|Max top-to-bottom sum in a triangle.
+E|Number of Ways to Form Target Sum With 1s and 2s|Ways to form target using 1 and 2.
+E|Tribonacci With Tabulation|Tribonacci via tabulation.
+E|Longest Increasing Run After One Change|Longest increasing run after changing one element.
+M|Maximum Length of Repeated Subarray|Longest common subarray of two arrays.
+M|Last Stone Weight II|Min possible final stone weight.
+M|Ones and Zeroes|Largest subset within m zeros and n ones.
+M|Coin Change II|Number of combinations making the amount.
+M|House Robber II|House robber on a circular street.
+M|Knight Dialer|Count distinct phone numbers of length n.
+M|Minimum Falling Path Sum|Min falling path sum in a matrix.
+M|Maximal Square|Largest square of 1s.
+M|Longest Arithmetic Subsequence|Longest arithmetic subsequence length.
+M|Number of Longest Increasing Subsequence|Count of longest increasing subsequences.
+M|Domino and Tromino Tiling|Ways to tile a 2 x n board.
+M|Longest String Chain|Longest word chain.
+M|Minimum ASCII Delete Sum for Two Strings|Min ASCII delete sum to equalise strings.
+M|Stone Game|Does the first player win?
+M|Out of Boundary Paths|Ways to move the ball out of the grid.
+M|Count Square Submatrices with All Ones|Count square submatrices of 1s.
+M|Arithmetic Slices|Count arithmetic subarrays.
+M|Number of Dice Rolls With Target Sum|Ways to roll dice to hit target.
+M|Best Time to Buy and Sell Stock with Transaction Fee|Max profit with a fee per transaction.
+M|Maximum Number of Points with Cost|Max points picking one cell per row with a cost.
+H|Matrix Chain Multiplication|Min multiplications to multiply a chain of matrices.
+H|Minimum Cost to Merge Stones|Min cost merging k consecutive piles.
+H|Palindrome Partitioning III|Min changes to split into k palindromes.
+H|Number of Ways to Form a Target String Given a Dictionary|Count ways to build the target string.
+H|Best Time to Buy and Sell Stock IV|Max profit with at most k transactions.
+H|Best Time to Buy and Sell Stock III|Max profit with at most two transactions.
+H|Number of Music Playlists|Count playlists with repetition rules.
+H|Paint House III|Min cost to paint with exactly k neighborhoods.
+H|Distinct Subsequences II|Count distinct non-empty subsequences.
+H|Frog Jump|Can the frog cross the river?`
+        });
         /* ===== Built-in test cases: title -> [fnName, args, [[argsArray, expected], ...]] ===== */
         const T = {
             "Two Sum": ["twoSum", "nums, target", [
@@ -1372,6 +1975,523 @@ H|Number of Squareful Arrays|Count permutations where adjacent sums are squares.
                 ]
             ]]
         };
+        Object.assign(T, {
+            "Two Sum II - Input Array Is Sorted": ["twoSum", "numbers, target", [
+                [
+                    [
+                        [2, 7, 11, 15], 9
+                    ],
+                    [1, 2]
+                ],
+                [
+                    [
+                        [2, 3, 4], 6
+                    ],
+                    [1, 3]
+                ]
+            ]],
+            "Palindrome Number": ["isPalindrome", "x", [
+                [
+                    [121], true
+                ],
+                [
+                    [-121], false
+                ],
+                [
+                    [10], false
+                ]
+            ]],
+            "Is Subsequence": ["isSubsequence", "s, t", [
+                [
+                    ["abc", "ahbgdc"], true
+                ],
+                [
+                    ["axc", "ahbgdc"], false
+                ]
+            ]],
+            "Sqrt(x)": ["mySqrt", "x", [
+                [
+                    [4], 2
+                ],
+                [
+                    [8], 2
+                ],
+                [
+                    [0], 0
+                ]
+            ]],
+            "Valid Perfect Square": ["isPerfectSquare", "num", [
+                [
+                    [16], true
+                ],
+                [
+                    [14], false
+                ]
+            ]],
+            "Arranging Coins": ["arrangeCoins", "n", [
+                [
+                    [5], 2
+                ],
+                [
+                    [8], 3
+                ]
+            ]],
+            "Find Smallest Letter Greater Than Target": ["nextGreatestLetter", "letters, target", [
+                [
+                    [
+                        ["c", "f", "j"], "a"
+                    ], "c"
+                ],
+                [
+                    [
+                        ["c", "f", "j"], "c"
+                    ], "f"
+                ],
+                [
+                    [
+                        ["x", "x", "y", "y"], "z"
+                    ], "x"
+                ]
+            ]],
+            "Count Negative Numbers in a Sorted Matrix": ["countNegatives", "grid", [
+                [
+                    [
+                        [
+                            [4, 3, 2, -1],
+                            [3, 2, 1, -1],
+                            [1, 1, -1, -2],
+                            [-1, -1, -2, -3]
+                        ]
+                    ], 8
+                ]
+            ]],
+            "Kth Missing Positive Number": ["findKthPositive", "arr, k", [
+                [
+                    [
+                        [2, 3, 4, 7, 11], 5
+                    ], 9
+                ],
+                [
+                    [
+                        [1, 2, 3, 4], 2
+                    ], 6
+                ]
+            ]],
+            "Check If N and Its Double Exist": ["checkIfExist", "arr", [
+                [
+                    [
+                        [10, 2, 5, 3]
+                    ], true
+                ],
+                [
+                    [
+                        [3, 1, 7, 11]
+                    ], false
+                ]
+            ]],
+            "Peak Index in a Mountain Array": ["peakIndexInMountainArray", "arr", [
+                [
+                    [
+                        [0, 2, 1, 0]
+                    ], 1
+                ],
+                [
+                    [
+                        [0, 10, 5, 2]
+                    ], 1
+                ]
+            ]],
+            "Number of 1 Bits": ["hammingWeight", "n", [
+                [
+                    [11], 3
+                ],
+                [
+                    [128], 1
+                ]
+            ]],
+            "Counting Bits": ["countBits", "n", [
+                [
+                    [5],
+                    [0, 1, 1, 2, 1, 2]
+                ]
+            ]],
+            "Hamming Distance": ["hammingDistance", "x, y", [
+                [
+                    [1, 4], 2
+                ],
+                [
+                    [3, 1], 1
+                ]
+            ]],
+            "Number Complement": ["findComplement", "num", [
+                [
+                    [5], 2
+                ],
+                [
+                    [1], 0
+                ]
+            ]],
+            "Sum of Two Integers": ["getSum", "a, b", [
+                [
+                    [1, 2], 3
+                ],
+                [
+                    [-2, 3], 1
+                ]
+            ]],
+            "Binary Gap": ["binaryGap", "n", [
+                [
+                    [22], 2
+                ],
+                [
+                    [8], 0
+                ],
+                [
+                    [5], 2
+                ]
+            ]],
+            "Minimum Bit Flips to Convert Number": ["minBitFlips", "start, goal", [
+                [
+                    [10, 7], 3
+                ],
+                [
+                    [3, 4], 3
+                ]
+            ]],
+            "Number of Steps to Reduce a Number to Zero": ["numberOfSteps", "num", [
+                [
+                    [14], 6
+                ],
+                [
+                    [8], 4
+                ]
+            ]],
+            "Min Cost Climbing Stairs": ["minCostClimbingStairs", "cost", [
+                [
+                    [
+                        [10, 15, 20]
+                    ], 15
+                ],
+                [
+                    [
+                        [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
+                    ], 6
+                ]
+            ]],
+            "Divisor Game": ["divisorGame", "n", [
+                [
+                    [2], true
+                ],
+                [
+                    [3], false
+                ]
+            ]],
+            "Maximum Ascending Subarray Sum": ["maxAscendingSum", "nums", [
+                [
+                    [
+                        [10, 20, 30, 5, 10, 50]
+                    ], 65
+                ],
+                [
+                    [
+                        [12, 17, 15, 13, 10, 11, 12]
+                    ], 33
+                ]
+            ]],
+            "Longest Continuous Increasing Subsequence": ["findLengthOfLCIS", "nums", [
+                [
+                    [
+                        [1, 3, 5, 4, 7]
+                    ], 3
+                ],
+                [
+                    [
+                        [2, 2, 2]
+                    ], 1
+                ]
+            ]],
+            "Nth Catalan Number": ["catalan", "n", [
+                [
+                    [3], 5
+                ],
+                [
+                    [5], 42
+                ]
+            ]],
+            "Can Place Flowers": ["canPlaceFlowers", "flowerbed, n", [
+                [
+                    [
+                        [1, 0, 0, 0, 1], 1
+                    ], true
+                ],
+                [
+                    [
+                        [1, 0, 0, 0, 1], 2
+                    ], false
+                ]
+            ]],
+            "Lemonade Change": ["lemonadeChange", "bills", [
+                [
+                    [
+                        [5, 5, 5, 10, 20]
+                    ], true
+                ],
+                [
+                    [
+                        [5, 5, 10, 10, 20]
+                    ], false
+                ]
+            ]],
+            "Assign Cookies": ["findContentChildren", "g, s", [
+                [
+                    [
+                        [1, 2, 3],
+                        [1, 1]
+                    ], 1
+                ],
+                [
+                    [
+                        [1, 2],
+                        [1, 2, 3]
+                    ], 2
+                ]
+            ]],
+            "Array Partition": ["arrayPairSum", "nums", [
+                [
+                    [
+                        [1, 4, 3, 2]
+                    ], 4
+                ],
+                [
+                    [
+                        [6, 2, 6, 5, 1, 2]
+                    ], 9
+                ]
+            ]],
+            "Maximum 69 Number": ["maximum69Number", "num", [
+                [
+                    [9669], 9969
+                ],
+                [
+                    [9996], 9999
+                ]
+            ]],
+            "Best Time to Buy and Sell Stock II": ["maxProfit", "prices", [
+                [
+                    [
+                        [7, 1, 5, 3, 6, 4]
+                    ], 7
+                ],
+                [
+                    [
+                        [1, 2, 3, 4, 5]
+                    ], 4
+                ]
+            ]],
+            "Last Stone Weight": ["lastStoneWeight", "stones", [
+                [
+                    [
+                        [2, 7, 4, 1, 8, 1]
+                    ], 1
+                ]
+            ]],
+            "Maximum Product of Two Elements in an Array": ["maxProduct", "nums", [
+                [
+                    [
+                        [3, 4, 5, 2]
+                    ], 12
+                ],
+                [
+                    [
+                        [1, 5, 4, 5]
+                    ], 16
+                ]
+            ]],
+            "Josephus Problem": ["josephus", "n, k", [
+                [
+                    [7, 3], 4
+                ],
+                [
+                    [5, 2], 3
+                ]
+            ]],
+            "Find the Winner of the Circular Game": ["findTheWinner", "n, k", [
+                [
+                    [5, 2], 3
+                ],
+                [
+                    [6, 5], 1
+                ]
+            ]],
+            "Meeting Rooms": ["canAttendMeetings", "intervals", [
+                [
+                    [
+                        [
+                            [0, 30],
+                            [5, 10],
+                            [15, 20]
+                        ]
+                    ], false
+                ],
+                [
+                    [
+                        [
+                            [7, 10],
+                            [2, 4]
+                        ]
+                    ], true
+                ]
+            ]],
+            "Summary Ranges": ["summaryRanges", "nums", [
+                [
+                    [
+                        [0, 1, 2, 4, 5, 7]
+                    ],
+                    ["0->2", "4->5", "7"]
+                ]
+            ]],
+            "Maximum Sum Subarray of Size K": ["maxSumSubarray", "arr, k", [
+                [
+                    [
+                        [2, 1, 5, 1, 3, 2], 3
+                    ], 9
+                ]
+            ]],
+            "Maximum Number of Vowels in a Substring of Given Length": ["maxVowels", "s, k", [
+                [
+                    ["abciiidef", 3], 3
+                ],
+                [
+                    ["aeiou", 2], 2
+                ]
+            ]],
+            "Substrings of Size Three with Distinct Characters": ["countGoodSubstrings", "s", [
+                [
+                    ["xyzzaz"], 1
+                ],
+                [
+                    ["aababcabc"], 4
+                ]
+            ]],
+            "Minimum Difference Between Highest and Lowest of K Scores": ["minimumDifference", "nums, k", [
+                [
+                    [
+                        [90], 1
+                    ], 0
+                ],
+                [
+                    [
+                        [9, 4, 1, 7], 2
+                    ], 2
+                ]
+            ]],
+            "Subarrays of Size K With Average At Least Threshold": ["numOfSubarrays", "arr, k, threshold", [
+                [
+                    [
+                        [2, 2, 2, 2, 5, 5, 5, 8], 3, 4
+                    ], 3
+                ]
+            ]],
+            "Reverse Prefix of Word": ["reversePrefix", "word, ch", [
+                [
+                    ["abcdefd", "d"], "dcbaefd"
+                ],
+                [
+                    ["xyxzxe", "z"], "zxyxxe"
+                ]
+            ]],
+            "Find Closest Number to Zero": ["findClosestNumber", "nums", [
+                [
+                    [
+                        [-4, -2, 1, 4, 8]
+                    ], 1
+                ],
+                [
+                    [
+                        [2, -1, 1]
+                    ], 1
+                ]
+            ]],
+            "Rectangle Overlap": ["isRectangleOverlap", "rec1, rec2", [
+                [
+                    [
+                        [0, 0, 2, 2],
+                        [1, 1, 3, 3]
+                    ], true
+                ],
+                [
+                    [
+                        [0, 0, 1, 1],
+                        [1, 0, 2, 1]
+                    ], false
+                ]
+            ]],
+            "Minimum Time Visiting All Points": ["minTimeToVisitAllPoints", "points", [
+                [
+                    [
+                        [
+                            [1, 1],
+                            [3, 4],
+                            [-1, 0]
+                        ]
+                    ], 7
+                ]
+            ]],
+            "Maximize Sum of Array After K Negations": ["largestSumAfterKNegations", "nums, k", [
+                [
+                    [
+                        [4, 2, 3], 1
+                    ], 5
+                ],
+                [
+                    [
+                        [3, -1, 0, 2], 3
+                    ], 6
+                ]
+            ]],
+            "Water Bottles": ["numWaterBottles", "numBottles, numExchange", [
+                [
+                    [9, 3], 13
+                ],
+                [
+                    [15, 4], 19
+                ]
+            ]],
+            "Largest Odd Number in String": ["largestOddNumber", "num", [
+                [
+                    ["52"], "5"
+                ],
+                [
+                    ["4206"], ""
+                ],
+                [
+                    ["35427"], "35427"
+                ]
+            ]],
+            "Largest Perimeter Triangle": ["largestPerimeter", "nums", [
+                [
+                    [
+                        [2, 1, 2]
+                    ], 5
+                ],
+                [
+                    [
+                        [1, 2, 1, 10]
+                    ], 0
+                ]
+            ]],
+            "Maximum Units on a Truck": ["maximumUnits", "boxTypes, truckSize", [
+                [
+                    [
+                        [
+                            [1, 3],
+                            [2, 2],
+                            [3, 1]
+                        ], 4
+                    ], 8
+                ]
+            ]]
+        });
         const DN = {
             E: "Easy",
             M: "Medium",
