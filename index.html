@@ -650,7 +650,7 @@ M|Merge Nodes in Between Zeros|Merge the sums between consecutive zero nodes.
 H|Merge k Sorted Lists|Merge k sorted lists into one.
 H|Reverse Nodes in k-Group|Reverse nodes in groups of k.
 H|LFU Cache|Design a least-frequently-used cache with O(1) operations.
-H|All O` + "`" + `one Data Structure|Inc, dec, getMaxKey and getMinKey all in O(1).
+H|All O'one Data Structure|Inc, dec, getMaxKey and getMinKey all in O(1).
 H|Design Skiplist|Implement a skip list with search, add and erase.
 H|Copy List With Random Pointer in O(1) Space|Deep copy without a hash map.
 H|Reverse a Linked List in Groups of Alternating Sizes|Reverse k nodes, skip k nodes, repeat.
@@ -2492,6 +2492,1118 @@ H|Frog Jump|Can the frog cross the river?`
                 ]
             ]]
         });
+        /* ===== Compact test specs. Line: Title|fn(arg,arg:L)->L|mode|argsJSON=>expectedJSON|... ===== */
+        function parseSpecs(txt) {
+            txt.trim().split("\n").forEach(l => {
+                const a = l.split("|"),
+                    t = a[0],
+                    m = a[1].match(/^([A-Za-z_$][\w$]*)(?:\((.*)\))?(?:->(\w+))?$/);
+                if (!m) {
+                    console.error("bad spec", t);
+                    return
+                }
+                const ps = m[2] ? m[2].split(",").map(s => s.trim()) : [];
+                const note = a.slice(3).filter(c => c && c[0] === "#").map(c => c.slice(1)).join(". ");
+                const cases = a.slice(3).filter(c => c && c[0] !== "#").map(c => {
+                    const i = c.indexOf("=>");
+                    return [JSON.parse(c.slice(0, i)), JSON.parse(c.slice(i + 2))]
+                });
+                T[t] = [m[1], ps.map(s => s.split(":")[0]).join(", "), cases, {
+                    tags: ps.map(s => s.includes(":") ? s.split(":")[1] : ""),
+                    rt: m[3] || "",
+                    mode: a[2] || "",
+                    note
+                }];
+            });
+        }
+        parseSpecs(`
+Remove Duplicates from Sorted Array|removeDuplicates(nums)||[[1,1,2]]=>2|[[0,0,1,1,1,2,2,3,3,4]]=>5
+Merge Sorted Array|merge(nums1,nums2)||[[1,3,5],[2,4,6]]=>[1,2,3,4,5,6]|[[],[1]]=>[1]
+Pascal's Triangle|generate(numRows)||[5]=>[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]|[1]=>[[1]]
+Squares of a Sorted Array|sortedSquares(nums)||[[-4,-1,0,3,10]]=>[0,1,9,16,100]|[[-7,-3,2,3,11]]=>[4,9,9,49,121]
+Intersection of Two Arrays|intersection(nums1,nums2)|u|[[1,2,2,1],[2,2]]=>[2]|[[4,9,5],[9,4,9,8,4]]=>[4,9]
+Third Maximum Number|thirdMax(nums)||[[3,2,1]]=>1|[[1,2]]=>2|[[2,2,3,1]]=>1
+Maximum Average Subarray I|findMaxAverage(nums,k)||[[1,12,-5,-6,50,3],4]=>12.75|[[5],1]=>5
+Find All Numbers Disappeared in an Array|findDisappearedNumbers(nums)|u|[[4,3,2,7,8,2,3,1]]=>[5,6]|[[1,1]]=>[2]
+Rotate Array|rotate(nums,k)|i0|[[1,2,3,4,5,6,7],3]=>[5,6,7,1,2,3,4]|[[-1,-100,3,99],2]=>[3,99,-1,-100]
+Check if Array Is Sorted and Rotated|check(nums)||[[3,4,5,1,2]]=>true|[[2,1,3,4]]=>false|[[1,2,3]]=>true
+Find Pivot Index|pivotIndex(nums)||[[1,7,3,6,5,6]]=>3|[[1,2,3]]=>-1|[[2,1,-1]]=>0
+Remove Element|removeElement(nums,val)||[[3,2,2,3],3]=>2|[[0,1,2,2,3,0,4,2],2]=>5
+Search Insert Position|searchInsert(nums,target)||[[1,3,5,6],5]=>2|[[1,3,5,6],2]=>1|[[1,3,5,6],7]=>4
+Valid Mountain Array|validMountainArray(arr)||[[2,1]]=>false|[[3,5,5]]=>false|[[0,3,2,1]]=>true
+Height Checker|heightChecker(heights)||[[1,1,4,2,1,3]]=>3|[[5,1,2,3,4]]=>5|[[1,2,3,4,5]]=>0
+Max Consecutive Ones|findMaxConsecutiveOnes(nums)||[[1,1,0,1,1,1]]=>3|[[1,0,1,1,0,1]]=>2
+Degree of an Array|findShortestSubArray(nums)||[[1,2,2,3,1]]=>2|[[1,2,2,3,1,4,2]]=>6
+Fair Candy Swap|fairCandySwap(aliceSizes,bobSizes)||[[1,2,5],[2,4]]=>[5,4]|[[2],[1,3]]=>[2,3]
+Monotonic Array|isMonotonic(nums)||[[1,2,2,3]]=>true|[[6,5,4,4]]=>true|[[1,3,2]]=>false
+Richest Customer Wealth|maximumWealth(accounts)||[[[1,2,3],[3,2,1]]]=>6|[[[1,5],[7,3],[3,5]]]=>10
+3Sum|threeSum(nums)|uu|[[-1,0,1,2,-1,-4]]=>[[-1,-1,2],[-1,0,1]]|[[0,1,1]]=>[]|[[0,0,0]]=>[[0,0,0]]
+Next Permutation|nextPermutation(nums)|i0|[[1,2,3]]=>[1,3,2]|[[3,2,1]]=>[1,2,3]|[[1,1,5]]=>[1,5,1]
+Search in Rotated Sorted Array|search(nums,target)||[[4,5,6,7,0,1,2],0]=>4|[[4,5,6,7,0,1,2],3]=>-1|[[1],0]=>-1
+Find First and Last Position of Element|searchRange(nums,target)||[[5,7,7,8,8,10],8]=>[3,4]|[[5,7,7,8,8,10],6]=>[-1,-1]
+Sort Colors|sortColors(nums)|i0|[[2,0,2,1,1,0]]=>[0,0,1,1,2,2]|[[2,0,1]]=>[0,1,2]
+Jump Game|canJump(nums)||[[2,3,1,1,4]]=>true|[[3,2,1,0,4]]=>false
+Jump Game II|jump(nums)||[[2,3,1,1,4]]=>2|[[2,3,0,1,4]]=>2
+Rotate Image|rotate(matrix)|i0|[[[1,2,3],[4,5,6],[7,8,9]]]=>[[7,4,1],[8,5,2],[9,6,3]]
+Spiral Matrix|spiralOrder(matrix)||[[[1,2,3],[4,5,6],[7,8,9]]]=>[1,2,3,6,9,8,7,4,5]|[[[1,2,3,4],[5,6,7,8],[9,10,11,12]]]=>[1,2,3,4,8,12,11,10,9,5,6,7]
+Set Matrix Zeroes|setZeroes(matrix)|i0|[[[1,1,1],[1,0,1],[1,1,1]]]=>[[1,0,1],[0,0,0],[1,0,1]]
+Subarray Product Less Than K|numSubarrayProductLessThanK(nums,k)||[[10,5,2,6],100]=>8|[[1,2,3],0]=>0
+Insert Interval|insert(intervals,newInterval)||[[[1,3],[6,9]],[2,5]]=>[[1,5],[6,9]]|[[[1,2],[3,5],[6,7],[8,10],[12,16]],[4,8]]=>[[1,2],[3,10],[12,16]]
+Find Minimum in Rotated Sorted Array|findMin(nums)||[[3,4,5,1,2]]=>1|[[4,5,6,7,0,1,2]]=>0|[[11,13,15,17]]=>11
+Maximum Product Subarray|maxProduct(nums)||[[2,3,-2,4]]=>6|[[-2,0,-1]]=>0
+Find the Duplicate Number|findDuplicate(nums)||[[1,3,4,2,2]]=>2|[[3,1,3,4,2]]=>3
+Search a 2D Matrix|searchMatrix(matrix,target)||[[[1,3,5,7],[10,11,16,20],[23,30,34,60]],3]=>true|[[[1,3,5,7],[10,11,16,20],[23,30,34,60]],13]=>false
+Container With Most Water|maxArea(height)||[[1,8,6,2,5,4,8,3,7]]=>49|[[1,1]]=>1
+Merge Intervals|merge(intervals)||[[[1,3],[2,6],[8,10],[15,18]]]=>[[1,6],[8,10],[15,18]]|[[[1,4],[4,5]]]=>[[1,5]]
+Trapping Rain Water|trap(height)||[[0,1,0,2,1,0,1,3,2,1,2,1]]=>6|[[4,2,0,3,2,5]]=>9
+Median of Two Sorted Arrays|findMedianSortedArrays(nums1,nums2)||[[1,3],[2]]=>2|[[1,2],[3,4]]=>2.5
+First Missing Positive|firstMissingPositive(nums)||[[1,2,0]]=>3|[[3,4,-1,1]]=>2|[[7,8,9,11,12]]=>1
+Sliding Window Maximum|maxSlidingWindow(nums,k)||[[1,3,-1,-3,5,3,6,7],3]=>[3,3,5,5,6,7]|[[1],1]=>[1]
+Candy|candy(ratings)||[[1,0,2]]=>5|[[1,2,2]]=>4
+Count of Smaller Numbers After Self|countSmaller(nums)||[[5,2,6,1]]=>[2,1,1,0]|[[-1]]=>[0]
+Split Array Largest Sum|splitArray(nums,k)||[[7,2,5,10,8],2]=>18|[[1,2,3,4,5],2]=>9
+Maximum Gap|maximumGap(nums)||[[3,6,9,1]]=>3|[[10]]=>0
+Minimum Number of Refueling Stops|minRefuelStops(target,startFuel,stations)||[1,1,[]]=>0|[100,1,[[10,100]]]=>-1|[100,10,[[10,60],[20,30],[30,30],[60,40]]]=>2
+Find Median from Data Stream|MedianFinder|d|[["MedianFinder","addNum","addNum","findMedian","addNum","findMedian"],[[],[1],[2],[],[3],[]]]=>[null,null,null,1.5,null,2]
+`);
+        parseSpecs(`
+Implement strStr|strStr(haystack,needle)||["sadbutsad","sad"]=>0|["leetcode","leeto"]=>-1
+Isomorphic Strings|isIsomorphic(s,t)||["egg","add"]=>true|["foo","bar"]=>false|["paper","title"]=>true
+Word Pattern|wordPattern(pattern,s)||["abba","dog cat cat dog"]=>true|["abba","dog cat cat fish"]=>false|["aaaa","dog cat cat dog"]=>false
+Reverse Words in a String III|reverseWords(s)||["Let's take LeetCode contest"]=>"s'teL ekat edoCteeL tsetnoc"|["God Ding"]=>"doG gniD"
+Valid Palindrome II|validPalindrome(s)||["aba"]=>true|["abca"]=>true|["abc"]=>false
+Count and Say|countAndSay(n)||[1]=>"1"|[4]=>"1211"|[5]=>"111221"
+Reverse Vowels of a String|reverseVowels(s)||["hello"]=>"holle"|["leetcode"]=>"leotcede"
+Detect Capital|detectCapitalUse(word)||["USA"]=>true|["FlaG"]=>false|["Google"]=>true
+Add Strings|addStrings(num1,num2)||["11","123"]=>"134"|["456","77"]=>"533"|["0","0"]=>"0"
+Number of Segments in a String|countSegments(s)||["Hello, my name is John"]=>5|[""]=>0
+Repeated Substring Pattern|repeatedSubstringPattern(s)||["abab"]=>true|["aba"]=>false|["abcabcabcabc"]=>true
+Find the Difference|findTheDifference(s,t)||["abcd","abcde"]=>"e"|["","y"]=>"y"
+Goat Latin|toGoatLatin(sentence)||["I speak Goat Latin"]=>"Imaa peaksmaaa oatGmaaaa atinLmaaaaa"
+Excel Sheet Column Number|titleToNumber(columnTitle)||["A"]=>1|["AB"]=>28|["ZY"]=>701
+Backspace String Compare|backspaceCompare(s,t)||["ab#c","ad#c"]=>true|["ab##","c#d#"]=>true|["a#c","b"]=>false
+Buddy Strings|buddyStrings(s,goal)||["ab","ba"]=>true|["ab","ab"]=>false|["aa","aa"]=>true
+Check if the Sentence Is Pangram|checkIfPangram(sentence)||["thequickbrownfoxjumpsoverthelazydog"]=>true|["leetcode"]=>false
+Merge Strings Alternately|mergeAlternately(word1,word2)||["abc","pqr"]=>"apbqcr"|["ab","pqrs"]=>"apbqrs"
+Truncate Sentence|truncateSentence(s,k)||["Hello how are you Contestant",4]=>"Hello how are you"|["chopper is not a tanuki",5]=>"chopper is not a tanuki"
+Defanging an IP Address|defangIPaddr(address)||["1.1.1.1"]=>"1[.]1[.]1[.]1"|["255.100.50.0"]=>"255[.]100[.]50[.]0"
+Jewels and Stones|numJewelsInStones(jewels,stones)||["aA","aAAbbbb"]=>3|["z","ZZ"]=>0
+Longest Palindromic Substring|longestPalindrome(s)||["cbbd"]=>"bb"|["a"]=>"a"|["racecar"]=>"racecar"
+Group Anagrams|groupAnagrams(strs)|uu|[["eat","tea","tan","ate","nat","bat"]]=>[["bat"],["nat","tan"],["ate","eat","tea"]]|[[""]]=>[[""]]|[["a"]]=>[["a"]]
+String to Integer (atoi)|myAtoi(s)||["42"]=>42|["   -042"]=>-42|["1337c0d3"]=>1337|["words and 987"]=>0|["-91283472332"]=>-2147483648
+Zigzag Conversion|convert(s,numRows)||["PAYPALISHIRING",3]=>"PAHNAPLSIIGYIR"|["PAYPALISHIRING",4]=>"PINALSIGYAHRPI"|["A",1]=>"A"
+Longest Repeating Character Replacement|characterReplacement(s,k)||["ABAB",2]=>4|["AABABBA",1]=>4
+Palindromic Substrings|countSubstrings(s)||["abc"]=>3|["aaa"]=>6
+Permutation in String|checkInclusion(s1,s2)||["ab","eidbaooo"]=>true|["ab","eidboaoo"]=>false
+Find All Anagrams in a String|findAnagrams(s,p)|u|["cbaebabacd","abc"]=>[0,6]|["abab","ab"]=>[0,1,2]
+Decode String|decodeString(s)||["3[a]2[bc]"]=>"aaabcbc"|["3[a2[c]]"]=>"accaccacc"|["2[abc]3[cd]ef"]=>"abcabccdcdcdef"
+Multiply Strings|multiply(num1,num2)||["2","3"]=>"6"|["123","456"]=>"56088"|["0","999"]=>"0"
+Compare Version Numbers|compareVersion(version1,version2)||["1.01","1.001"]=>0|["1.0","1.0.0"]=>0|["0.1","1.1"]=>-1
+Reverse Words in a String|reverseWords(s)||["the sky is blue"]=>"blue is sky the"|["  hello world  "]=>"world hello"|["a good   example"]=>"example good a"
+Integer to Roman|intToRoman(num)||[3749]=>"MMMDCCXLIX"|[58]=>"LVIII"|[1994]=>"MCMXCIV"
+Minimum Add to Make Parentheses Valid|minAddToMakeValid(s)||["())"]=>1|["((("]=>3|["()))(("]=>4
+Basic Calculator II|calculate(s)||["3+2*2"]=>7|[" 3/2 "]=>1|[" 3+5 / 2 "]=>5
+Custom Sort String|customSortString(order,s)||["cba","abc"]=>"cba"|["bca","aabbcc"]=>"bbccaa"
+Partition Labels|partitionLabels(s)||["ababcbacadefegdehijhklij"]=>[9,7,8]|["eccbbbbdec"]=>[10]
+Longest Common Subsequence|longestCommonSubsequence(text1,text2)||["abcde","ace"]=>3|["abc","abc"]=>3|["abc","def"]=>0
+Minimum Window Substring|minWindow(s,t)||["ADOBECODEBANC","ABC"]=>"BANC"|["a","a"]=>"a"|["a","aa"]=>""
+Edit Distance|minDistance(word1,word2)||["horse","ros"]=>3|["intention","execution"]=>5
+Regular Expression Matching|isMatch(s,p)||["aa","a"]=>false|["aa","a*"]=>true|["ab",".*"]=>true|["mississippi","mis*is*p*."]=>false
+Wildcard Matching|isMatch(s,p)||["aa","a"]=>false|["aa","*"]=>true|["cb","?a"]=>false
+Longest Valid Parentheses|longestValidParentheses(s)||["(()"]=>2|[")()())"]=>4|[""]=>0
+Distinct Subsequences|numDistinct(s,t)||["rabbbit","rabbit"]=>3|["babgbag","bag"]=>5
+Shortest Palindrome|shortestPalindrome(s)||["aacecaaa"]=>"aaacecaaa"|["abcd"]=>"dcbabcd"
+Text Justification|fullJustify(words,maxWidth)||[["This","is","an","example","of","text","justification."],16]=>["This    is    an","example  of text","justification.  "]
+Substring with Concatenation of All Words|findSubstring(s,words)|u|["barfoothefoobarman",["foo","bar"]]=>[0,9]|["wordgoodgoodgoodbestword",["word","good","best","word"]]=>[]
+Longest Duplicate Substring|longestDupSubstring(s)||["banana"]=>"ana"|["abcd"]=>""
+`);
+        parseSpecs(`
+Reverse Linked List|reverseList(head:L)->L||[[1,2,3,4,5]]=>[5,4,3,2,1]|[[]]=>[]
+Merge Two Sorted Lists|mergeTwoLists(l1:L,l2:L)->L||[[1,2,4],[1,3,4]]=>[1,1,2,3,4,4]|[[],[]]=>[]|[[],[0]]=>[0]
+Linked List Cycle|hasCycle(head:Lc)||[[3,2,0,-4],1]=>true|[[1,2],0]=>true|[[1],-1]=>false|#The list is built from an array; the tail connects to index pos (-1 means no cycle)
+Middle of the Linked List|middleNode(head:L)->L||[[1,2,3,4,5]]=>[3,4,5]|[[1,2,3,4,5,6]]=>[4,5,6]
+Remove Linked List Elements|removeElements(head:L,val)->L||[[1,2,6,3,4,5,6],6]=>[1,2,3,4,5]|[[],1]=>[]|[[7,7,7,7],7]=>[]
+Palindrome Linked List|isPalindrome(head:L)||[[1,2,2,1]]=>true|[[1,2]]=>false
+Remove Duplicates from Sorted List|deleteDuplicates(head:L)->L||[[1,1,2]]=>[1,2]|[[1,1,2,3,3]]=>[1,2,3]
+Convert Binary Number in a Linked List to Integer|getDecimalValue(head:L)||[[1,0,1]]=>5|[[0]]=>0
+Design Linked List|MyLinkedList|d|[["MyLinkedList","addAtHead","addAtTail","addAtIndex","get","deleteAtIndex","get"],[[],[1],[3],[1,2],[1],[1],[1]]]=>[null,null,null,null,2,null,3]
+Length of a Linked List|getLength(head:L)||[[1,2,3]]=>3|[[]]=>0
+Insert at Head and Tail|insertAtHeadAndTail(head:L,headVal,tailVal)->L||[[2,3],1,4]=>[1,2,3,4]|[[],7,8]=>[7,8]
+Delete Node at Position|deleteAtPosition(head:L,pos)->L||[[1,2,3,4],2]=>[1,2,4]|[[1,2,3],0]=>[2,3]|#pos is 0-indexed
+Search an Element in a Linked List|searchList(head:L,x)||[[1,2,3],3]=>2|[[1,2,3],5]=>-1|#Return the 0-based index of x
+Get Kth Node from Head|getKth(head:L,k)||[[10,20,30],2]=>20|[[10,20,30],3]=>30|#k is 1-indexed; return the node value
+Nth Node from the End|nthFromEnd(head:L,n)||[[1,2,3,4,5],2]=>4|[[1],1]=>1|#n is 1-indexed from the end; return the node value
+Count Nodes with Value X|countValue(head:L,x)||[[1,2,1,3,1],1]=>3|[[1,2],5]=>0
+Print Linked List in Reverse|reverseValues(head:L)||[[1,2,3]]=>[3,2,1]|[[]]=>[]|#Return the values in reverse order as an array
+Reverse a Doubly Linked List|reverseDoubly(head:L)->L||[[1,2,3]]=>[3,2,1]|[[7]]=>[7]|#Nodes may also carry a prev pointer; only forward order is checked
+Insert into a Sorted Linked List|insertSorted(head:L,x)->L||[[1,3,5],4]=>[1,3,4,5]|[[2,3],1]=>[1,2,3]|[[],5]=>[5]
+Merge Alternate Nodes of Two Lists|mergeAlternate(l1:L,l2:L)->L||[[1,3,5],[2,4,6,8]]=>[1,2,3,4,5,6,8]|[[1],[]]=>[1]|#Leftover nodes are appended at the end
+Check if Two Linked Lists Are Identical|areIdentical(a:L,b:L)||[[1,2],[1,2]]=>true|[[1,2],[1,3]]=>false|[[1],[1,1]]=>false
+Find Maximum Element in a Linked List|findMax(head:L)||[[3,9,2]]=>9|[[5]]=>5
+Sum of All Nodes|sumList(head:L)||[[1,2,3,4]]=>10|[[]]=>0
+Append Last N Nodes to Front|moveLastNToFront(head:L,n)->L||[[1,2,3,4,5],2]=>[4,5,1,2,3]|[[1,2,3],0]=>[1,2,3]
+Remove Duplicates from Unsorted List|removeDuplicatesUnsorted(head:L)->L||[[1,2,1,3,2]]=>[1,2,3]|[[4,4,4]]=>[4]|#Keep the first occurrence of each value
+Move Last Node to Front|moveLastToFront(head:L)->L||[[1,2,3,4]]=>[4,1,2,3]|[[1]]=>[1]
+Pairwise Swap of Values|pairwiseSwap(head:L)->L||[[1,2,3,4,5]]=>[2,1,4,3,5]|[[1,2]]=>[2,1]
+Implement Stack using Linked List|LinkedStack|d|[["LinkedStack","push","push","peek","pop","pop","isEmpty"],[[],[1],[2],[],[],[],[]]]=>[null,null,null,2,2,1,true]|#pop returns the removed value
+Remove Nth Node From End of List|removeNthFromEnd(head:L,n)->L||[[1,2,3,4,5],2]=>[1,2,3,5]|[[1],1]=>[]|[[1,2],1]=>[1]
+Reorder List|reorderList(head:L)|i0|[[1,2,3,4]]=>[1,4,2,3]|[[1,2,3,4,5]]=>[1,5,2,4,3]
+Add Two Numbers|addTwoNumbers(l1:L,l2:L)->L||[[2,4,3],[5,6,4]]=>[7,0,8]|[[0],[0]]=>[0]|[[9,9,9,9,9,9,9],[9,9,9,9]]=>[8,9,9,9,0,0,0,1]
+Odd Even Linked List|oddEvenList(head:L)->L||[[1,2,3,4,5]]=>[1,3,5,2,4]|[[2,1,3,5,6,4,7]]=>[2,3,6,7,1,5,4]
+Swap Nodes in Pairs|swapPairs(head:L)->L||[[1,2,3,4]]=>[2,1,4,3]|[[]]=>[]|[[1,2,3]]=>[2,1,3]
+Rotate List|rotateRight(head:L,k)->L||[[1,2,3,4,5],2]=>[4,5,1,2,3]|[[0,1,2],4]=>[2,0,1]
+Linked List Cycle II|detectCycle(head:Lc)->Ni||[[3,2,0,-4],1]=>1|[[1,2],0]=>0|[[1],-1]=>-1|#Return the 0-based index of the node where the cycle begins (the node itself in your code), or -1
+Sort List|sortList(head:L)->L||[[4,2,1,3]]=>[1,2,3,4]|[[-1,5,3,4,0]]=>[-1,0,3,4,5]|[[]]=>[]
+Partition List|partition(head:L,x)->L||[[1,4,3,2,5,2],3]=>[1,2,2,4,3,5]|[[2,1],2]=>[1,2]
+Reverse Linked List II|reverseBetween(head:L,left,right)->L||[[1,2,3,4,5],2,4]=>[1,4,3,2,5]|[[5],1,1]=>[5]
+Remove Duplicates from Sorted List II|deleteDuplicates(head:L)->L||[[1,2,3,3,4,4,5]]=>[1,2,5]|[[1,1,1,2,3]]=>[2,3]
+Delete the Middle Node of a Linked List|deleteMiddle(head:L)->L||[[1,3,4,7,1,2,6]]=>[1,3,4,1,2,6]|[[1,2,3,4]]=>[1,2,4]|[[2,1]]=>[2]
+Maximum Twin Sum of a Linked List|pairSum(head:L)||[[5,4,2,1]]=>6|[[4,2,2,3]]=>7|[[1,100000]]=>100001
+Add Two Numbers II|addTwoNumbers(l1:L,l2:L)->L||[[7,2,4,3],[5,6,4]]=>[7,8,0,7]|[[2,4,3],[5,6,4]]=>[8,0,7]|[[0],[0]]=>[0]
+Insertion Sort List|insertionSortList(head:L)->L||[[4,2,1,3]]=>[1,2,3,4]|[[-1,5,3,4,0]]=>[-1,0,3,4,5]
+Split Linked List in Parts|splitListToParts(head:L,k)->LL||[[1,2,3],5]=>[[1],[2],[3],[],[]]|[[1,2,3,4,5,6,7,8,9,10],3]=>[[1,2,3,4],[5,6,7],[8,9,10]]
+Next Greater Node In Linked List|nextLargerNodes(head:L)||[[2,1,5]]=>[5,5,0]|[[2,7,4,3,5]]=>[7,0,5,5,0]
+Merge Nodes in Between Zeros|mergeNodes(head:L)->L||[[0,3,1,0,4,5,2,0]]=>[4,11]|[[0,1,0,3,0,2,2,0]]=>[1,3,4]
+Merge k Sorted Lists|mergeKLists(lists:LL)->L||[[[1,4,5],[1,3,4],[2,6]]]=>[1,1,2,3,4,4,5,6]|[[]]=>[]
+Reverse Nodes in k-Group|reverseKGroup(head:L,k)->L||[[1,2,3,4,5],2]=>[2,1,4,3,5]|[[1,2,3,4,5],3]=>[3,2,1,4,5]
+LFU Cache|LFUCache|d|[["LFUCache","put","put","get","put","get","get","put","get","get","get"],[[2],[1,1],[2,2],[1],[3,3],[2],[3],[4,4],[1],[3],[4]]]=>[null,null,null,1,null,-1,3,null,-1,3,4]
+All O'one Data Structure|AllOne|d|[["AllOne","inc","inc","getMaxKey","getMinKey","inc","getMaxKey","getMinKey"],[[],["hello"],["hello"],[],[],["leet"],[],[]]]=>[null,null,null,"hello","hello",null,"hello","leet"]
+Design Skiplist|Skiplist|d|[["Skiplist","add","add","add","search","add","search","erase","erase","search"],[[],[1],[2],[3],[0],[4],[1],[0],[1],[1]]]=>[null,null,null,null,false,null,true,false,true,false]
+Reverse a Linked List in Groups of Alternating Sizes|reverseAlternatingGroups(head:L,k)->L||[[1,2,3,4,5,6,7,8],2]=>[2,1,3,4,6,5,7,8]|#Reverse k nodes, skip k nodes, repeat
+Sort a Linked List Sorted by Absolute Values|sortByAbs(head:L)->L||[[0,2,-5,5,10,-10]]=>[-10,-5,0,2,5,10]|[[1,-1]]=>[-1,1]
+Subtract Two Numbers Represented as Linked Lists|subtractLists(l1:L,l2:L)->L||[[1,0,0],[9,9]]=>[1]|[[3,0,0],[1,2,5]]=>[1,7,5]|#Digits are most-significant first; l1 >= l2; no leading zeros in the result
+Merge K Sorted Lists With Divide and Conquer|mergeKListsDC(lists:LL)->L||[[[1,4,5],[1,3,4],[2,6]]]=>[1,1,2,3,4,4,5,6]|[[]]=>[]
+`);
+        parseSpecs(`
+Maximum Depth of Binary Tree|maxDepth(root:T)||[[3,9,20,null,null,15,7]]=>3|[[1,null,2]]=>2
+Invert Binary Tree|invertTree(root:T)->T||[[4,2,7,1,3,6,9]]=>[4,7,2,9,6,3,1]|[[2,1,3]]=>[2,3,1]
+Same Tree|isSameTree(p:T,q:T)||[[1,2,3],[1,2,3]]=>true|[[1,2],[1,null,2]]=>false
+Symmetric Tree|isSymmetric(root:T)||[[1,2,2,3,4,4,3]]=>true|[[1,2,2,null,3,null,3]]=>false
+Path Sum|hasPathSum(root:T,targetSum)||[[5,4,8,11,null,13,4,7,2,null,null,null,1],22]=>true|[[1,2,3],5]=>false|[[],0]=>false
+Minimum Depth of Binary Tree|minDepth(root:T)||[[3,9,20,null,null,15,7]]=>2|[[2,null,3,null,4,null,5,null,6]]=>5
+Balanced Binary Tree|isBalanced(root:T)||[[3,9,20,null,null,15,7]]=>true|[[1,2,2,3,3,null,null,4,4]]=>false
+Diameter of Binary Tree|diameterOfBinaryTree(root:T)||[[1,2,3,4,5]]=>3|[[1,2]]=>1
+Subtree of Another Tree|isSubtree(root:T,subRoot:T)||[[3,4,5,1,2],[4,1,2]]=>true|[[3,4,5,1,2,null,null,null,null,0],[4,1,2]]=>false
+Merge Two Binary Trees|mergeTrees(root1:T,root2:T)->T||[[1,3,2,5],[2,1,3,null,4,null,7]]=>[3,4,5,5,4,null,7]|[[1],[1,2]]=>[2,2]
+Binary Tree Inorder Traversal|inorderTraversal(root:T)||[[1,null,2,3]]=>[1,3,2]|[[]]=>[]
+Binary Tree Preorder Traversal|preorderTraversal(root:T)||[[1,null,2,3]]=>[1,2,3]|[[]]=>[]
+Binary Tree Postorder Traversal|postorderTraversal(root:T)||[[1,null,2,3]]=>[3,2,1]|[[]]=>[]
+Convert Sorted Array to Binary Search Tree|sortedArrayToBST(nums)->T|bal|[[-10,-3,0,5,9]]=>[-10,-3,0,5,9]|[[1,3]]=>[1,3]
+Lowest Common Ancestor of a BST|lowestCommonAncestor(root:T,p,q)||[[6,2,8,0,4,7,9,null,null,3,5],2,8]=>6|[[6,2,8,0,4,7,9,null,null,3,5],2,4]=>2|#p and q are node values; return the value of the LCA
+Binary Tree Paths|binaryTreePaths(root:T)|u|[[1,2,3,null,5]]=>["1->2->5","1->3"]|[[1]]=>["1"]
+Sum of Left Leaves|sumOfLeftLeaves(root:T)||[[3,9,20,null,null,15,7]]=>24|[[1]]=>0
+Count Complete Tree Nodes|countNodes(root:T)||[[1,2,3,4,5,6]]=>6|[[]]=>0|[[1]]=>1
+Search in a Binary Search Tree|searchBST(root:T,val)->T||[[4,2,7,1,3],2]=>[2,1,3]|[[4,2,7,1,3],5]=>[]
+Minimum Absolute Difference in BST|getMinimumDifference(root:T)||[[4,2,6,1,3]]=>1|[[1,0,48,null,null,12,49]]=>1
+Range Sum of BST|rangeSumBST(root:T,low,high)||[[10,5,15,3,7,null,18],7,15]=>32|[[10,5,15,3,7,13,18,1,null,6],6,10]=>23
+Leaf-Similar Trees|leafSimilar(root1:T,root2:T)||[[3,5,1,6,2,9,8,null,null,7,4],[3,5,1,6,7,4,2,null,null,null,null,null,null,9,8]]=>true|[[1,2,3],[1,3,2]]=>false
+Average of Levels in Binary Tree|averageOfLevels(root:T)||[[3,9,20,null,null,15,7]]=>[3,14.5,11]
+Univalued Binary Tree|isUnivalTree(root:T)||[[1,1,1,1,1,null,1]]=>true|[[2,2,2,5,2]]=>false
+Cousins in Binary Tree|isCousins(root:T,x,y)||[[1,2,3,4],4,3]=>false|[[1,2,3,null,4,null,5],5,4]=>true|[[1,2,3,null,4],2,3]=>false
+Two Sum IV - Input is a BST|findTarget(root:T,k)||[[5,3,6,2,4,null,7],9]=>true|[[5,3,6,2,4,null,7],28]=>false
+Insert into a Binary Search Tree|insertIntoBST(root:T,val)->T|in|[[4,2,7,1,3],5]=>[1,2,3,4,5,7]|[[],3]=>[3]
+Find Mode in Binary Search Tree|findMode(root:T)|u|[[1,null,2,2]]=>[2]|[[0]]=>[0]
+Binary Tree Tilt|findTilt(root:T)||[[1,2,3]]=>1|[[4,2,9,3,5,null,7]]=>15
+Increasing Order Search Tree|increasingBST(root:T)->T||[[5,3,6,2,4,null,8,1,null,null,null,7,9]]=>[1,null,2,null,3,null,4,null,5,null,6,null,7,null,8,null,9]|[[5,1,7]]=>[1,null,5,null,7]
+Validate Binary Search Tree|isValidBST(root:T)||[[2,1,3]]=>true|[[5,1,4,null,null,3,6]]=>false
+Binary Tree Level Order Traversal|levelOrder(root:T)||[[3,9,20,null,null,15,7]]=>[[3],[9,20],[15,7]]|[[]]=>[]
+Binary Tree Zigzag Level Order Traversal|zigzagLevelOrder(root:T)||[[3,9,20,null,null,15,7]]=>[[3],[20,9],[15,7]]|[[1]]=>[[1]]
+Kth Smallest Element in a BST|kthSmallest(root:T,k)||[[3,1,4,null,2],1]=>1|[[5,3,6,2,4,null,null,1],3]=>3
+Construct Binary Tree from Preorder and Inorder Traversal|buildTree(preorder,inorder)->T||[[3,9,20,15,7],[9,3,15,20,7]]=>[3,9,20,null,null,15,7]|[[-1],[-1]]=>[-1]
+Binary Tree Right Side View|rightSideView(root:T)||[[1,2,3,null,5,null,4]]=>[1,3,4]|[[1,null,3]]=>[1,3]
+Lowest Common Ancestor of a Binary Tree|lowestCommonAncestor(root:T,p,q)||[[3,5,1,6,2,0,8,null,null,7,4],5,1]=>3|[[3,5,1,6,2,0,8,null,null,7,4],5,4]=>5|#p and q are node values; return the value of the LCA
+Path Sum II|pathSum(root:T,targetSum)|uu|[[5,4,8,11,null,13,4,7,2,null,null,5,1],22]=>[[5,4,11,2],[5,8,4,5]]
+Flatten Binary Tree to Linked List|flatten(root:T)|i0|[[1,2,5,3,4,null,6]]=>[1,null,2,null,3,null,4,null,5,null,6]
+Count Good Nodes in Binary Tree|goodNodes(root:T)||[[3,1,4,3,null,1,5]]=>4|[[3,3,null,4,2]]=>3
+Delete Node in a BST|deleteNode(root:T,key)->T|in|[[5,3,6,2,4,null,7],3]=>[2,4,5,6,7]|[[5,3,6,2,4,null,7],0]=>[2,3,4,5,6,7]
+Sum Root to Leaf Numbers|sumNumbers(root:T)||[[1,2,3]]=>25|[[4,9,0,5,1]]=>1026
+Construct Binary Search Tree from Preorder Traversal|bstFromPreorder(preorder)->T||[[8,5,1,7,10,12]]=>[8,5,10,1,7,null,12]|[[1,3]]=>[1,null,3]
+Construct Binary Tree from Inorder and Postorder Traversal|buildTree(inorder,postorder)->T||[[9,3,15,20,7],[9,15,7,20,3]]=>[3,9,20,null,null,15,7]|[[-1],[-1]]=>[-1]
+Path Sum III|pathSum(root:T,targetSum)||[[10,5,-3,3,2,null,11,3,-2,null,1],8]=>3|[[5,4,8,11,null,13,4,7,2,null,null,5,1],22]=>3
+All Nodes Distance K in Binary Tree|distanceK(root:T,target,k)|u|[[3,5,1,6,2,0,8,null,null,7,4],5,2]=>[7,4,1]|[[1],1,3]=>[]|#target is a node value; return values
+Unique Binary Search Trees|numTrees(n)||[3]=>5|[1]=>1|[4]=>14
+Maximum Width of Binary Tree|widthOfBinaryTree(root:T)||[[1,3,2,5,3,null,9]]=>4|[[1,3,2,5]]=>2|[[1,3,2,5,null,null,9,6,null,7]]=>7
+Binary Tree Maximum Path Sum|maxPathSum(root:T)||[[1,2,3]]=>6|[[-10,9,20,null,null,15,7]]=>42
+Serialize and Deserialize Binary Tree|Codec(root:T)|ser|[[1,2,3,null,null,4,5]]=>[1,2,3,null,null,4,5]|[[]]=>[]
+Recover Binary Search Tree|recoverTree(root:T)|i0|[[1,3,null,null,2]]=>[3,1,null,null,2]|[[3,1,4,null,null,2]]=>[2,1,4,null,null,3]
+Vertical Order Traversal of a Binary Tree|verticalTraversal(root:T)||[[3,9,20,null,null,15,7]]=>[[9],[3,15],[20],[7]]|[[1,2,3,4,5,6,7]]=>[[4],[2],[1,5,6],[3],[7]]
+Binary Tree Cameras|minCameraCover(root:T)||[[0,0,null,0,0]]=>1|[[0,0,null,0,null,0,null,null,0]]=>2
+Maximum Sum BST in Binary Tree|maxSumBST(root:T)||[[1,4,3,2,4,2,5,null,null,null,null,null,null,4,6]]=>20|[[4,3,null,1,2]]=>2|[[-4,-2,-5]]=>0
+Number of Ways to Reorder Array to Get Same BST|numOfWays(nums)||[[2,1,3]]=>1|[[3,4,5,1,2]]=>5|[[1,2,3]]=>0
+Sum of Distances in Tree|sumOfDistancesInTree(n,edges)||[6,[[0,1],[0,2],[2,3],[2,4],[2,5]]]=>[8,12,6,10,10,10]|[1,[]]=>[0]
+Unique Binary Search Trees II|generateTrees(n)->TT|u|[3]=>[[1,null,2,null,3],[1,null,3,2],[2,1,3],[3,1,null,null,2],[3,2,null,1]]|[1]=>[[1]]
+Largest BST Subtree|largestBSTSubtree(root:T)||[[10,5,15,1,8,null,7]]=>3|[[4,2,7,2,3,5,null,2,null,null,null,null,null,1]]=>2
+`);
+        parseSpecs(`
+Convert BST to Greater Tree|convertBST(root:T)->T||[[4,1,6,0,2,5,7,null,null,null,3,null,null,null,8]]=>[30,36,21,36,35,26,15,null,null,null,33,null,null,null,8]|[[0,null,1]]=>[1,null,1]
+Trim a Binary Search Tree|trimBST(root:T,low,high)->T||[[1,0,2],1,2]=>[1,null,2]|[[3,0,4,null,2,null,null,1],1,3]=>[3,2,null,1]
+Kth Largest Element in a BST|kthLargestBST(root:T,k)||[[5,3,6,2,4,null,null,1],3]=>4|[[2,1,3],1]=>3
+Floor in a BST|floorBST(root:T,key)||[[8,4,12,2,6,10,14],5]=>4|[[8,4,12,2,6,10,14],1]=>-1|[[8,4,12],12]=>12|#Largest value <= key, or -1
+Ceil in a BST|ceilBST(root:T,key)||[[8,4,12,2,6,10,14],5]=>6|[[8,4,12,2,6,10,14],15]=>-1|#Smallest value >= key, or -1
+Inorder Successor in a BST|inorderSuccessor(root:T,p)||[[2,1,3],1]=>2|[[5,3,6,2,4,null,null,1],6]=>null|#p is a node value; return the successor value or null
+Inorder Predecessor in a BST|inorderPredecessor(root:T,p)||[[2,1,3],3]=>2|[[2,1,3],1]=>null|#p is a node value; return the predecessor value or null
+Minimum Element in a BST|findMinBST(root:T)||[[5,3,8,1,4]]=>1|[[7]]=>7
+Maximum Element in a BST|findMaxBST(root:T)||[[5,3,8,1,4,null,9]]=>9|[[7]]=>7
+Check if Two BSTs Have the Same Elements|sameElements(a:T,b:T)||[[2,1,3],[1,null,2,null,3]]=>true|[[2,1,3],[2,1,4]]=>false
+Count Nodes in a BST Within a Range|countInRange(root:T,low,high)||[[10,5,15,3,7,null,18],7,15]=>3|[[10,5,15,3,7,null,18],1,2]=>0
+Height of a BST|heightBST(root:T)||[[3,1,4,null,2]]=>3|[[]]=>0|#Height = number of nodes on the longest root-to-leaf path
+Find Common Nodes in Two BSTs|commonNodes(a:T,b:T)|u|[[5,1,10],[10,5,15]]=>[5,10]|[[5,1,10],[6,3,15]]=>[]
+Delete the Minimum Node in a BST|deleteMin(root:T)->T||[[5,3,6,2,4,null,7]]=>[5,3,6,null,4,null,7]|[[1]]=>[]
+Print BST Nodes in a Given Range|rangeValues(root:T,low,high)||[[10,5,15,3,7,null,18],6,16]=>[7,10,15]|#Return values in ascending order
+Check BST Using Inorder Traversal|isBSTInorder(root:T)||[[2,1,3]]=>true|[[5,1,4,null,null,3,6]]=>false
+Count Leaf Nodes in a BST|countLeaves(root:T)||[[5,3,8,1,4,7,9]]=>4|[[1]]=>1
+Sum of All Nodes in a BST|sumBST(root:T)||[[5,3,8]]=>16|[[]]=>0
+Closest Value in a BST|closestValue(root:T,target)||[[4,2,5,1,3],3.714286]=>4|[[1],4.428571]=>1
+Insert a Node in a BST Iteratively|insertIterative(root:T,val)->T|in|[[4,2,7,1,3],5]=>[1,2,3,4,5,7]|[[],3]=>[3]
+Search in a BST Iteratively|searchIterative(root:T,val)||[[4,2,7,1,3],3]=>true|[[4,2,7,1,3],9]=>false|#Return true if val exists
+Level Order Traversal of a BST|bstLevelOrder(root:T)||[[4,2,7,1,3]]=>[[4],[2,7],[1,3]]
+BST to Sorted Array|bstToArray(root:T)||[[4,2,7,1,3]]=>[1,2,3,4,7]
+Count Nodes in a Subtree of a BST|countSubtree(root:T,val)||[[5,3,8,1,4],3]=>3|[[5,3,8,1,4],8]=>1|#val is the value of the subtree root
+Convert Sorted Linked List to Balanced BST|sortedListToBST(head:L)->T|bal|[[-10,-3,0,5,9]]=>[-10,-3,0,5,9]|[[1,3]]=>[1,3]
+Find the Level of a Key in a BST|keyLevel(root:T,key)||[[5,3,8,1,4],4]=>3|[[5,3,8],5]=>1|[[5,3,8],7]=>-1|#Root is level 1; return -1 if absent
+Check if a BST Is Skewed|isSkewed(root:T)||[[3,2,null,1]]=>true|[[2,1,3]]=>false|#Skewed means every node has at most one child
+Number of Nodes Greater Than X in a BST|countGreater(root:T,x)||[[5,3,8,1,4],3]=>3|[[5,3,8],8]=>0
+Find Median of a BST|bstMedian(root:T)||[[4,2,7,1,3]]=>3|[[2,1,3,null,null,null,4]]=>2.5
+Find the Second Largest Element in a BST|secondLargest(root:T)||[[5,3,8,1,4]]=>5|[[2]]=>-1|#Return -1 if the tree has fewer than two nodes
+Balance a Binary Search Tree|balanceBST(root:T)->T|bal|[[1,null,2,null,3,null,4]]=>[1,2,3,4]|[[2,1,3]]=>[1,2,3]
+Verify Preorder Sequence in Binary Search Tree|verifyPreorder(preorder)||[[5,2,1,3,6]]=>true|[[5,2,6,1,3]]=>false
+Two Sum BSTs|twoSumBSTs(root1:T,root2:T,target)||[[2,1,4],[1,0,3],5]=>true|[[0,-10,10],[5,1,7,0,2],18]=>false
+All Elements in Two Binary Search Trees|getAllElements(root1:T,root2:T)||[[2,1,4],[1,0,3]]=>[0,1,1,2,3,4]|[[1,null,8],[8,1]]=>[1,1,8,8]
+Split BST|splitBST(root:T,target)->TT||[[4,2,6,1,3,5,7],2]=>[[2,1],[4,3,6,null,null,5,7]]|[[1],1]=>[[1],[]]
+Minimum Distance Between BST Nodes|minDiffInBST(root:T)||[[4,2,6,1,3]]=>1|[[1,0,48,null,null,12,49]]=>1
+Lowest Common Ancestor of Deepest Leaves|lcaDeepestLeaves(root:T)||[[3,5,1,6,2,0,8,null,null,7,4]]=>2|[[1]]=>1|[[0,1,3,null,2]]=>2|#Return the value of the LCA node
+Smallest String Starting From Leaf|smallestFromLeaf(root:T)||[[0,1,2,3,4,3,4]]=>"dba"|[[25,1,3,1,3,0,2]]=>"adz"
+Find Largest Value in Each Tree Row|largestValues(root:T)||[[1,3,2,5,3,null,9]]=>[1,3,9]|[[1,2,3]]=>[1,3]
+Closest Nodes Queries in a Binary Search Tree|closestNodes(root:T,queries)||[[6,2,13,1,4,9,15,null,null,null,null,null,null,14],[2,5,16]]=>[[2,2],[4,6],[15,-1]]|[[4,null,9],[3]]=>[[-1,4]]
+Kth Ancestor of a Tree Node|TreeAncestor|d|[["TreeAncestor","getKthAncestor","getKthAncestor","getKthAncestor"],[[7,[-1,0,0,1,1,2,2]],[3,1],[5,2],[6,3]]]=>[null,1,0,-1]
+Binary Tree Longest Consecutive Sequence|longestConsecutive(root:T)||[[1,null,3,2,4,null,null,null,5]]=>3|[[2,null,3,2,null,1]]=>2
+Binary Tree Longest Consecutive Sequence II|longestConsecutiveII(root:T)||[[1,2,3]]=>2|[[2,1,3]]=>3
+Boundary of Binary Tree|boundaryOfBinaryTree(root:T)||[[1,null,2,3,4]]=>[1,3,4,2]|[[1,2,3,4,5,6,null,null,null,7,8,9,10]]=>[1,2,4,7,8,9,10,6,3]
+Count Univalue Subtrees|countUnivalSubtrees(root:T)||[[5,1,5,5,5,null,5]]=>4|[[]]=>0
+Delete Leaves With a Given Value|removeLeafNodes(root:T,target)->T||[[1,2,3,2,null,2,4],2]=>[1,null,3,null,4]|[[1,3,3,3,2],3]=>[1,3,null,null,2]
+Closest Binary Search Tree Value II|closestKValues(root:T,target,k)|u|[[4,2,5,1,3],3.714286,2]=>[4,3]|[[1],0,1]=>[1]
+Contains Duplicate III|containsNearbyAlmostDuplicate(nums,indexDiff,valueDiff)||[[1,2,3,1],3,0]=>true|[[1,5,9,1,5,9],2,3]=>false
+Range Module|RangeModule|d|[["RangeModule","addRange","removeRange","queryRange","queryRange","queryRange"],[[],[10,20],[14,16],[10,14],[13,15],[16,17]]]=>[null,null,null,true,false,true]
+Data Stream as Disjoint Intervals|SummaryRanges|d|[["SummaryRanges","addNum","getIntervals","addNum","getIntervals","addNum","getIntervals","addNum","getIntervals","addNum","getIntervals"],[[],[1],[],[3],[],[7],[],[2],[],[6],[]]]=>[null,null,[[1,1]],null,[[1,1],[3,3]],null,[[1,1],[3,3],[7,7]],null,[[1,3],[7,7]],null,[[1,3],[6,7]]]
+Create Sorted Array through Instructions|createSortedArray(instructions)||[[1,5,6,2]]=>1|[[1,2,3,6,5,4]]=>3|[[1,3,3,3,2,4,2,1,2]]=>4
+Stock Price Fluctuation|StockPrice|d|[["StockPrice","update","update","current","maximum","update","maximum","update","minimum"],[[],[1,10],[2,5],[],[],[1,3],[],[4,2],[]]]=>[null,null,null,5,10,null,5,null,2]
+My Calendar III|MyCalendarThree|d|[["MyCalendarThree","book","book","book","book","book","book"],[[],[10,20],[50,60],[10,40],[5,15],[5,10],[25,55]]]=>[null,1,1,2,3,3,3]
+Count Good Triplets in an Array|goodTriplets(nums1,nums2)||[[2,0,1,3],[0,1,2,3]]=>1|[[4,0,1,3,2],[4,1,0,2,3]]=>4
+Longest Increasing Subsequence II|lengthOfLIS(nums,k)||[[4,2,1,4,3,4,5,8,15],3]=>5|[[7,4,5,1,8,12,4,7],5]=>4|[[1,5],1]=>1
+Number of Pairs Satisfying Inequality|numberOfPairs(nums1,nums2,diff)||[[3,2,5],[2,2,1],1]=>3|[[3,-1],[-2,2],-1]=>0
+`);
+        parseSpecs(`
+Implement Queue using Stacks|MyQueue|d|[["MyQueue","push","push","peek","pop","empty"],[[],[1],[2],[],[],[]]]=>[null,null,null,1,1,false]
+Implement Stack using Queues|MyStack|d|[["MyStack","push","push","top","pop","empty"],[[],[1],[2],[],[],[]]]=>[null,null,null,2,2,false]
+Remove All Adjacent Duplicates in String|removeDuplicates(s)||["abbaca"]=>"ca"|["azxxzy"]=>"ay"
+Next Greater Element I|nextGreaterElement(nums1,nums2)||[[4,1,2],[1,3,4,2]]=>[-1,3,-1]|[[2,4],[1,2,3,4]]=>[3,-1]
+Baseball Game|calPoints(operations)||[["5","2","C","D","+"]]=>30|[["5","-2","4","C","D","9","+","+"]]=>27
+Make The String Great|makeGood(s)||["leEeetcode"]=>"leetcode"|["abBAcC"]=>""|["s"]=>"s"
+Crawler Log Folder|minOperations(logs)||[["d1/","d2/","../","d21/","./"]]=>2|[["d1/","../","../","../"]]=>0
+Final Prices With a Special Discount|finalPrices(prices)||[[8,4,6,2,3]]=>[4,2,4,2,3]|[[1,2,3,4,5]]=>[1,2,3,4,5]|[[10,1,1,6]]=>[9,0,1,6]
+Remove Outermost Parentheses|removeOuterParentheses(s)||["(()())(())"]=>"()()()"|["()()"]=>""
+Maximum Nesting Depth of the Parentheses|maxDepth(s)||["(1+(2*3)+((8)/4))+1"]=>3|["(1)+((2))+(((3)))"]=>3
+Reverse a String Using Stack|reverseUsingStack(s)||["hello"]=>"olleh"|[""]=>""
+Delete Middle Element of a Stack|deleteMiddle(stack)||[[1,2,3,4,5]]=>[1,2,4,5]|[[1,2,3,4]]=>[1,2,4]|#The stack is an array with the top at the end; remove the element at index floor(n/2) counted from the bottom
+Evaluate Postfix Expression|evalPostfix(tokens)||[["2","1","+","3","*"]]=>9|[["4","13","5","/","+"]]=>6
+Next Smaller Element|nextSmaller(nums)||[[4,8,5,2,25]]=>[2,5,2,-1,-1]|#Value of the next smaller element to the right, or -1
+Previous Smaller Element|prevSmaller(nums)||[[4,8,5,2,25]]=>[-1,4,4,-1,2]|#Value of the previous smaller element to the left, or -1
+Check for Redundant Brackets|hasRedundantBrackets(s)||["((a+b))"]=>true|["(a+b)"]=>false|["(a+(b))"]=>true
+Number of Students Unable to Eat Lunch|countStudents(students,sandwiches)||[[1,1,0,0],[0,1,0,1]]=>0|[[1,1,1,0,0,1],[1,0,0,0,1,1]]=>3
+Time Needed to Buy Tickets|timeRequiredToBuy(tickets,k)||[[2,3,2],2]=>6|[[5,1,1,1],0]=>8
+Build an Array With Stack Operations|buildArray(target,n)||[[1,3],3]=>["Push","Push","Pop","Push"]|[[1,2],4]=>["Push","Push"]
+Implement Stack Using Array|ArrayStack|d|[["ArrayStack","push","push","peek","pop","isEmpty"],[[],[5],[7],[],[],[]]]=>[null,null,null,7,7,false]
+Two Stacks in One Array|TwoStacks|d|[["TwoStacks","push1","push2","pop1","pop2","pop1"],[[5],[1],[2],[],[],[]]]=>[null,null,null,1,2,-1]|#Constructor takes the array capacity; pop returns -1 when that stack is empty
+Reverse Words Using Stack|reverseWordsStack(s)||["the sky is blue"]=>"blue is sky the"
+Decimal to Binary Using Stack|decimalToBinary(n)||[10]=>"1010"|[0]=>"0"|[5]=>"101"
+Palindrome Check Using Stack|isPalindromeStack(s)||["racecar"]=>true|["abca"]=>false
+Peek Maximum in Stack in O(1)|MaxStack|d|[["MaxStack","push","push","push","getMax","pop","getMax"],[[],[3],[1],[5],[],[],[]]]=>[null,null,null,null,5,5,3]
+Count Valid Bracket Pairs|countBracketPairs(s)||["(()())"]=>3|["())("]=>1
+Reverse Each Word Using Stack|reverseEachWord(s)||["Hello World"]=>"olleH dlroW"
+Check if Two Stacks Are Equal|stacksEqual(a,b)||[[1,2,3],[1,2,3]]=>true|[[1,2],[2,1]]=>false
+Copy a Stack Preserving Order|copyStack(stack)||[[1,2,3]]=>[1,2,3]|[[]]=>[]
+Min Stack|MinStack|d|[["MinStack","push","push","push","getMin","pop","top","getMin"],[[],[-2],[0],[-3],[],[],[],[]]]=>[null,null,null,null,-3,null,0,-2]
+Daily Temperatures|dailyTemperatures(temperatures)||[[73,74,75,71,69,72,76,73]]=>[1,1,4,2,1,1,0,0]|[[30,40,50,60]]=>[1,1,1,0]
+Evaluate Reverse Polish Notation|evalRPN(tokens)||[["2","1","+","3","*"]]=>9|[["10","6","9","3","+","-11","*","/","*","17","+","5","+"]]=>22
+Next Greater Element II|nextGreaterElements(nums)||[[1,2,1]]=>[2,-1,2]|[[1,2,3,4,3]]=>[2,3,4,-1,4]
+Asteroid Collision|asteroidCollision(asteroids)||[[5,10,-5]]=>[5,10]|[[8,-8]]=>[]|[[10,2,-5]]=>[10]
+Online Stock Span|StockSpanner|d|[["StockSpanner","next","next","next","next","next","next","next"],[[],[100],[80],[60],[70],[60],[75],[85]]]=>[null,1,1,1,2,1,4,6]
+Remove K Digits|removeKdigits(num,k)||["1432219",3]=>"1219"|["10200",1]=>"200"|["10",2]=>"0"
+Simplify Path|simplifyPath(path)||["/home/"]=>"/home"|["/../"]=>"/"|["/home//foo/"]=>"/home/foo"|["/a/./b/../../c/"]=>"/c"
+Validate Stack Sequences|validateStackSequences(pushed,popped)||[[1,2,3,4,5],[4,5,3,2,1]]=>true|[[1,2,3,4,5],[4,3,5,1,2]]=>false
+Car Fleet|carFleet(target,position,speed)||[12,[10,8,0,5,3],[2,4,1,1,3]]=>3|[10,[3],[3]]=>1
+Score of Parentheses|scoreOfParentheses(s)||["()"]=>1|["(())"]=>2|["()()"]=>2|["(()(()))"]=>6
+Minimum Remove to Make Valid Parentheses|minRemoveToMakeValid(s)||["a)b(c)d"]=>"ab(c)d"|["))(("]=>""|["abc"]=>"abc"
+Remove Duplicate Letters|removeDuplicateLetters(s)||["bcabc"]=>"abc"|["cbacdcbc"]=>"acdb"
+132 Pattern|find132pattern(nums)||[[1,2,3,4]]=>false|[[3,1,4,2]]=>true|[[-1,3,2,0]]=>true
+Sum of Subarray Minimums|sumSubarrayMins(arr)||[[3,1,2,4]]=>17|[[11,81,94,43,3]]=>444
+Design a Stack With Increment Operation|CustomStack|d|[["CustomStack","push","push","pop","push","push","push","increment","increment","pop","pop","pop","pop"],[[3],[1],[2],[],[2],[3],[4],[5,100],[2,100],[],[],[],[]]]=>[null,null,null,2,null,null,null,null,null,103,202,201,-1]
+Check If a String Is Valid After Substitutions|isValid(s)||["aabcbc"]=>true|["abcabcababcc"]=>true|["abccba"]=>false
+Exclusive Time of Functions|exclusiveTime(n,logs)||[2,["0:start:0","1:start:2","1:end:5","0:end:6"]]=>[3,4]|[1,["0:start:0","0:start:2","0:end:5","0:start:6","0:end:6","0:end:7"]]=>[8]
+Flatten Nested List Iterator|NestedIterator|d|[["NestedIterator","hasNext","next","hasNext","next","hasNext","next","hasNext"],[[[[1,1],2,[1,1]]],[],[],[],[],[],[],[]]]=>[null,true,1,true,1,true,2,true]|#The nested list is a plain JS/Python list (integers or nested lists); next() returns an integer
+Infix to Postfix Conversion|infixToPostfix(s)||["a+b*c"]=>"abc*+"|["(a+b)*c"]=>"ab+c*"|["a+b+c"]=>"ab+c+"
+Largest Rectangle in Histogram|largestRectangleArea(heights)||[[2,1,5,6,2,3]]=>10|[[2,4]]=>4
+Maximal Rectangle|maximalRectangle(matrix)||[[["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]]=>6|[[["0"]]]=>0
+Basic Calculator|calculate(s)||["1 + 1"]=>2|[" 2-1 + 2 "]=>3|["(1+(4+5+2)-3)+(6+8)"]=>23
+Basic Calculator III|calculate(s)||["1+1"]=>2|["6-4/2"]=>4|["2*(5+5*2)/3+(6/2+8)"]=>21
+Maximum Frequency Stack|FreqStack|d|[["FreqStack","push","push","push","push","push","push","pop","pop","pop","pop"],[[],[5],[7],[5],[7],[4],[5],[],[],[],[]]]=>[null,null,null,null,null,null,null,5,7,5,4]
+Max Stack|MaxStack|d|[["MaxStack","push","push","push","top","popMax","top","peekMax","pop","top"],[[],[5],[1],[5],[],[],[],[],[],[]]]=>[null,null,null,null,5,5,1,5,1,5]
+Number of Atoms|countOfAtoms(formula)||["H2O"]=>"H2O"|["Mg(OH)2"]=>"H2MgO2"|["K4(ON(SO3)2)2"]=>"K4N2O14S4"
+Sum of Total Strength of Wizards|totalStrength(strength)||[[1,3,1,2]]=>44|[[5,4,6]]=>213
+Number of Visible People in a Queue|canSeePersonsCount(heights)||[[10,6,8,5,11,9]]=>[3,1,2,1,1,0]|[[5,1,2,3,10]]=>[4,1,1,1,0]
+Parsing A Boolean Expression|parseBoolExpr(expression)||["&(\\u007c(f))"]=>false|["\\u007c(f,f,f,t)"]=>true|["!(&(f,t))"]=>true
+`);
+        parseSpecs(`
+Contains Duplicate II|containsNearbyDuplicate(nums,k)||[[1,2,3,1],3]=>true|[[1,2,3,1,2,3],2]=>false
+Intersection of Two Arrays II|intersect(nums1,nums2)|u|[[1,2,2,1],[2,2]]=>[2,2]|[[4,9,5],[9,4,9,8,4]]=>[4,9]
+Keyboard Row|findWords(words)|u|[["Hello","Alaska","Dad","Peace"]]=>["Alaska","Dad"]|[["omk"]]=>[]
+Find Common Characters|commonChars(words)|u|[["bella","label","roller"]]=>["e","l","l"]|[["cool","lock","cook"]]=>["c","o"]
+Uncommon Words from Two Sentences|uncommonFromSentences(s1,s2)|u|["this apple is sweet","this apple is sour"]=>["sweet","sour"]|["apple apple","banana"]=>["banana"]
+Distribute Candies|distributeCandies(candyType)||[[1,1,2,2,3,3]]=>3|[[1,1,2,3]]=>2|[[6,6,6,6]]=>1
+Longest Harmonious Subsequence|findLHS(nums)||[[1,3,2,2,5,2,3,7]]=>5|[[1,2,3,4]]=>2|[[1,1,1,1]]=>0
+Sort Array by Increasing Frequency|frequencySort(nums)||[[1,1,2,2,2,3]]=>[3,1,1,2,2,2]|[[2,3,1,3,2]]=>[1,3,3,2,2]|[[-1,1,-6,4,5,-6,1,4,1]]=>[5,-1,4,4,-6,-6,1,1,1]
+Check if All Characters Have Equal Number of Occurrences|areOccurrencesEqual(s)||["abacbc"]=>true|["aaabb"]=>false
+Maximum Number of Balloons|maxNumberOfBalloons(text)||["nlaebolko"]=>1|["loonbalxballpoon"]=>2|["leetcode"]=>0
+Sum of Unique Elements|sumOfUnique(nums)||[[1,2,3,2]]=>4|[[1,1,1,1,1]]=>0|[[1,2,3,4,5]]=>15
+Find Lucky Integer in an Array|findLucky(arr)||[[2,2,3,4]]=>2|[[1,2,2,3,3,3]]=>3|[[2,2,2,3,3]]=>-1
+Unique Number of Occurrences|uniqueOccurrences(arr)||[[1,2,2,1,1,3]]=>true|[[1,2]]=>false
+Count Elements|countElements(arr)||[[1,2,3]]=>2|[[1,1,3,3,5,5,7,7]]=>0
+Minimum Index Sum of Two Lists|findRestaurant(list1,list2)|u|[["Shogun","Tapioca Express","Burger King","KFC"],["Piatti","The Grill at Torrey Pines","Hungry Hunter Steakhouse","Shogun"]]=>["Shogun"]|[["happy","sad","good"],["sad","happy","good"]]=>["sad","happy"]
+Design HashSet|MyHashSet|d|[["MyHashSet","add","add","contains","contains","add","contains","remove","contains"],[[],[1],[2],[1],[3],[2],[2],[2],[2]]]=>[null,null,null,true,false,null,true,null,false]
+Design HashMap|MyHashMap|d|[["MyHashMap","put","put","get","get","put","get","remove","get"],[[],[1,1],[2,2],[1],[3],[2,1],[2],[2],[2]]]=>[null,null,null,1,-1,null,1,null,-1]
+Check Array Formation Through Concatenation|canFormArray(arr,pieces)||[[15,88],[[88],[15]]]=>true|[[49,18,16],[[16,18,49]]]=>false|[[91,4,64,78],[[78],[4,64],[91]]]=>true
+Find Words That Can Be Formed by Characters|countCharacters(words,chars)||[["cat","bt","hat","tree"],"atach"]=>6|[["hello","world","leetcode"],"welldonehoneyr"]=>10
+Verifying an Alien Dictionary|isAlienSorted(words,order)||[["hello","leetcode"],"hlabcdefgijkmnopqrstuvwxyz"]=>true|[["word","world","row"],"worldabcefghijkmnpqstuvxyz"]=>false|[["apple","app"],"abcdefghijklmnopqrstuvwxyz"]=>false
+Subdomain Visit Count|subdomainVisits(cpdomains)|u|[["9001 discuss.leetcode.com"]]=>["9001 leetcode.com","9001 discuss.leetcode.com","9001 com"]
+Word Frequency Counter|wordFrequency(text)|u|["the cat the dog"]=>[["the",2],["cat",1],["dog",1]]|#Return an array of [word, count] pairs (any order)
+First Repeating Element in an Array|firstRepeating(arr)||[[10,5,3,4,3,5,6]]=>5|[[1,2,3]]=>-1|#Among values that repeat, return the one whose first occurrence is earliest; -1 if none
+Count Distinct Elements in Every Window|countDistinctWindows(nums,k)||[[1,2,1,3,4,2,3],4]=>[3,4,4,3]
+Find Pair With Given Difference|hasPairWithDifference(nums,k)||[[5,20,3,2,50,80],78]=>true|[[90,70,20,80,50],45]=>false
+Check if Two Arrays Are Equal|areEqual(a,b)||[[1,2,5,4,0],[2,4,5,0,1]]=>true|[[1,2,5],[2,4,15]]=>false
+Most Frequent Element|mostFrequent(nums)||[[1,3,2,1,4,1]]=>1|[[5,5,5,2]]=>5
+Find Duplicates in an Array|findDuplicates(nums)|u|[[1,2,3,1,3,6,6]]=>[1,3,6]|[[1,2,3]]=>[]
+Longest Consecutive Sequence|longestConsecutive(nums)||[[100,4,200,1,3,2]]=>4|[[0,3,7,2,5,8,4,6,0,1]]=>9
+Top K Frequent Elements|topKFrequent(nums,k)|u|[[1,1,1,2,2,3],2]=>[1,2]|[[1],1]=>[1]
+Subarray Sum Equals K|subarraySum(nums,k)||[[1,1,1],2]=>2|[[1,2,3],3]=>2
+LRU Cache|LRUCache|d|[["LRUCache","put","put","get","put","get","put","get","get","get"],[[2],[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]]=>[null,null,null,1,null,-1,null,-1,3,4]
+Group Shifted Strings|groupStrings(strings)|uu|[["abc","bcd","acef","xyz","az","ba","a","z"]]=>[["acef"],["a","z"],["abc","bcd","xyz"],["az","ba"]]
+4Sum II|fourSumCount(nums1,nums2,nums3,nums4)||[[1,2],[-2,-1],[-1,2],[0,2]]=>2|[[0],[0],[0],[0]]=>1
+Insert Delete GetRandom O(1)|RandomizedSet|d|[["RandomizedSet","insert","insert","remove","getRandom"],[[],[1],[2],[1],[]]]=>[null,true,true,true,2]
+Sort Characters By Frequency|frequencySort(s)||["aaabbc"]=>"aaabbc"|["bbbaac"]=>"bbbaac"|#Test strings have no ties
+Continuous Subarray Sum|checkSubarraySum(nums,k)||[[23,2,4,6,7],6]=>true|[[23,2,6,4,7],13]=>false
+Contiguous Array|findMaxLength(nums)||[[0,1]]=>2|[[0,1,0]]=>2
+Find All Duplicates in an Array|findDuplicates(nums)|u|[[4,3,2,7,8,2,3,1]]=>[2,3]|[[1,1,2]]=>[1]
+Encode and Decode TinyURL|Codec(url)|enc|["https://leetcode.com/problems/design-tinyurl"]=>"https://leetcode.com/problems/design-tinyurl"
+Brick Wall|leastBricks(wall)||[[[1,2,2,1],[3,1,2],[1,3,2],[2,4],[3,1,2],[1,3,1,1]]]=>2|[[[1],[1],[1]]]=>3
+Top K Frequent Words|topKFrequent(words,k)||[["i","love","leetcode","i","love","coding"],2]=>["i","love"]|[["the","day","is","sunny","the","the","the","sunny","is","is"],4]=>["the","is","sunny","day"]
+Time Based Key-Value Store|TimeMap|d|[["TimeMap","set","get","get","set","get","get"],[[],["foo","bar",1],["foo",1],["foo",3],["foo","bar2",4],["foo",4],["foo",5]]]=>[null,null,"bar","bar",null,"bar2","bar2"]
+Find Duplicate Subtrees|findDuplicateSubtrees(root:T)->TT|u|[[1,2,3,4,null,2,4,null,null,4]]=>[[2,4],[4]]
+Subarray Sums Divisible by K|subarraysDivByK(nums,k)||[[4,5,0,-2,-3,1],5]=>7|[[5],9]=>0
+Max Number of K-Sum Pairs|maxOperations(nums,k)||[[1,2,3,4],5]=>2|[[3,1,3,4,3],6]=>1
+Longest Substring with At Most K Distinct Characters|lengthOfLongestSubstringKDistinct(s,k)||["eceba",2]=>3|["aa",1]=>2
+Fraction to Recurring Decimal|fractionToDecimal(numerator,denominator)||[1,2]=>"0.5"|[2,1]=>"2"|[4,333]=>"0.(012)"
+Max Points on a Line|maxPoints(points)||[[[1,1],[2,2],[3,3]]]=>3|[[[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]]=>4
+Insert Delete GetRandom O(1) - Duplicates allowed|RandomizedCollection|d|[["RandomizedCollection","insert","insert","remove","remove","remove"],[[],[1],[1],[1],[1],[1]]]=>[null,true,false,true,true,false]
+Design Twitter|Twitter|d|[["Twitter","postTweet","getNewsFeed","follow","postTweet","getNewsFeed","unfollow","getNewsFeed"],[[],[1,5],[1],[1,2],[2,6],[1],[1,2],[1]]]=>[null,null,[5],null,null,[6,5],null,[5]]
+Subarrays with K Different Integers|subarraysWithKDistinct(nums,k)||[[1,2,1,2,3],2]=>7|[[1,2,1,3,4],3]=>3
+Minimum Window Subsequence|minWindow(s1,s2)||["abcdebdde","bde"]=>"bcde"|["jmeqksfrsdcmsiwvaovztaqenprpvnbstl","u"]=>""
+Count Different Palindromic Subsequences|countPalindromicSubsequences(s)||["bccb"]=>6|["abcdabcdabcdabcdabcdabcdabcdabcddcbadcbadcbadcbadcbadcbadcbadcba"]=>104860361
+Number of Distinct Islands II|numDistinctIslands2(grid)||[[[1,1,0,0,0],[1,0,0,0,0],[0,0,0,0,1],[0,0,0,1,1]]]=>1|[[[1,1,0,0,0],[1,1,0,0,0],[0,0,0,1,1],[0,0,0,1,1]]]=>1
+Find the Shortest Superstring|shortestSuperstring(words)||[["ab","bc"]]=>"abc"|[["abc"]]=>"abc"
+Smallest Range Covering Elements from K Lists|smallestRange(nums)||[[[4,10,15,24,26],[0,9,12,20],[5,18,22,30]]]=>[20,24]|[[[1,2,3],[1,2,3],[1,2,3]]]=>[1,1]
+Palindrome Pairs|palindromePairs(words)|u|[["abcd","dcba","lls","s","sssll"]]=>[[0,1],[1,0],[3,2],[2,4]]|[["bat","tab","cat"]]=>[[0,1],[1,0]]
+`);
+        parseSpecs(`
+Find if Path Exists in Graph|validPath(n,edges,source,destination)||[3,[[0,1],[1,2],[2,0]],0,2]=>true|[6,[[0,1],[0,2],[3,5],[5,4],[4,3]],0,5]=>false
+Flood Fill|floodFill(image,sr,sc,color)||[[[1,1,1],[1,1,0],[1,0,1]],1,1,2]=>[[2,2,2],[2,2,0],[2,0,1]]|[[[0,0,0],[0,0,0]],0,0,0]=>[[0,0,0],[0,0,0]]
+Find the Town Judge|findJudge(n,trust)||[2,[[1,2]]]=>2|[3,[[1,3],[2,3],[3,1]]]=>-1|[3,[[1,3],[2,3]]]=>3
+Find Center of Star Graph|findCenter(edges)||[[[1,2],[2,3],[4,2]]]=>2|[[[1,2],[5,1],[1,3],[1,4]]]=>1
+Island Perimeter|islandPerimeter(grid)||[[[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]]]=>16|[[[1]]]=>4
+Employee Importance|getImportance(employees,id)||[[[1,5,[2,3]],[2,3,[]],[3,3,[]]],1]=>11|#Each employee is [id, importance, [subordinate ids]]
+Maximum Depth of N-ary Tree|maxDepth(root)||[[1,[[3,[[5,[]],[6,[]]]],[2,[]],[4,[]]]]]=>3|[[1,[]]]=>1|#A node is [value, [children]]
+N-ary Tree Preorder Traversal|preorder(root)||[[1,[[3,[[5,[]],[6,[]]]],[2,[]],[4,[]]]]]=>[1,3,5,6,2,4]|#A node is [value, [children]]
+N-ary Tree Level Order Traversal|levelOrder(root)||[[1,[[3,[[5,[]],[6,[]]]],[2,[]],[4,[]]]]]=>[[1],[3,2,4],[5,6]]|#A node is [value, [children]]
+Build Adjacency List from Edge List|buildAdjList(n,edges)||[4,[[0,1],[0,2],[1,2],[2,3]]]=>[[1,2],[0,2],[0,1,3],[2]]|#Undirected graph; list each node's neighbors in ascending order
+BFS Traversal of a Graph|bfsOrder(adj,start)||[[[1,2],[0,3],[0,3],[1,2]],0]=>[0,1,2,3]|#Visit neighbors in the order given
+DFS Traversal of a Graph|dfsOrder(adj,start)||[[[1,2],[0,3],[0,3],[1,2]],0]=>[0,1,3,2]|#Recursive DFS visiting neighbors in the order given
+Count Edges in an Undirected Graph|countEdges(adj)||[[[1,2],[0,2],[0,1]]]=>3|[[[],[]]]=>0
+Degree of Each Vertex|degrees(adj)||[[[1,2],[0],[0]]]=>[2,1,1]
+Find Isolated Nodes|isolatedNodes(adj)||[[[1],[0],[],[]]]=>[2,3]|[[[1],[0]]]=>[]
+Shortest Path in Unweighted Graph|shortestPathLength(adj,src,dst)||[[[1,2],[0,3],[0,3],[1,2]],0,3]=>2|[[[1],[0],[]],0,2]=>-1
+Check if Two Nodes Are Connected|areConnected(adj,a,b)||[[[1],[0],[3],[2]],0,1]=>true|[[[1],[0],[3],[2]],0,3]=>false
+Transpose of a Graph|transposeGraph(adj)||[[[1,2],[2],[]]]=>[[],[0],[0,1]]|#Directed graph; list each node's neighbors in ascending order
+Matrix Cells in Distance Order|allCellsDistOrder(rows,cols,rCenter,cCenter)||[1,2,0,0]=>[[0,0],[0,1]]|[2,2,0,1]=>[[0,1],[0,0],[1,1],[1,0]]|#Break distance ties by row, then column
+Convert Adjacency Matrix to Adjacency List|matrixToList(matrix)||[[[0,1,1],[1,0,0],[1,0,0]]]=>[[1,2],[0],[0]]
+Convert Adjacency List to Adjacency Matrix|listToMatrix(adj)||[[[1,2],[0],[0]]]=>[[0,1,1],[1,0,0],[1,0,0]]
+Count Sink Nodes|countSinks(adj)||[[[1],[2],[]]]=>1|[[[1,2],[],[]]]=>2|#Directed graph; sink = no outgoing edges
+Count Source Nodes|countSources(adj)||[[[1],[2],[]]]=>1|[[[2],[2],[]]]=>2|#Directed graph; source = no incoming edges
+Check if Directed Graph Is Symmetric|isSymmetricGraph(adj)||[[[1],[0]]]=>true|[[[1],[]]]=>false
+Find Level of Each Node|nodeLevels(adj,src)||[[[1,2],[0,3],[0,3],[1,2]],0]=>[0,1,1,2]|[[[1],[0],[]],0]=>[0,1,-1]|#-1 for unreachable nodes
+Number of Nodes at a Given Level|nodesAtLevel(adj,src,level)||[[[1,2],[0,3],[0,3],[1,2]],0,1]=>2|[[[1,2],[0,3],[0,3],[1,2]],0,2]=>1
+Number of Edges in Complete Graph|completeGraphEdges(n)||[4]=>6|[1]=>0
+Detect Self-Loops|hasSelfLoop(edges)||[[[0,1],[2,2]]]=>true|[[[0,1],[1,2]]]=>false
+Detect Parallel Edges|hasParallelEdges(edges)||[[[0,1],[1,0]]]=>true|[[[0,1],[1,2]]]=>false|[[[0,1],[0,1]]]=>true|#Undirected edges
+Reachable Nodes in 2 Steps|reachableIn2(adj,src)|u|[[[1],[2],[3],[]],0]=>[1,2]|[[[1,2],[3],[],[]],0]=>[1,2,3]|#Nodes reachable in 1 or 2 steps, excluding src
+Number of Islands|numIslands(grid)||[[["1","1","1","1","0"],["1","1","0","1","0"],["1","1","0","0","0"],["0","0","0","0","0"]]]=>1|[[["1","1","0","0","0"],["1","1","0","0","0"],["0","0","1","0","0"],["0","0","0","1","1"]]]=>3
+Course Schedule|canFinish(numCourses,prerequisites)||[2,[[1,0]]]=>true|[2,[[1,0],[0,1]]]=>false
+Rotting Oranges|orangesRotting(grid)||[[[2,1,1],[1,1,0],[0,1,1]]]=>4|[[[2,1,1],[0,1,1],[1,0,1]]]=>-1|[[[0,2]]]=>0
+Pacific Atlantic Water Flow|pacificAtlantic(heights)|u|[[[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]]=>[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]|[[[1]]]=>[[0,0]]
+Network Delay Time|networkDelayTime(times,n,k)||[[[2,1,1],[2,3,1],[3,4,1]],4,2]=>2|[[[1,2,1]],2,1]=>1|[[[1,2,1]],2,2]=>-1
+Number of Provinces|findCircleNum(isConnected)||[[[1,1,0],[1,1,0],[0,0,1]]]=>2|[[[1,0,0],[0,1,0],[0,0,1]]]=>3
+Max Area of Island|maxAreaOfIsland(grid)||[[[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]]=>6|[[[0,0,0,0,0,0,0,0]]]=>0
+Surrounded Regions|solve(board)|i0|[[["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]]]=>[["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]]
+Is Graph Bipartite?|isBipartite(graph)||[[[1,2,3],[0,2],[0,1,3],[0,2]]]=>false|[[[1,3],[0,2],[1,3],[0,2]]]=>true
+Course Schedule II|findOrder(numCourses,prerequisites)||[2,[[1,0]]]=>[0,1]|[1,[]]=>[0]|[2,[[1,0],[0,1]]]=>[]|#Test cases have a unique valid order
+Redundant Connection|findRedundantConnection(edges)||[[[1,2],[1,3],[2,3]]]=>[2,3]|[[[1,2],[2,3],[3,4],[1,4],[1,5]]]=>[1,4]
+Number of Connected Components in an Undirected Graph|countComponents(n,edges)||[5,[[0,1],[1,2],[3,4]]]=>2|[5,[[0,1],[1,2],[2,3],[3,4]]]=>1
+Graph Valid Tree|validTree(n,edges)||[5,[[0,1],[0,2],[0,3],[1,4]]]=>true|[5,[[0,1],[1,2],[2,3],[1,3],[1,4]]]=>false
+All Paths From Source to Target|allPathsSourceTarget(graph)|u|[[[1,2],[3],[3],[]]]=>[[0,1,3],[0,2,3]]|[[[4,3,1],[3,2,4],[3],[4],[]]]=>[[0,4],[0,3,4],[0,1,3,4],[0,1,2,3,4],[0,1,4]]
+Cheapest Flights Within K Stops|findCheapestPrice(n,flights,src,dst,k)||[4,[[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]],0,3,1]=>700|[3,[[0,1,100],[1,2,100],[0,2,500]],0,2,1]=>200|[3,[[0,1,100],[1,2,100],[0,2,500]],0,2,0]=>500
+Walls and Gates|wallsAndGates(rooms)|i0|[[[2147483647,-1,0,2147483647],[2147483647,2147483647,2147483647,-1],[2147483647,-1,2147483647,-1],[0,-1,2147483647,2147483647]]]=>[[3,-1,0,1],[2,2,1,-1],[1,-1,2,-1],[0,-1,3,4]]|#INF is 2147483647
+Keys and Rooms|canVisitAllRooms(rooms)||[[[1],[2],[3],[]]]=>true|[[[1,3],[3,0,1],[2],[0]]]=>false
+01 Matrix|updateMatrix(mat)||[[[0,0,0],[0,1,0],[0,0,0]]]=>[[0,0,0],[0,1,0],[0,0,0]]|[[[0,0,0],[0,1,0],[1,1,1]]]=>[[0,0,0],[0,1,0],[1,2,1]]
+Shortest Path in Binary Matrix|shortestPathBinaryMatrix(grid)||[[[0,1],[1,0]]]=>2|[[[0,0,0],[1,1,0],[1,1,0]]]=>4|[[[1,0,0],[1,1,0],[1,1,0]]]=>-1
+Word Ladder|ladderLength(beginWord,endWord,wordList)||["hit","cog",["hot","dot","dog","lot","log","cog"]]=>5|["hit","cog",["hot","dot","dog","lot","log"]]=>0
+Alien Dictionary|alienOrder(words)||[["wrt","wrf","er","ett","rftt"]]=>"wertf"|[["z","x"]]=>"zx"|[["z","x","z"]]=>""
+Reconstruct Itinerary|findItinerary(tickets)||[[["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]]=>["JFK","MUC","LHR","SFO","SJC"]|[[["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]]=>["JFK","ATL","JFK","SFO","ATL","SFO"]
+Critical Connections in a Network|criticalConnections(n,connections)|uu|[4,[[0,1],[1,2],[2,0],[1,3]]]=>[[1,3]]|[2,[[0,1]]]=>[[0,1]]
+Swim in Rising Water|swimInWater(grid)||[[[0,2],[1,3]]]=>3|[[[0,1,2,3,4],[24,23,22,21,5],[12,13,14,15,16],[11,17,18,19,20],[10,9,8,7,6]]]=>16
+Longest Increasing Path in a Matrix|longestIncreasingPath(matrix)||[[[9,9,4],[6,6,8],[2,1,1]]]=>4|[[[3,4,5],[3,2,6],[2,2,1]]]=>4|[[[1]]]=>1
+Making A Large Island|largestIsland(grid)||[[[1,0],[0,1]]]=>3|[[[1,1],[1,0]]]=>4|[[[1,1],[1,1]]]=>4
+Shortest Path Visiting All Nodes|shortestPathLength(graph)||[[[1,2,3],[0],[0],[0]]]=>4|[[[1],[0,2,4],[1,3,4],[2],[1,2]]]=>4
+Bus Routes|numBusesToDestination(routes,source,target)||[[[1,2,7],[3,6,7]],1,6]=>2|[[[7,12],[4,5,15],[6],[15,19],[9,12,13]],15,12]=>-1
+Word Ladder II|findLadders(beginWord,endWord,wordList)|u|["hit","cog",["hot","dot","dog","lot","log","cog"]]=>[["hit","hot","dot","dog","cog"],["hit","hot","lot","log","cog"]]|["hit","cog",["hot","dot","dog","lot","log"]]=>[]
+Power of Four|isPowerOfFour(n)||[16]=>true|[5]=>false|[1]=>true
+Reverse String Recursively|reverseRec(s)||["hello"]=>"olleh"|[""]=>""
+Palindrome Check Recursively|isPalindromeRec(s)||["madam"]=>true|["abc"]=>false
+Sum of Array Recursively|sumArray(nums)||[[1,2,3,4]]=>10|[[]]=>0
+Count Digits|countDigits(n)||[12345]=>5|[0]=>1
+Print 1 to N and N to 1|printUpDown(n)||[3]=>[1,2,3,3,2,1]|[1]=>[1,1]|#Return the sequence 1..n followed by n..1
+Binary Representation of a Number|toBinaryRec(n)||[10]=>"1010"|[0]=>"0"
+Tribonacci Number|tribonacci(n)||[4]=>4|[25]=>1389537
+Linear Search Recursively|linearSearchRec(nums,x)||[[3,1,4],4]=>2|[[3,1,4],9]=>-1
+Maximum Element Recursively|maxRec(nums)||[[3,9,2]]=>9|[[-5,-2]]=>-2
+Count Zeros in a Number|countZeros(n)||[10200]=>3|[123]=>0
+Is Array Sorted Recursively|isSortedRec(nums)||[[1,2,3]]=>true|[[1,3,2]]=>false
+Pascal's Triangle II|getRow(rowIndex)||[3]=>[1,3,3,1]|[0]=>[1]|[1]=>[1,1]
+Add Digits|addDigits(num)||[38]=>2|[0]=>0
+Ugly Number|isUgly(n)||[6]=>true|[14]=>false|[1]=>true
+Remove Character Recursively|removeChar(s,c)||["abcabc","b"]=>"acac"|["aaa","a"]=>""
+Replace pi with 3.14|replacePi(s)||["pippppiii"]=>"3.14ppp3.14ii"|["xpix"]=>"x3.14x"
+String to Integer Recursively|stringToIntRec(s)||["1234"]=>1234|["-56"]=>-56
+Sum of First N Natural Numbers|sumNatural(n)||[5]=>15|[0]=>0
+Print Pattern Recursively|trianglePattern(n)||[3]=>["*","**","***"]|[1]=>["*"]|#Return the rows as an array of strings
+Calculate Power a^b|power(a,b)||[2,10]=>1024|[5,0]=>1
+Count Occurrences in Array Recursively|countOccurrences(nums,x)||[[1,2,1,3,1],1]=>3|[[1,2],5]=>0
+Last Index of Element Recursively|lastIndexRec(nums,x)||[[1,2,1,3],1]=>2|[[1,2],5]=>-1
+Decode Ways|numDecodings(s)||["12"]=>2|["226"]=>3|["06"]=>0
+Generate Parentheses|generateParenthesis(n)|u|[3]=>["((()))","(()())","(())()","()(())","()()()"]|[1]=>["()"]
+Tower of Hanoi|towerOfHanoi(n)||[3]=>7|[1]=>1|[5]=>31|#Return the minimum number of moves
+Unique Paths|uniquePaths(m,n)||[3,7]=>28|[3,2]=>3
+Coin Change|coinChange(coins,amount)||[[1,2,5],11]=>3|[[2],3]=>-1|[[1],0]=>0
+House Robber|rob(nums)||[[1,2,3,1]]=>4|[[2,7,9,3,1]]=>12
+Longest Increasing Subsequence|lengthOfLIS(nums)||[[10,9,2,5,3,7,101,18]]=>4|[[0,1,0,3,2,3]]=>4|[[7,7,7,7,7,7,7]]=>1
+Word Break|wordBreak(s,wordDict)||["leetcode",["leet","code"]]=>true|["catsandog",["cats","dog","sand","and","cat"]]=>false
+Partition Equal Subset Sum|canPartition(nums)||[[1,5,11,5]]=>true|[[1,2,3,5]]=>false
+Target Sum|findTargetSumWays(nums,target)||[[1,1,1,1,1],3]=>5|[[1],1]=>1
+Perfect Squares|numSquares(n)||[12]=>3|[13]=>2
+Triangle|minimumTotal(triangle)||[[[2],[3,4],[6,5,7],[4,1,8,3]]]=>11|[[[-10]]]=>-10
+Minimum Path Sum|minPathSum(grid)||[[[1,3,1],[1,5,1],[4,2,1]]]=>7|[[[1,2,3],[4,5,6]]]=>12
+Unique Paths II|uniquePathsWithObstacles(obstacleGrid)||[[[0,0,0],[0,1,0],[0,0,0]]]=>2|[[[0,1],[0,0]]]=>1
+Integer Break|integerBreak(n)||[2]=>1|[10]=>36
+Combination Sum IV|combinationSum4(nums,target)||[[1,2,3],4]=>7|[[9],3]=>0
+Delete and Earn|deleteAndEarn(nums)||[[3,4,2]]=>6|[[2,2,3,3,3,4]]=>9
+Best Time to Buy and Sell Stock with Cooldown|maxProfit(prices)||[[1,2,3,0,2]]=>3|[[1]]=>0
+Longest Palindromic Subsequence|longestPalindromeSubseq(s)||["bbbab"]=>4|["cbbd"]=>2
+Burst Balloons|maxCoins(nums)||[[3,1,5,8]]=>167|[[1,5]]=>10
+Interleaving String|isInterleave(s1,s2,s3)||["aabcc","dbbca","aadbbcbcac"]=>true|["aabcc","dbbca","aadbbbaccc"]=>false|["","",""]=>true
+Scramble String|isScramble(s1,s2)||["great","rgeat"]=>true|["abcde","caebd"]=>false|["a","a"]=>true
+Palindrome Partitioning II|minCut(s)||["aab"]=>1|["a"]=>0|["ab"]=>1
+Super Egg Drop|superEggDrop(k,n)||[1,2]=>2|[2,6]=>3|[3,14]=>4
+Strange Printer|strangePrinter(s)||["aaabbb"]=>2|["aba"]=>2
+Cherry Pickup|cherryPickup(grid)||[[[0,1,-1],[1,0,-1],[1,1,1]]]=>5|[[[1,1,-1],[1,-1,1],[-1,1,1]]]=>0
+Dungeon Game|calculateMinimumHP(dungeon)||[[[-2,-3,3],[-5,-10,1],[10,30,-5]]]=>7|[[[0]]]=>1
+Russian Doll Envelopes|maxEnvelopes(envelopes)||[[[5,4],[6,4],[6,7],[2,3]]]=>3|[[[1,1],[1,1],[1,1]]]=>1
+Student Attendance Record II|checkRecord(n)||[2]=>8|[1]=>3|[10101]=>183236316
+`);
+        parseSpecs(`
+Binary Watch|readBinaryWatch(turnedOn)|u|[1]=>["0:01","0:02","0:04","0:08","0:16","0:32","1:00","2:00","4:00","8:00"]|[9]=>[]
+Generate Binary Strings of Length N|binaryStrings(n)|u|[2]=>["00","01","10","11"]|[1]=>["0","1"]
+Print All Subsequences of a String|subsequences(s)|u|["abc"]=>["","a","b","c","ab","ac","bc","abc"]|#Include the empty subsequence
+Print All Subsets of an Array|allSubsets(nums)|uu|[[1,2,3]]=>[[],[1],[2],[3],[1,2],[1,3],[2,3],[1,2,3]]
+Sum of All Subsets|sumOfAllSubsets(nums)||[[1,2,3]]=>24|[[5]]=>5|#Sum of the sums of every subset
+Count Subsets with Given Sum|countSubsets(nums,target)||[[1,2,3],3]=>2|[[2,2,2],4]=>3
+Print All Permutations of 3 Elements|permutations3(nums)|u|[[1,2,3]]=>[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+Letter Combinations of 2 Digits|letterCombinations2(digits)|u|["23"]=>["ad","ae","af","bd","be","bf","cd","ce","cf"]
+Coin Combinations Summing to Target|countCoinCombinations(coins,target)||[[1,2,5],5]=>4|[[2],3]=>0
+Check if Subset Sum Exists|subsetSumExists(nums,target)||[[3,34,4,12,5,2],9]=>true|[[3,34,4,12,5,2],30]=>false
+All Paths in a 2x2 Grid|gridPaths(rows,cols)|u|[2,2]=>["RD","DR"]|[1,3]=>["RR"]|#Moves are R (right) and D (down) from the top-left to the bottom-right cell
+Rat in a Maze (Small)|findMazePaths(maze)|u|[[[1,0],[1,1]]]=>["DR"]|[[[1,1],[1,1]]]=>["DR","RD"]|#1 = open cell; moves D and R from (0,0) to the bottom-right
+Print All Strings of Length N from Alphabet|allStrings(alphabet,n)|u|["ab",2]=>["aa","ab","ba","bb"]
+Generate Binary Strings Without Consecutive 1s|noConsecutiveOnes(n)|u|[3]=>["000","001","010","100","101"]|[1]=>["0","1"]
+Keypad Combinations (Two Digits)|keypadCombos(digits)|u|["27"]=>["ap","aq","ar","as","bp","bq","br","bs","cp","cq","cr","cs"]
+Find All Pairs Summing to Target|findPairs(nums,target)|u|[[1,2,3,4],5]=>[[1,4],[2,3]]|[[1,2],10]=>[]|#Values are distinct
+Print All Increasing Sequences of Length K|increasingSequences(n,k)|u|[4,2]=>[[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]|[3,3]=>[[1,2,3]]
+Count Ways to Tile a 2xN Board|tilingWays(n)||[3]=>3|[4]=>5|[1]=>1
+Partition Array Into Two Equal Sum Subsets|canSplitEqual(nums)||[[1,5,11,5]]=>true|[[1,2,3,5]]=>false
+Print All Substrings of a String|allSubstrings(s)|u|["abc"]=>["a","b","c","ab","bc","abc"]
+Count Paths in Grid (Right/Down)|countGridPaths(m,n)||[3,7]=>28|[2,2]=>2
+Jump Game Paths Enumeration|jumpPaths(nums)|u|[[2,1,1]]=>[[0,1,2],[0,2]]|[[1,1,1]]=>[[0,1,2]]|#Return index paths from 0 to the last index
+Subset XOR Count|countSubsetXor(nums,x)||[[1,2,3],0]=>2|[[1,2,3],3]=>2
+Generate Binary Strings with K Ones|binaryStringsKOnes(n,k)|u|[3,2]=>["011","101","110"]|[2,0]=>["00"]
+Combinations of Two Numbers (n choose 2)|pairsFromN(n)|u|[3]=>[[1,2],[1,3],[2,3]]|[2]=>[[1,2]]
+Subsequences with Sum Divisible by K|countDivisibleSubsequences(nums,k)||[[1,2,3],3]=>3|[[3],3]=>1|#Count non-empty subsequences
+Print All Palindromic Substrings|palindromicSubstrings(s)|u|["aab"]=>["a","a","b","aa"]
+Count Balanced Parentheses for n=3|balancedParens3()|u|[]=>["((()))","(()())","(())()","()(())","()()()"]
+Maze: Is Target Reachable?|mazeReachable(maze,start,target)||[[[0,0,1],[1,0,1],[1,0,0]],[0,0],[2,2]]=>true|[[[0,1],[1,0]],[0,0],[1,1]]=>false|#0 = open, 1 = wall; 4-directional moves
+Word Break Check (Backtracking)|wordBreakBT(s,wordDict)||["applepenapple",["apple","pen"]]=>true|["catsandog",["cats","dog","sand","and","cat"]]=>false
+Subsets|subsets(nums)|uu|[[1,2,3]]=>[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]|[[0]]=>[[],[0]]
+Permutations|permute(nums)|u|[[1,2,3]]=>[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]|[[1]]=>[[1]]
+Combination Sum|combinationSum(candidates,target)|uu|[[2,3,6,7],7]=>[[2,2,3],[7]]|[[2],1]=>[]
+Word Search|exist(board,word)||[[["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]],"ABCCED"]=>true|[[["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]],"SEE"]=>true|[[["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]],"ABCB"]=>false
+Palindrome Partitioning|partition(s)|u|["aab"]=>[["a","a","b"],["aa","b"]]|["a"]=>[["a"]]
+Letter Combinations of a Phone Number|letterCombinations(digits)|u|["23"]=>["ad","ae","af","bd","be","bf","cd","ce","cf"]|[""]=>[]
+Combinations|combine(n,k)|uu|[4,2]=>[[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]|[1,1]=>[[1]]
+Subsets II|subsetsWithDup(nums)|uu|[[1,2,2]]=>[[],[1],[1,2],[1,2,2],[2],[2,2]]
+Permutations II|permuteUnique(nums)|u|[[1,1,2]]=>[[1,1,2],[1,2,1],[2,1,1]]
+Combination Sum II|combinationSum2(candidates,target)|uu|[[10,1,2,7,6,1,5],8]=>[[1,1,6],[1,2,5],[1,7],[2,6]]|[[2,5,2,1,2],5]=>[[1,2,2],[5]]
+Letter Case Permutation|letterCasePermutation(s)|u|["a1b2"]=>["a1b2","a1B2","A1b2","A1B2"]|["3z4"]=>["3z4","3Z4"]
+Restore IP Addresses|restoreIpAddresses(s)|u|["25525511135"]=>["255.255.11.135","255.255.111.35"]|["0000"]=>["0.0.0.0"]|["101023"]=>["1.0.10.23","1.0.102.3","10.1.0.23","10.10.2.3","101.0.2.3"]
+Combination Sum III|combinationSum3(k,n)|uu|[3,7]=>[[1,2,4]]|[3,9]=>[[1,2,6],[1,3,5],[2,3,4]]|[4,1]=>[]
+Beautiful Arrangement|countArrangement(n)||[2]=>2|[1]=>1|[3]=>3
+Matchsticks to Square|makesquare(matchsticks)||[[1,1,2,2,2]]=>true|[[3,3,3,3,4]]=>false
+Partition to K Equal Sum Subsets|canPartitionKSubsets(nums,k)||[[4,3,2,3,5,2,1],4]=>true|[[1,2,3,4],3]=>false
+Path with Maximum Gold|getMaximumGold(grid)||[[[0,6,0],[5,8,7],[0,9,0]]]=>24|[[[1,0,7],[2,0,6],[3,4,5],[0,3,0],[9,0,20]]]=>28
+Split a String Into the Max Number of Unique Substrings|maxUniqueSplit(s)||["ababccc"]=>5|["aba"]=>2|["aa"]=>1
+Non-decreasing Subsequences|findSubsequences(nums)|u|[[4,6,7,7]]=>[[4,6],[4,6,7],[4,6,7,7],[4,7],[4,7,7],[6,7],[6,7,7],[7,7]]|[[4,4,3,2,1]]=>[[4,4]]
+N-Queens|solveNQueens(n)|u|[4]=>[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]|[1]=>[["Q"]]
+Sudoku Solver|solveSudoku(board)|i0|[[["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]]=>[["5","3","4","6","7","8","9","1","2"],["6","7","2","1","9","5","3","4","8"],["1","9","8","3","4","2","5","6","7"],["8","5","9","7","6","1","4","2","3"],["4","2","6","8","5","3","7","9","1"],["7","1","3","9","2","4","8","5","6"],["9","6","1","5","3","7","2","8","4"],["2","8","7","4","1","9","6","3","5"],["3","4","5","2","8","6","1","7","9"]]
+Word Search II|findWords(board,words)|u|[[["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]],["oath","pea","eat","rain"]]=>["eat","oath"]|[[["a","b"],["c","d"]],["abcb"]]=>[]
+Expression Add Operators|addOperators(num,target)|u|["123",6]=>["1*2*3","1+2+3"]|["232",8]=>["2*3+2","2+3*2"]|["3456237490",9191]=>[]
+Word Break II|wordBreak(s,wordDict)|u|["catsanddog",["cat","cats","and","sand","dog"]]=>["cats and dog","cat sand dog"]|["pineapplepenapple",["apple","pen","applepen","pine","pineapple"]]=>["pine apple pen apple","pineapple pen apple","pine applepen apple"]|["catsandog",["cats","dog","sand","and","cat"]]=>[]
+N-Queens II|totalNQueens(n)||[4]=>2|[1]=>1|[8]=>92
+Remove Invalid Parentheses|removeInvalidParentheses(s)|u|["()())()"]=>["(())()","()()()"]|["(a)())()"]=>["(a())()","(a)()()"]|[")("]=>[""]
+Unique Paths III|uniquePathsIII(grid)||[[[1,0,0,0],[0,0,0,0],[0,0,2,-1]]]=>2|[[[1,0,0,0],[0,0,0,0],[0,0,0,2]]]=>4|[[[0,1],[2,0]]]=>0
+Android Unlock Patterns|numberOfPatterns(m,n)||[1,1]=>9|[1,2]=>65
+Number of Squareful Arrays|numSquarefulPerms(nums)||[[1,17,8]]=>2|[[2,2,2]]=>1
+`);
+        parseSpecs(`
+Reverse Only Letters|reverseOnlyLetters(s)||["ab-cd"]=>"dc-ba"|["a-bC-dEf-ghIj"]=>"j-Ih-gfE-dCba"
+Sort Array By Parity|sortArrayByParity(nums)||[[3,1,2,4]]=>[2,4,3,1]|[[0]]=>[0]|#Keep the relative order within the evens and within the odds
+Sort Array By Parity II|sortArrayByParityII(nums)||[[4,2,5,7]]=>[4,5,2,7]|[[2,3]]=>[2,3]|#Keep the relative order within the evens and within the odds
+Move All Negative Numbers to One Side|moveNegatives(nums)||[[1,-2,3,-4]]=>[-2,-4,1,3]|[[5,6]]=>[5,6]|#Keep relative order inside each group
+Long Pressed Name|isLongPressedName(name,typed)||["alex","aaleex"]=>true|["saeed","ssaaedd"]=>false
+Two Sum Less Than K|twoSumLessThanK(nums,k)||[[34,23,1,24,75,33,54,8],60]=>58|[[10,20,30],15]=>-1
+Count Pairs With Sum Less Than Target|countPairs(nums,target)||[[-1,1,2,3,1],2]=>3|[[-6,2,5,-2,-7,-1,3],-2]=>10
+Intersection of Two Sorted Arrays|intersectSorted(a,b)||[[1,2,2,3],[2,2,4]]=>[2,2]|[[1,2],[3,4]]=>[]|#Keep duplicates (minimum count)
+Union of Two Sorted Arrays|unionSorted(a,b)||[[1,3,5],[2,3,6]]=>[1,2,3,5,6]|[[],[1,1]]=>[1]
+Find Pair With Given Sum in Sorted Array|hasPairSum(nums,target)||[[1,2,4,7],9]=>true|[[1,2,4,7],20]=>false
+Pair With Difference K in Sorted Array|hasPairDiff(nums,k)||[[1,3,5,9],4]=>true|[[1,3,5,9],7]=>false
+Reverse Array In Place|reverseInPlace(nums)|i0|[[1,2,3,4]]=>[4,3,2,1]|[[7]]=>[7]
+Smallest Absolute Difference Between Two Sorted Arrays|minAbsDiff(a,b)||[[1,3,5],[4,10]]=>1|[[1,2],[10,20]]=>8
+Check If Two Strings Are Almost Equal|areAlmostEqual(s1,s2)||["bank","kanb"]=>true|["attack","defend"]=>false|["kelb","kelb"]=>true
+Valid Word Abbreviation|validWordAbbreviation(word,abbr)||["internationalization","i12iz4n"]=>true|["apple","a2e"]=>false
+Merge Two Sorted Arrays Into a New Array|mergeSortedArrays(a,b)||[[1,3],[2,4]]=>[1,2,3,4]|[[],[5]]=>[5]
+Move Zeroes to Front|moveZeroesFront(nums)||[[1,0,2,0,3]]=>[0,0,1,2,3]|[[0,0]]=>[0,0]
+Palindrome After One Replacement|canBePalindromeOneReplacement(s)||["abca"]=>true|["abcd"]=>false|["abba"]=>false|#The replacement must change a character
+Count Pairs Whose Sum Equals Target in Sorted Array|countPairsSum(nums,target)||[[1,2,3,4,5],6]=>2|[[1,1,1],2]=>3
+Sum of Square Numbers|judgeSquareSum(c)||[5]=>true|[3]=>false|[0]=>true
+Shortest Distance to a Character|shortestToChar(s,c)||["loveleetcode","e"]=>[3,2,1,0,1,0,0,1,2,2,1,0]|["aaab","b"]=>[3,2,1,0]
+Rearrange Array Positive and Negative Alternately|rearrangeAlternate(nums)||[[1,2,3,-4,-1,4]]=>[1,-4,2,-1,3,4]|#Start with a positive; keep order; append any leftovers
+Separate Even and Odd Numbers|separateEvenOdd(nums)||[[1,2,3,4,5]]=>[2,4,1,3,5]|#Keep relative order inside each group
+Find the Middle Element Using Two Pointers|middleElement(nums)||[[1,2,3,4,5]]=>3|[[1,2,3,4]]=>3|#For even length return the second middle
+Count Unique Values in a Sorted Array|countUnique(nums)||[[1,1,2,3,3]]=>3|[[]]=>0
+3Sum Closest|threeSumClosest(nums,target)||[[-1,2,1,-4],1]=>2|[[0,0,0],1]=>0
+4Sum|fourSum(nums,target)|uu|[[1,0,-1,0,-2,2],0]=>[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]|[[2,2,2,2,2],8]=>[[2,2,2,2]]
+3Sum Smaller|threeSumSmaller(nums,target)||[[-2,0,1,3],2]=>2|[[],0]=>0
+Remove Duplicates from Sorted Array II|removeDuplicates(nums)||[[1,1,1,2,2,3]]=>5|[[0,0,1,1,1,1,2,3,3]]=>7|#Return the new length
+Boats to Save People|numRescueBoats(people,limit)||[[1,2],3]=>1|[[3,2,2,1],3]=>3|[[3,5,3,4],5]=>4
+Valid Triangle Number|triangleNumber(nums)||[[2,2,3,4]]=>3|[[4,2,3,4]]=>4
+Sort Transformed Array|sortTransformedArray(nums,a,b,c)||[[-4,-2,2,4],1,3,5]=>[3,9,15,33]|[[-4,-2,2,4],-1,3,5]=>[-23,-5,1,7]
+Partition Array According to Given Pivot|pivotArray(nums,pivot)||[[9,12,5,10,14,3,10],10]=>[9,5,3,10,10,12,14]|[[-3,4,3,2],2]=>[-3,2,4,3]
+Find K Closest Elements|findClosestElements(arr,k,x)||[[1,2,3,4,5],4,3]=>[1,2,3,4]|[[1,1,2,3,4,5],4,-1]=>[1,1,2,3]
+Minimum Length of String After Deleting Similar Ends|minimumLength(s)||["ca"]=>2|["cabaabac"]=>0|["aabccabba"]=>3
+Number of Subsequences That Satisfy the Given Sum Condition|numSubseq(nums,target)||[[3,5,6,7],9]=>4|[[3,3,6,8],10]=>6|[[2,3,3,4,6,7],12]=>61
+Longest Mountain in Array|longestMountain(arr)||[[2,1,4,7,3,2,5]]=>5|[[2,2,2]]=>0
+Bag of Tokens|bagOfTokensScore(tokens,power)||[[100],50]=>0|[[200,100],150]=>1|[[100,200,300,400],200]=>2
+Shortest Unsorted Continuous Subarray|findUnsortedSubarray(nums)||[[2,6,4,8,10,9,15]]=>5|[[1,2,3,4]]=>0|[[1]]=>0
+Pairs of Songs With Total Durations Divisible by 60|numPairsDivisibleBy60(time)||[[30,20,150,100,40]]=>3|[[60,60,60]]=>3
+Rearrange Array Elements by Sign|rearrangeArray(nums)||[[3,1,-2,-5,2,-4]]=>[3,-2,1,-5,2,-4]|[[-1,1]]=>[1,-1]
+Count Triplets That Can Form Two Arrays of Equal XOR|countTriplets(arr)||[[2,3,1,6,7]]=>4|[[1,1,1,1,1]]=>10
+Maximum Score of a Good Subarray|maximumScore(nums,k)||[[1,4,3,7,4,5],3]=>15|[[5,5,4,5,4,1,1,1],0]=>20
+Minimize Maximum Pair Sum in Array|minPairSum(nums)||[[3,5,2,3]]=>7|[[3,5,4,2,4,6]]=>8
+Find Original Array From Doubled Array|findOriginalArray(changed)|u|[[1,3,4,2,6,8]]=>[1,3,4]|[[6,3,0,1]]=>[]|[[1]]=>[]
+Reverse Pairs|reversePairs(nums)||[[1,3,2,3,1]]=>2|[[2,4,3,5,1]]=>3
+Find K-th Smallest Pair Distance|smallestDistancePair(nums,k)||[[1,3,1],1]=>0|[[1,1,1],2]=>0|[[1,6,1],3]=>5
+Maximum Width Ramp|maxWidthRamp(nums)||[[6,0,8,2,1,5]]=>4|[[9,8,1,0,1,9,4,0,4,1]]=>7
+Smallest Range II|smallestRangeII(nums,k)||[[1],0]=>0|[[0,10],2]=>6|[[1,3,6],3]=>3
+Longest Chunked Palindrome Decomposition|longestDecomposition(text)||["ghiabcdefhelloadamhelloabcdefghi"]=>7|["merchant"]=>1|["antaprezatepzapreanta"]=>11
+Count of Range Sum|countRangeSum(nums,lower,upper)||[[-2,5,-1],-2,2]=>3|[[0],0,0]=>1
+Minimum Number of Operations to Make Arrays Similar|makeSimilar(nums,target)||[[8,12,6],[2,14,10]]=>2|[[1,2,5],[4,1,3]]=>1|[[1,1,1,1,1],[1,1,1,1,1]]=>0
+Closest Subsequence Sum|minAbsDifference(nums,goal)||[[5,-7,3,5],6]=>0|[[7,-9,15,-2],-5]=>1|[[1,2,3],-7]=>7
+Max Value of Equation|findMaxValueOfEquation(points,k)||[[[1,3],[2,0],[5,10],[6,-10]],1]=>4|[[[0,0],[3,0],[9,2]],3]=>3
+Maximum Number of Visible Points|visiblePoints(points,angle,location)||[[[2,1],[2,2],[3,3]],90,[1,1]]=>3|[[[2,1],[2,2],[3,4],[1,1]],90,[1,1]]=>4|[[[1,0],[2,1]],13,[1,1]]=>1
+First Negative Number in Every Window of Size K|firstNegativeInWindows(arr,k)||[[12,-1,-7,8,-15,30,16,28],3]=>[-1,-1,-7,-15,-15,0]|#Use 0 when a window has no negative number
+Count Occurrences of Anagrams|countAnagrams(text,pattern)||["forxxorfxdofr","for"]=>3|["aabaabaa","aaba"]=>4
+Defuse the Bomb|decrypt(code,k)||[[5,7,1,4],3]=>[12,10,16,13]|[[1,2,3,4],0]=>[0,0,0,0]|[[2,4,9,3],-2]=>[12,5,6,13]
+Minimum Recolors to Get K Consecutive Black Blocks|minimumRecolors(blocks,k)||["WBBWWBBWBW",7]=>3|["WBWBBBW",2]=>0
+Distinct Numbers in Each Window|distinctInWindows(nums,k)||[[1,2,3,2,2,1,3],3]=>[3,2,2,2,3]
+Count Subarrays of Size K With Distinct Elements|countDistinctWindowsK(nums,k)||[[1,2,1,3,4],3]=>3|[[1,1,1],2]=>0|#Count windows whose elements are all distinct
+Find Subarrays With Equal Sum|findSubarrays(nums)||[[4,2,4]]=>true|[[1,2,3,4,5]]=>false|[[0,0,0]]=>true
+Largest Sum of Any Window of Size K|largestWindowSum(nums,k)||[[1,4,2,10,2,3,1,0,20],4]=>24
+Smallest Window With Sum At Least Target (Positive Numbers)|smallestWindow(nums,target)||[[2,3,1,2,4,3],7]=>2|[[1,1,1],10]=>0|#Return 0 if no window qualifies
+Longest Subarray With Sum at Most K (Positive Numbers)|longestSubarraySumAtMost(nums,k)||[[1,2,1,3],4]=>3|[[5],4]=>0
+Minimum of Every Window of Size K|windowMinimums(nums,k)||[[1,3,-1,-3,5,3,6,7],3]=>[-1,-3,-3,-3,3,3]
+Longest Run of Ones in a Binary Array Window|longestRunOnes(nums)||[[1,1,0,1,1,1]]=>3|[[0,0]]=>0
+Number of Windows With Sum Divisible by K|countWindowsDivisible(nums,w,k)||[[1,2,3,4],2,3]=>1|#w is the window size
+Window Sum of Size K for Every Position|windowSums(nums,k)||[[1,2,3,4,5],3]=>[6,9,12]
+Maximum of Every Window of Size K|windowMaximums(nums,k)||[[1,3,-1,-3,5,3,6,7],3]=>[3,3,5,5,6,7]
+Count Windows With Exactly K Ones|countWindowsKOnes(bits,w,k)||[[1,0,1,1,0],3,2]=>3|[[1,1,1],2,1]=>0|#w is the window size
+Longest Subarray With All Equal Elements|longestEqualRun(nums)||[[1,1,2,2,2,3]]=>3
+Maximum Consecutive Days of Sales Window|bestKDaySales(sales,k)||[[5,1,2,8,3],2]=>11
+Count Vowel Windows|countVowelWindows(s,k)||["abcde",2]=>2|["xyz",2]=>0|#Windows of length k containing at least one vowel
+Check If Any Window Is a Palindrome|hasPalindromeWindow(s,k)||["abcba",3]=>true|["abcd",2]=>false
+Average of Each Window of Size K|windowAverages(nums,k)||[[1,2,3,4],2]=>[1.5,2.5,3.5]
+Sum of Minimum and Maximum of Every Window|windowMinPlusMax(nums,k)||[[1,3,2,4],2]=>[4,5,6]
+Maximum Product of a Window of Size K|maxWindowProduct(nums,k)||[[1,2,3,4],2]=>12
+Longest Stable Window in Temperatures|longestStableWindow(temps,d)||[[1,2,3,10],2]=>3|#Longest window where max - min <= d
+First Window With Sum Greater Than Target|firstWindowAbove(nums,k,target)||[[1,2,3,4,5],2,6]=>2|[[1,1,1],2,5]=>-1|#Return the start index of the first window of size k whose sum > target
+Maximum Points You Can Obtain from Cards|maxScore(cardPoints,k)||[[1,2,3,4,5,6,1],3]=>12|[[2,2,2],2]=>4|[[9,7,7,9,7,7,9],7]=>55
+Longest Subarray of 1's After Deleting One Element|longestSubarray(nums)||[[1,1,0,1]]=>3|[[0,1,1,1,0,1,1,0,1]]=>5|[[1,1,1]]=>2
+Max Consecutive Ones III|longestOnes(nums,k)||[[1,1,1,0,0,0,1,1,1,1,0],2]=>6|[[0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1],3]=>10
+Fruit Into Baskets|totalFruit(fruits)||[[1,2,1]]=>3|[[0,1,2,2]]=>3|[[1,2,3,2,2]]=>4
+Minimum Size Subarray Sum|minSubArrayLen(target,nums)||[7,[2,3,1,2,4,3]]=>2|[4,[1,4,4]]=>1|[11,[1,1,1,1,1,1,1,1]]=>0
+Grumpy Bookstore Owner|maxSatisfied(customers,grumpy,minutes)||[[1,0,1,2,1,1,7,5],[0,1,0,1,0,1,0,1],3]=>16|[[1],[0],1]=>1
+K Radius Subarray Averages|getAverages(nums,k)||[[7,4,3,9,1,8,5,2,6],3]=>[-1,-1,-1,5,4,4,-1,-1,-1]|[[100000],0]=>[100000]|[[8],100000]=>[-1]
+Maximum Sum of Distinct Subarrays With Length K|maximumSubarraySum(nums,k)||[[1,5,4,2,9,9,9],3]=>15|[[4,4,4],3]=>0
+Repeated DNA Sequences|findRepeatedDnaSequences(s)|u|["AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"]=>["AAAAACCCCC","CCCCCAAAAA"]|["AAAAAAAAAAAAA"]=>["AAAAAAAAAA"]
+Longest Substring with At Least K Repeating Characters|longestSubstring(s,k)||["aaabb",3]=>3|["ababbc",2]=>5
+Minimum Swaps to Group All 1's Together|minSwaps(data)||[[1,0,1,0,1]]=>1|[[0,0,0,1,0]]=>0|[[1,0,1,0,1,0,0,1,1,0,1]]=>3
+Get Equal Substrings Within Budget|equalSubstring(s,t,maxCost)||["abcd","bcdf",3]=>3|["abcd","cdef",3]=>1|["abcd","acde",0]=>1
+Count Number of Nice Subarrays|numberOfSubarrays(nums,k)||[[1,1,2,1,1],3]=>2|[[2,4,6],1]=>0|[[2,2,2,1,2,2,1,2,2,2],2]=>16
+Binary Subarrays With Sum|numSubarraysWithSum(nums,goal)||[[1,0,1,0,1],2]=>4|[[0,0,0,0,0],0]=>15
+Replace the Substring for Balanced String|balancedString(s)||["QWER"]=>0|["QQWE"]=>1|["QQQW"]=>2|["QQQQ"]=>3
+Frequency of the Most Frequent Element|maxFrequency(nums,k)||[[1,2,4],5]=>3|[[1,4,8,13],5]=>2|[[3,9,6],2]=>1
+Maximum Erasure Value|maximumUniqueSubarray(nums)||[[4,2,4,5,6]]=>17|[[5,2,1,2,5,2,1,2,5]]=>8
+Longest Turbulent Subarray|maxTurbulenceSize(arr)||[[9,4,2,10,7,8,8,1,9]]=>5|[[4,8,12,16]]=>2|[[100]]=>1
+Subarray With Elements Greater Than Varying Threshold|validSubarraySize(nums,threshold)||[[1,3,4,3,1],6]=>3|[[6,5,6,5,8],7]=>1
+Maximum Number of Occurrences of a Substring|maxFreq(s,maxLetters,minSize,maxSize)||["aababcaab",2,3,4]=>2|["aaaa",1,3,3]=>2|["aabcabcab",2,2,3]=>3
+Sliding Window Median|medianSlidingWindow(nums,k)||[[1,3,-1,-3,5,3,6,7],3]=>[1,-1,-1,3,5,6]|[[1,2,3,4,2,3,1,4,2],3]=>[2,3,3,3,2,3,2]
+Minimum Number of K Consecutive Bit Flips|minKBitFlips(nums,k)||[[0,1,0],1]=>2|[[1,1,0],2]=>-1|[[0,0,0,1,0,1,1,0],3]=>3
+Shortest Subarray with Sum at Least K|shortestSubarray(nums,k)||[[1],1]=>1|[[1,2],4]=>-1|[[2,-1,2],3]=>3
+Substring With Largest Variance|largestVariance(s)||["aababbb"]=>3|["abcde"]=>0
+Count Subarrays With Fixed Bounds|countSubarrays(nums,minK,maxK)||[[1,3,5,2,7,5],1,5]=>2|[[1,1,1,1],1,1]=>10
+Maximum Fruits Harvested After at Most K Steps|maxTotalFruits(fruits,startPos,k)||[[[2,8],[6,3],[8,6]],5,4]=>9|[[[0,9],[4,1],[5,7],[6,2],[7,4],[10,9]],5,4]=>14|[[[0,3],[6,4],[8,5]],3,2]=>0
+Constrained Subsequence Sum|constrainedSubsetSum(nums,k)||[[10,2,-10,5,20],2]=>37|[[-1,-2,-3],1]=>-1|[[10,-2,-10,-5,20],2]=>23
+Number of Substrings Containing All Three Characters|numberOfSubstrings(s)||["abcabc"]=>10|["aaacb"]=>3|["abc"]=>1
+Sum of Subarray Ranges|subArrayRanges(nums)||[[1,2,3]]=>4|[[1,3,3]]=>4|[[4,-2,-3,4,1]]=>59
+Longest Continuous Subarray With Absolute Diff at Most Limit|longestSubarray(nums,limit)||[[8,2,4,7],4]=>2|[[10,1,2,4,7,2],5]=>4|[[4,2,2,2,4,4,2,2],0]=>3
+`);
+        parseSpecs(`
+Implement Queue Using Array|ArrayQueue|d|[["ArrayQueue","enqueue","enqueue","front","dequeue","isEmpty"],[[],[1],[2],[],[],[]]]=>[null,null,null,1,1,false]
+Implement Queue Using Linked List|LinkedQueue|d|[["LinkedQueue","enqueue","enqueue","front","dequeue","isEmpty"],[[],[1],[2],[],[],[]]]=>[null,null,null,1,1,false]
+Design Circular Queue|MyCircularQueue|d|[["MyCircularQueue","enQueue","enQueue","enQueue","enQueue","Rear","isFull","deQueue","enQueue","Rear"],[[3],[1],[2],[3],[4],[],[],[],[4],[]]]=>[null,true,true,true,false,3,true,true,true,4]
+Implement Deque|MyDeque|d|[["MyDeque","pushFront","pushBack","popFront","popBack","isEmpty"],[[],[1],[2],[],[],[]]]=>[null,null,null,1,2,true]
+Reverse a Queue|reverseQueue(queue)||[[1,2,3]]=>[3,2,1]|[[]]=>[]|#Queues are arrays with the front first
+Reverse First K Elements of a Queue|reverseFirstK(queue,k)||[[1,2,3,4,5],3]=>[3,2,1,4,5]
+Generate Binary Numbers from 1 to N|generateBinary(n)||[3]=>["1","10","11"]|[5]=>["1","10","11","100","101"]
+First Non-Repeating Character in a Stream|firstNonRepeatingStream(s)||["aabc"]=>"a#bb"|["zz"]=>"z#"|#After each character output the first non-repeating character so far, or #
+Number of Recent Calls|RecentCounter|d|[["RecentCounter","ping","ping","ping","ping"],[[],[1],[100],[3001],[3002]]]=>[null,1,2,3,3]
+Moving Average from Data Stream|MovingAverage|d|[["MovingAverage","next","next","next","next"],[[3],[1],[10],[3],[5]]]=>[null,1,5.5,4.666666666666667,6]
+Interleave the First Half of the Queue With the Second Half|interleaveQueue(queue)||[[1,2,3,4]]=>[1,3,2,4]|[[11,12,13,14,15,16,17,18,19,20]]=>[11,16,12,17,13,18,14,19,15,20]
+Check if a Queue Is Sorted|isQueueSorted(queue)||[[1,2,3]]=>true|[[3,1,2]]=>false|#Ascending order
+Sort a Queue Using Extra Queue|sortQueue(queue)||[[3,1,2]]=>[1,2,3]
+Rotate a Queue by K Positions|rotateQueue(queue,k)||[[1,2,3,4,5],2]=>[3,4,5,1,2]|#Move the first k elements to the back
+Hit Counter|HitCounter|d|[["HitCounter","hit","hit","hit","getHits","hit","getHits","getHits"],[[],[1],[2],[3],[4],[300],[300],[301]]]=>[null,null,null,null,3,null,4,3]
+Sum of Minimum and Maximum Elements of a Queue|minPlusMax(queue)||[[3,1,9,4]]=>10
+Reverse a Queue Using Recursion|reverseQueueRec(queue)||[[1,2,3]]=>[3,2,1]
+Remove Duplicates From a Queue|dedupeQueue(queue)||[[1,2,1,3,2]]=>[1,2,3]|#Keep the first occurrence
+Merge Two Queues Alternately|mergeQueues(q1,q2)||[[1,3,5],[2,4]]=>[1,2,3,4,5]
+Check if Two Queues Are Equal|queuesEqual(q1,q2)||[[1,2],[1,2]]=>true|[[1,2],[2,1]]=>false
+Copy a Queue|copyQueue(queue)||[[1,2,3]]=>[1,2,3]|[[]]=>[]
+Queue Using Two Stacks (Costly Dequeue)|CostlyQueue|d|[["CostlyQueue","enqueue","enqueue","dequeue","enqueue","dequeue","dequeue"],[[],[1],[2],[],[3],[],[]]]=>[null,null,null,1,null,2,3]
+Number of People Waiting in a Ticket Line|peopleAhead(queue,person)||[["a","b","c"],"c"]=>2|[["a"],"a"]=>0
+Ticket Counter Simulation|ticketTimes(arrivals,serviceTime)||[[0,1,2],3]=>[3,6,9]|[[0,10],3]=>[3,13]|#One counter; return each customer's finish time
+Printer Queue Simulation|printOrder(priorities,location)||[[1,1,9,1,1,1],0]=>5|[[5],0]=>1|[[1,2,3,4],2]=>2|#Return the position at which the job at location is printed (1-based)
+Round Robin Scheduling Simulation|roundRobin(burstTimes,quantum)||[[5,3,8],2]=>[12,9,16]|#All processes arrive at time 0; return completion times
+Check if a Queue Has Duplicate Elements|queueHasDuplicates(queue)||[[1,2,3]]=>false|[[1,2,1]]=>true
+Find the Middle Element of a Queue|queueMiddle(queue)||[[1,2,3,4,5]]=>3|[[1,2,3,4]]=>3|#For even length return the second middle
+Design Circular Deque|MyCircularDeque|d|[["MyCircularDeque","insertLast","insertLast","insertFront","insertFront","getRear","isFull","deleteLast","insertFront","getFront"],[[3],[1],[2],[3],[4],[],[],[],[4],[]]]=>[null,true,true,true,false,2,true,true,true,4]
+Reveal Cards In Increasing Order|deckRevealedIncreasing(deck)||[[17,13,11,2,3,5,7]]=>[2,13,3,11,5,17,7]|[[1,1000]]=>[1,1000]
+Dota2 Senate|predictPartyVictory(senate)||["RD"]=>"Radiant"|["RDD"]=>"Dire"
+Open the Lock|openLock(deadends,target)||[["0201","0101","0102","1212","2002"],"0202"]=>6|[["8888"],"0009"]=>1|[["8887","8889","8878","8898","8788","8988","7888","9888"],"8888"]=>-1
+Task Scheduler|leastInterval(tasks,n)||[["A","A","A","B","B","B"],2]=>8|[["A","A","A","B","B","B"],0]=>6|[["A","A","A","A","A","A","B","C","D","E","F","G"],2]=>16
+Minimum Genetic Mutation|minMutation(startGene,endGene,bank)||["AACCGGTT","AACCGGTA",["AACCGGTA"]]=>1|["AACCGGTT","AAACGGTA",["AACCGGTA","AACCGCTA","AAACGGTA"]]=>2
+Snakes and Ladders|snakesAndLadders(board)||[[[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,35,-1,-1,13,-1],[-1,-1,-1,-1,-1,-1],[-1,15,-1,-1,-1,-1]]]=>4|[[[-1,-1],[-1,3]]]=>1
+Jump Game III|canReach(arr,start)||[[4,2,3,0,3,1,2],5]=>true|[[4,2,3,0,3,1,2],0]=>true|[[3,0,2,1,2],2]=>false
+Shortest Bridge|shortestBridge(grid)||[[[0,1],[1,0]]]=>1|[[[0,1,0],[0,0,0],[0,0,1]]]=>2|[[[1,1,1,1,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,0,0,1],[1,1,1,1,1]]]=>1
+Nearest Exit from Entrance in Maze|nearestExit(maze,entrance)||[[["+","+",".","+"],[".",".",".","+"],["+","+","+","."]],[1,2]]=>1|[[["+","+","+"],[".",".","."],["+","+","+"]],[1,0]]=>2|[[[".","+"]],[0,0]]=>-1
+Design Front Middle Back Queue|FrontMiddleBackQueue|d|[["FrontMiddleBackQueue","pushFront","pushBack","pushMiddle","pushMiddle","popFront","popMiddle","popMiddle","popBack","popFront"],[[],[1],[2],[3],[4],[],[],[],[],[]]]=>[null,null,null,null,null,1,3,4,2,-1]
+Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit|longestSubarray(nums,limit)||[[8,2,4,7],4]=>2|[[10,1,2,4,7,2],5]=>4
+Design Phone Directory|PhoneDirectory|d|[["PhoneDirectory","get","get","check","get","check","release","check"],[[3],[],[],[2],[],[2],[2],[2]]]=>[null,0,1,true,2,false,null,true]
+Find the Safest Path in a Grid|maximumSafenessFactor(grid)||[[[1,0,0],[0,0,0],[0,0,1]]]=>0|[[[0,0,1],[0,0,0],[0,0,0]]]=>2|[[[0,0,0,1],[0,0,0,0],[0,0,0,0],[1,0,0,0]]]=>2
+As Far from Land as Possible|maxDistance(grid)||[[[1,0,1],[0,0,0],[1,0,1]]]=>2|[[[1,0,0],[0,0,0],[0,0,0]]]=>4|[[[1,1],[1,1]]]=>-1
+Minimum Knight Moves|minKnightMoves(x,y)||[2,1]=>1|[5,5]=>4
+Time Needed to Inform All Employees|numOfMinutes(n,headID,manager,informTime)||[1,0,[-1],[0]]=>0|[6,2,[2,2,-1,2,2,2],[0,0,1,0,0,0]]=>1
+Shortest Path to Get Food|getFood(grid)||[[["X","X","X","X","X","X"],["X","*","O","O","O","X"],["X","O","O","#","O","X"],["X","X","X","X","X","X"]]]=>3|[[["X","X","X","X","X"],["X","*","X","O","X"],["X","O","X","#","X"],["X","X","X","X","X"]]]=>-1
+Sliding Puzzle|slidingPuzzle(board)||[[[1,2,3],[4,0,5]]]=>1|[[[1,2,3],[5,4,0]]]=>-1|[[[4,1,2],[5,0,3]]]=>5
+The Maze|hasPath(maze,start,destination)||[[[0,0,1,0,0],[0,0,0,0,0],[0,0,0,1,0],[1,1,0,1,1],[0,0,0,0,0]],[0,4],[4,4]]=>true|[[[0,0,1,0,0],[0,0,0,0,0],[0,0,0,1,0],[1,1,0,1,1],[0,0,0,0,0]],[0,4],[3,2]]=>false
+Cut Off Trees for Golf Event|cutOffTree(forest)||[[[1,2,3],[0,0,4],[7,6,5]]]=>6|[[[1,2,3],[0,0,0],[7,6,5]]]=>-1|[[[2,3,4],[0,0,5],[8,7,6]]]=>6
+Shortest Path in a Grid with Obstacles Elimination|shortestPath(grid,k)||[[[0,0,0],[1,1,0],[0,0,0],[0,1,1],[0,0,0]],1]=>6|[[[0,1,1],[1,1,1],[1,0,0]],1]=>-1
+Minimum Moves to Reach Target With Rotations|minimumMoves(grid)||[[[0,0,0,0,0,1],[1,1,0,0,1,0],[0,0,0,0,1,1],[0,0,1,0,1,0],[0,1,1,0,0,0],[0,1,1,0,0,0]]]=>11|[[[0,0,1,1,1,1],[0,0,0,0,1,1],[1,1,0,0,0,1],[1,1,1,0,0,1],[1,1,1,0,0,1],[1,1,1,0,0,0]]]=>9
+Race Car|racecar(target)||[3]=>2|[6]=>5
+Minimum Obstacle Removal to Reach Corner|minimumObstacles(grid)||[[[0,1,1],[1,1,0],[1,1,0]]]=>2|[[[0,1,0,0,0],[0,1,0,1,0],[0,0,0,1,0]]]=>0
+Escape a Large Maze|isEscapePossible(blocked,source,target)||[[[0,1],[1,0]],[0,0],[0,2]]=>false|[[],[0,0],[999999,999999]]=>true
+Shortest Path to Get All Keys|shortestPathAllKeys(grid)||[["@.a..","###.#","b.A.B"]]=>8|[["@..aA","..B#.","....b"]]=>6|[["@Aa"]]=>-1|#The grid is an array of strings
+Minimum Cost to Make at Least One Valid Path in a Grid|minCost(grid)||[[[1,1,1,1],[2,2,2,2],[1,1,1,1],[2,2,2,2]]]=>3|[[[1,1,3],[3,2,2],[1,1,4]]]=>0|[[[1,2],[4,3]]]=>1
+Trapping Rain Water II|trapRainWater(heightMap)||[[[1,4,3,1,3,2],[3,2,1,3,2,4],[2,3,3,2,3,1]]]=>4|[[[3,3,3,3,3],[3,2,2,2,3],[3,2,1,2,3],[3,2,2,2,3],[3,3,3,3,3]]]=>10
+The Maze II|shortestDistance(maze,start,destination)||[[[0,0,1,0,0],[0,0,0,0,0],[0,0,0,1,0],[1,1,0,1,1],[0,0,0,0,0]],[0,4],[4,4]]=>12|[[[0,0,1,0,0],[0,0,0,0,0],[0,0,0,1,0],[1,1,0,1,1],[0,0,0,0,0]],[0,4],[3,2]]=>-1
+Guess Number Higher or Lower|guessNumber(n,pick)||[10,6]=>6|[1,1]=>1|#pick is the hidden number; compare your guesses with it
+First Bad Version|firstBadVersion(n,bad)||[5,4]=>4|[1,1]=>1|#Versions bad, bad+1, ... n are all bad
+Special Array With X Elements Greater Than or Equal X|specialArray(nums)||[[3,5]]=>2|[[0,0]]=>-1|[[0,4,3,0,4]]=>3
+First Occurrence in a Sorted Array|firstOccurrence(nums,x)||[[1,2,2,2,3],2]=>1|[[1,3],2]=>-1
+Last Occurrence in a Sorted Array|lastOccurrence(nums,x)||[[1,2,2,2,3],2]=>3|[[1,3],2]=>-1
+Count Occurrences in a Sorted Array|countOccurrencesSorted(nums,x)||[[1,2,2,2,3],2]=>3|[[1],5]=>0
+Floor of a Number in a Sorted Array|floorSorted(nums,x)||[[1,2,8,10],5]=>2|[[1,2],0]=>-1|#Largest element <= x, or -1
+Ceil of a Number in a Sorted Array|ceilSorted(nums,x)||[[1,2,8,10],5]=>8|[[1,2],3]=>-1|#Smallest element >= x, or -1
+Number of Times a Sorted Array Is Rotated|rotationCount(nums)||[[4,5,1,2,3]]=>2|[[1,2,3]]=>0
+Find Element in an Infinite Sorted Array|searchInfinite(nums,target)||[[1,3,5,7,9],7]=>3|[[1,3],4]=>-1|#Treat the array as unbounded
+Cube Root of a Number|cubeRoot(n)||[27]=>3|[10]=>2|#Integer part of the cube root
+Nth Root of a Number|nthRoot(n,m)||[3,27]=>3|[2,10]=>-1|#Integer n-th root of m, or -1 if not exact
+Count 1s in a Sorted Binary Array|countOnesSorted(nums)||[[0,0,1,1,1]]=>3|[[0,0]]=>0
+Search in a Sorted Array of Unknown Size|searchUnknownSize(nums,target)||[[-1,0,3,5,9,12],9]=>4|[[-1,0,3,5,9,12],2]=>-1
+Count Elements Less Than X in a Sorted Array|countLess(nums,x)||[[1,2,4,6],4]=>2|[[1,2],0]=>0
+Find Missing Number in a Sorted Sequence|missingInSorted(nums)||[[1,2,3,5]]=>4|[[1,2,3,4,6,7]]=>5
+Compare Strings by Frequency of the Smallest Character|numSmallerByFrequency(queries,words)||[["cbd"],["zaaaz"]]=>[1]|[["bbb","cc"],["a","aa","aaa","aaaa"]]=>[1,2]
+Closest Element to Target in a Sorted Array|closestElement(nums,target)||[[1,4,7],5]=>4|[[1,4,6],5]=>4|#On a tie return the smaller value
+Check If a Number Is a Perfect Cube|isPerfectCube(n)||[27]=>true|[10]=>false
+Find the Smallest Element Greater Than K|smallestGreaterThan(nums,k)||[[1,3,5],3]=>5|[[1,3],5]=>-1
+Minimum Absolute Difference Between Sorted Array and Target|minAbsToTarget(nums,target)||[[1,4,9],6]=>2|[[1,4,9],4]=>0
+Check If Target Exists in a Sorted Matrix Row|targetInRow(row,target)||[[1,3,5],3]=>true|[[1,3,5],4]=>false
+Find Peak Element|findPeakElement(nums)||[[1,2,3,1]]=>2|[[1]]=>0|[[1,3,2]]=>1|#Test arrays have a single peak
+Capacity To Ship Packages Within D Days|shipWithinDays(weights,days)||[[1,2,3,4,5,6,7,8,9,10],5]=>15|[[3,2,2,4,1,4],3]=>6|[[1,2,3,1,1],4]=>3
+Koko Eating Bananas|minEatingSpeed(piles,h)||[[3,6,7,11],8]=>4|[[30,11,23,4,20],5]=>30|[[30,11,23,4,20],6]=>23
+Minimum Number of Days to Make m Bouquets|minDays(bloomDay,m,k)||[[1,10,3,10,2],3,1]=>3|[[1,10,3,10,2],3,2]=>-1|[[7,7,7,7,12,7,7],2,3]=>12
+Smallest Divisor Given a Threshold|smallestDivisor(nums,threshold)||[[1,2,5,9],6]=>5|[[44,22,33,11,1],5]=>44
+Magnetic Force Between Two Balls|maxDistance(position,m)||[[1,2,3,4,7],3]=>3|[[5,4,3,2,1,1000000000],2]=>999999999
+Single Element in a Sorted Array|singleNonDuplicate(nums)||[[1,1,2,3,3,4,4,8,8]]=>2|[[3,3,7,7,10,11,11]]=>10
+Search in Rotated Sorted Array II|search(nums,target)||[[2,5,6,0,0,1,2],0]=>true|[[2,5,6,0,0,1,2],3]=>false
+Kth Smallest Element in a Sorted Matrix|kthSmallest(matrix,k)||[[[1,5,9],[10,11,13],[12,13,15]],8]=>13|[[[-5]],1]=>-5
+Successful Pairs of Spells and Potions|successfulPairs(spells,potions,success)||[[5,1,3],[1,2,3,4,5],7]=>[4,0,3]|[[3,1,2],[8,5,8],16]=>[2,0,2]
+Random Pick with Weight|Solution|d|[["Solution","pickIndex","pickIndex"],[[[1]],[],[]]]=>[null,0,0]
+Minimum Time to Complete Trips|minimumTime(time,totalTrips)||[[1,2,3],5]=>3|[[2],1]=>2
+Maximum Candies Allocated to K Children|maximumCandies(candies,k)||[[5,8,6],3]=>5|[[2,5],11]=>0
+Search a 2D Matrix II|searchMatrix(matrix,target)||[[[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]],5]=>true|[[[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]],20]=>false
+Heaters|findRadius(houses,heaters)||[[1,2,3],[2]]=>1|[[1,2,3,4],[1,4]]=>1|[[1,5],[2]]=>3
+Allocate Minimum Number of Pages|allocatePages(pages,students)||[[12,34,67,90],2]=>113|[[10,20,30,40],2]=>60
+Aggressive Cows|aggressiveCows(stalls,cows)||[[1,2,4,8,9],3]=>3|[[1,2,3],2]=>2
+Painter's Partition Problem|paintersPartition(boards,painters)||[[10,20,30,40],2]=>60|[[5,5,5,5],2]=>10
+Find Right Interval|findRightInterval(intervals)||[[[1,2]]]=>[-1]|[[[3,4],[2,3],[1,2]]]=>[-1,0,1]|[[[1,4],[2,3],[3,4]]]=>[-1,2,-1]
+Maximum Number of Removable Characters|maximumRemovals(s,p,removable)||["abcacb","ab",[3,1,0]]=>2|["abcbddddd","abcd",[3,2,1,4,5,6]]=>1
+Find in Mountain Array|findInMountainArray(target,arr)||[3,[1,2,3,4,5,3,1]]=>2|[3,[0,1,2,4,2,1]]=>-1|#arr is a plain array here
+Find Minimum in Rotated Sorted Array II|findMin(nums)||[[1,3,5]]=>1|[[2,2,2,0,1]]=>0
+Kth Smallest Prime Fraction|kthSmallestPrimeFraction(arr,k)||[[1,2,3,5],3]=>[2,5]|[[1,7],1]=>[1,7]
+Minimize Max Distance to Gas Station|minmaxGasDist(stations,k)||[[1,2,3,4,5,6,7,8,9,10],9]=>0.5|[[23,24,36,39,46,56,57,65,84,98],1]=>14|#Round the answer to 2 decimal places
+Maximum Running Time of N Computers|maxRunTime(n,batteries)||[2,[3,3,3]]=>4|[2,[1,1,1,1]]=>2
+Nth Magical Number|nthMagicalNumber(n,a,b)||[1,2,3]=>2|[4,2,3]=>6|[5,2,4]=>10
+Preimage Size of Factorial Zeroes Function|preimageSizeFZF(k)||[0]=>5|[5]=>0|[3]=>5
+Divide Chocolate|maximizeSweetness(sweetness,k)||[[1,2,3,4,5,6,7,8,9],5]=>6|[[5,6,7,8,9,1,2,3,4],8]=>1|[[1,2,2,1,2,2,1,2,2],2]=>5
+Kth Smallest Number in Multiplication Table|findKthNumber(m,n,k)||[3,3,5]=>3|[2,3,6]=>6
+Smallest Good Base|smallestGoodBase(n)||["13"]=>"3"|["4681"]=>"8"|["1000000000000000000"]=>"999999999999999999"
+`);
+        parseSpecs(`
+Kth Largest Element in a Stream|KthLargest|d|[["KthLargest","add","add","add","add","add"],[[3,[4,5,8,2]],[3],[5],[10],[9],[4]]]=>[null,4,5,5,8,8]
+Relative Ranks|findRelativeRanks(score)||[[5,4,3,2,1]]=>["Gold Medal","Silver Medal","Bronze Medal","4","5"]|[[10,3,8,9,4]]=>["Gold Medal","5","Bronze Medal","Silver Medal","4"]
+The K Weakest Rows in a Matrix|kWeakestRows(mat,k)||[[[1,1,0,0,0],[1,1,1,1,0],[1,0,0,0,0],[1,1,0,0,0],[1,1,1,1,1]],3]=>[2,0,3]|[[[1,0,0,0],[1,1,1,1],[1,0,0,0],[1,0,0,0]],2]=>[0,2]
+Heap Sort|heapSort(nums)||[[4,10,3,5,1]]=>[1,3,4,5,10]|[[]]=>[]
+Implement a Min Heap|MinHeap|d|[["MinHeap","insert","insert","insert","peek","extractMin","peek"],[[],[5],[2],[8],[],[],[]]]=>[null,null,null,null,2,2,5]
+Implement a Max Heap|MaxHeap|d|[["MaxHeap","insert","insert","insert","peek","extractMax","peek"],[[],[5],[2],[8],[],[],[]]]=>[null,null,null,null,8,8,5]
+Build Heap From an Array|heapify(nums)||[[4,10,3,5,1]]=>[1,4,3,5,10]|[[3,2,1]]=>[1,2,3]|#Build a min-heap bottom-up (sift down from index n/2-1 to 0) and return the array
+Convert Min Heap to Max Heap|minToMaxHeap(arr)||[[3,5,9,6,8,20,10,12,18,9]]=>[20,18,10,12,9,9,3,5,6,8]|[[1,2,3]]=>[3,2,1]|#Build a max-heap bottom-up (sift down from index n/2-1 to 0)
+Check if an Array Is a Min Heap|isMinHeap(arr)||[[1,2,3,4]]=>true|[[3,1,2]]=>false
+Find K Largest Elements|kLargest(nums,k)||[[3,1,5,12,2,11],3]=>[12,11,5]|#Return in descending order
+Find K Smallest Elements|kSmallest(nums,k)||[[3,1,5,12,2,11],3]=>[1,2,3]|#Return in ascending order
+Sum of K Smallest Elements|sumKSmallest(nums,k)||[[3,1,5,12,2,11],3]=>6
+Merge Two Sorted Arrays Using a Heap|mergeWithHeap(a,b)||[[1,4],[2,3]]=>[1,2,3,4]
+Repeatedly Remove the Minimum Element|removeMinOrder(nums)||[[3,1,2]]=>[1,2,3]|#Return the elements in the order they are removed
+Minimum Sum of Four Digit Number After Splitting Digits|minimumSum(num)||[2932]=>52|[4009]=>13
+Make Array Zero by Subtracting Equal Amounts|minimumOperations(nums)||[[1,5,0,3,5]]=>3|[[0]]=>0
+Delete Greatest Value in Each Row|deleteGreatestValue(grid)||[[[1,2,4],[3,3,1]]]=>8|[[[10]]]=>10
+Take Gifts From the Richest Pile|pickGifts(gifts,k)||[[25,64,9,4,100],4]=>29|[[1,1,1,1],4]=>4
+Final Array State After K Multiplication Operations|getFinalState(nums,k,multiplier)||[[2,1,3,5,6],5,2]=>[8,4,6,5,6]|[[1,2],3,4]=>[16,8]
+Minimum Operations to Exceed Threshold Value|minOperations(nums,k)||[[2,11,10,1,3],10]=>3|[[1,1,2,4,9],1]=>0
+Sum of the Largest K Elements|sumKLargest(nums,k)||[[3,1,5,12,2,11],3]=>28
+Top Students by Score|topStudents(scores,k)||[[["a",50],["b",90],["c",70]],2]=>["b","c"]|#Each entry is [name, score]; return names, best first
+Find the Third Largest Element|thirdLargest(nums)||[[1,2,3,4]]=>2|[[5,5,5]]=>-1|#Third distinct largest value, or -1
+Minimum Cost of Buying Candies With Discount|minimumCost(cost)||[[1,2,3]]=>5|[[6,5,7,9,2,2]]=>23|[[5,5]]=>10
+Check if Heap Property Holds After an Insert|insertAndCheck(heap,x)||[[1,3,5],2]=>[1,2,5,3]|#Insert x into the min-heap array (sift up) and return it
+Replace Elements With Their Rank|arrayRankTransform(arr)||[[40,10,20,30]]=>[4,1,2,3]|[[100,100,100]]=>[1,1,1]
+Priority Queue Using an Array|PriorityQueue|d|[["PriorityQueue","enqueue","enqueue","enqueue","dequeue","dequeue"],[[],["a",2],["b",1],["c",3],[],[]]]=>[null,null,null,null,"b","a"]|#A lower number means higher priority
+Get the Median of Two Heaps Contents|medianTwoHeaps(nums)||[[5,15,1,3]]=>[5,10,5,4]|#Return the running median after each insertion
+Kth Largest Element in an Array|findKthLargest(nums,k)||[[3,2,1,5,6,4],2]=>5|[[3,2,3,1,2,4,5,5,6],4]=>4
+K Closest Points to Origin|kClosest(points,k)|u|[[[1,3],[-2,2]],1]=>[[-2,2]]|[[[3,3],[5,-1],[-2,4]],2]=>[[3,3],[-2,4]]
+Find K Pairs with Smallest Sums|kSmallestPairs(nums1,nums2,k)|u|[[1,7,11],[2,4,6],3]=>[[1,2],[1,4],[1,6]]|[[1,1,2],[1,2,3],2]=>[[1,1],[1,1]]
+Reorganize String|reorganizeString(s)||["aab"]=>"aba"|["aaab"]=>""|#Test strings have a unique answer
+Furthest Building You Can Reach|furthestBuilding(heights,bricks,ladders)||[[4,2,7,6,9,14,12],5,1]=>4|[[4,12,2,7,3,18,20,3,19],10,2]=>7|[[14,3,19,3],17,0]=>3
+Ugly Number II|nthUglyNumber(n)||[10]=>12|[1]=>1
+Super Ugly Number|nthSuperUglyNumber(n,primes)||[12,[2,7,13,19]]=>32|[1,[2,3,5]]=>1
+Seat Reservation Manager|SeatManager|d|[["SeatManager","reserve","reserve","unreserve","reserve","reserve","reserve","reserve","unreserve"],[[5],[],[],[2],[],[],[],[],[5]]]=>[null,1,2,null,2,3,4,5,null]
+Minimum Cost to Connect Sticks|connectSticks(sticks)||[[2,4,3]]=>14|[[1,8,3,5]]=>30|[[5]]=>0
+Longest Happy String|longestDiverseString(a,b,c)||[0,0,1]=>"c"|[0,0,7]=>"cc"|#Cases use a single letter so the answer is unique
+Distant Barcodes|rearrangeBarcodes(barcodes)||[[1]]=>[1]|[[5,5,6]]=>[5,6,5]|#Cases have a unique answer
+Single-Threaded CPU|getOrder(tasks)||[[[1,2],[2,4],[3,2],[4,1]]]=>[0,2,3,1]|[[[7,10],[7,12],[7,5],[7,4],[7,2]]]=>[4,3,2,0,1]
+Total Cost to Hire K Workers|totalCost(costs,k,candidates)||[[17,12,10,2,7,2,11,20,8],3,4]=>11|[[1,2,4,1],3,3]=>4
+Remove Stones to Minimize the Total|minStoneSum(piles,k)||[[5,4,9],2]=>12|[[4,3,6,7],3]=>12
+Minimum Operations to Halve Array Sum|halveArray(nums)||[[5,19,8,1]]=>3|[[3,8,20]]=>3
+Path With Minimum Effort|minimumEffortPath(heights)||[[[1,2,2],[3,8,2],[5,3,5]]]=>2|[[[1,2,3],[3,8,4],[5,3,5]]]=>1|[[[1,2,1,1,1],[1,2,1,2,1],[1,2,1,2,1],[1,2,1,2,1],[1,1,1,2,1]]]=>0
+Hand of Straights|isNStraightHand(hand,groupSize)||[[1,2,3,6,2,3,4,7,8],3]=>true|[[1,2,3,4,5],4]=>false
+Process Tasks Using Servers|assignTasks(servers,tasks)||[[3,3,2],[1,2,3,2,1,2]]=>[2,2,0,2,1,2]|[[5,1,4,3,2],[2,1,2,4,5,2,1]]=>[1,4,1,4,1,3,2]
+Maximum Subsequence Score|maxScore(nums1,nums2,k)||[[1,3,3,2],[2,1,3,4],3]=>12|[[4,2,3,1,1],[7,5,10,9,6],1]=>30
+Find the Kth Largest Integer in the Array|kthLargestNumber(nums,k)||[["3","6","7","10"],4]=>"3"|[["2","21","12","1"],3]=>"2"|[["0","0"],2]=>"0"
+IPO|findMaximizedCapital(k,w,profits,capital)||[2,0,[1,2,3],[0,1,1]]=>4|[3,0,[1,2,3],[0,1,2]]=>6
+Maximum Performance of a Team|maxPerformance(n,speed,efficiency,k)||[6,[2,10,3,1,5,8],[5,4,3,9,7,2],2]=>60|[6,[2,10,3,1,5,8],[5,4,3,9,7,2],3]=>68|[6,[2,10,3,1,5,8],[5,4,3,9,7,2],4]=>72
+The Skyline Problem|getSkyline(buildings)||[[[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]]=>[[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]|[[[0,2,3],[2,5,3]]]=>[[0,3],[5,0]]
+Rearrange String k Distance Apart|rearrangeString(s,k)||["aaabc",3]=>""|["a",1]=>"a"|["aa",0]=>"aa"
+Minimum Cost to Hire K Workers|mincostToHireWorkers(quality,wage,k)||[[10,20,5],[70,50,30],2]=>105|[[3,1,10,10,1],[4,8,2,2,7],3]=>30.66667|#Round the answer to 5 decimal places
+Find Servers That Handled Most Number of Requests|busiestServers(k,arrival,load)|u|[3,[1,2,3,4,5],[5,2,3,3,3]]=>[1]|[3,[1,2,3,4],[1,2,1,2]]=>[0]|[3,[1,2,3],[10,12,11]]=>[0,1,2]
+Maximum Number of Events That Can Be Attended|maxEvents(events)||[[[1,2],[2,3],[3,4]]]=>3|[[[1,2],[2,3],[3,4],[1,2]]]=>4
+Course Schedule III|scheduleCourse(courses)||[[[100,200],[200,1300],[1000,1250],[2000,3200]]]=>3|[[[1,2]]]=>1|[[[3,2],[4,3]]]=>0
+Minimize Deviation in Array|minimumDeviation(nums)||[[1,2,3,4]]=>1|[[4,1,5,20,3]]=>3|[[2,10,8]]=>3
+Construct Target Array With Multiple Sums|isPossible(target)||[[9,3,5]]=>true|[[1,1,1,2]]=>false|[[8,5]]=>true
+`);
+        parseSpecs(`
+Minimum Cost to Move Chips to the Same Position|minCostToMoveChips(position)||[[1,2,3]]=>1|[[2,2,2,3,3]]=>2
+Split a String in Balanced Strings|balancedStringSplit(s)||["RLRRLLRLRL"]=>4|["RLRRRLLRLL"]=>2|["LLLLRRRR"]=>1
+Minimum Subsequence in Non-Increasing Order|minSubsequence(nums)||[[4,3,10,9,8]]=>[10,9]|[[4,4,7,6,7]]=>[7,7,6]
+Maximum Ice Cream Bars|maxIceCream(costs,coins)||[[1,3,2,4,1],7]=>4|[[10,6,8,7,7,8],5]=>0|[[1,6,3,1,2,5],20]=>6
+Minimum Absolute Difference of Pairs|minimumAbsDifference(arr)||[[4,2,1,3]]=>[[1,2],[2,3],[3,4]]|[[1,3,6,10,15]]=>[[1,3]]|#Return all pairs (a,b), a<b, with the minimum difference, in ascending order
+Distribute Candies to People|distributeCandiesPeople(candies,num_people)||[7,4]=>[1,2,3,1]|[10,3]=>[5,2,3]
+Minimum Operations to Make the Array Increasing|minOperations(nums)||[[1,1,1]]=>3|[[1,5,2,4,1]]=>14|[[8]]=>0
+Maximum Number of Coins You Can Get|maxCoins(piles)||[[2,4,1,2,7,8]]=>9|[[2,4,5]]=>4|[[9,8,7,6,5,1,2,3,4]]=>18
+Minimum Moves to Seat Everyone|minMovesToSeat(seats,students)||[[3,1,5],[2,7,4]]=>4|[[4,1,5,9],[1,3,2,6]]=>7
+Minimum Amount of Time to Collect Garbage|garbageCollection(garbage,travel)||[["G","P","GP","GG"],[2,4,3]]=>21|[["MMM","PGM","GP"],[3,10]]=>37
+Check If All 1s Are at Least K Places Away|kLengthApart(nums,k)||[[1,0,0,0,1,0,0,1],2]=>true|[[1,0,0,1,0,1],2]=>false
+Maximum Score After Splitting a String|maxScore(s)||["011101"]=>5|["00111"]=>5|["1111"]=>3
+Make Two Arrays Equal by Reversing Subarrays|canBeEqual(target,arr)||[[1,2,3,4],[2,4,1,3]]=>true|[[7],[7]]=>true|[[3,7,9],[3,7,11]]=>false
+Minimum Sum of Two Numbers Formed From Digits|minimumSum(num)||[2932]=>52|[4009]=>13
+Buy Two Chocolates|buyChoco(prices,money)||[[1,2,2],3]=>0|[[3,2,3],3]=>3
+Maximum Odd Binary Number|maximumOddBinaryNumber(s)||["010"]=>"001"|["0101"]=>"1001"
+Minimum Changes To Make Alternating Binary String|minOperations(s)||["0100"]=>1|["10"]=>0|["1111"]=>2
+Teemo Attacking|findPoisonedDuration(timeSeries,duration)||[[1,4],2]=>4|[[1,2],2]=>3
+Gas Station|canCompleteCircuit(gas,cost)||[[1,2,3,4,5],[3,4,5,1,2]]=>3|[[2,3,4],[3,4,3]]=>-1
+Queue Reconstruction by Height|reconstructQueue(people)||[[[7,0],[4,4],[7,1],[5,0],[6,1],[5,2]]]=>[[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]]|[[[6,0],[5,0],[4,0],[3,2],[2,2],[1,4]]]=>[[4,0],[5,0],[2,2],[3,2],[1,4],[6,0]]
+Wiggle Subsequence|wiggleMaxLength(nums)||[[1,7,4,9,2,5]]=>6|[[1,17,5,10,13,15,10,5,16,8]]=>7|[[1,2,3,4,5,6,7,8,9]]=>2
+Two City Scheduling|twoCitySchedCost(costs)||[[[10,20],[30,200],[400,50],[30,20]]]=>110|[[[259,770],[448,54],[926,667],[184,139],[840,118],[577,469]]]=>1859
+Minimum Deletions to Make Character Frequencies Unique|minDeletions(s)||["aab"]=>0|["aaabbbcc"]=>2|["ceabaacb"]=>2
+Reduce Array Size to Half|minSetSize(arr)||[[3,3,3,3,5,5,5,2,2,7]]=>2|[[7,7,7,7,7,7]]=>1
+Maximum Swap|maximumSwap(num)||[2736]=>7236|[9973]=>9973
+Monotone Increasing Digits|monotoneIncreasingDigits(n)||[10]=>9|[1234]=>1234|[332]=>299
+Broken Calculator|brokenCalc(startValue,target)||[2,3]=>2|[5,8]=>2|[3,10]=>3
+Minimum Swaps to Make Strings Equal|minimumSwap(s1,s2)||["xx","yy"]=>1|["xy","yx"]=>2|["xx","xy"]=>-1
+Valid Parenthesis String|checkValidString(s)||["()"]=>true|["(*)"]=>true|["(*))"]=>true|[")("]=>false
+Increasing Triplet Subsequence|increasingTriplet(nums)||[[1,2,3,4,5]]=>true|[[5,4,3,2,1]]=>false|[[2,1,5,0,4,6]]=>true
+Smallest String With A Given Numeric Value|getSmallestString(n,k)||[3,27]=>"aay"|[5,73]=>"aaszz"
+Largest Number|largestNumber(nums)||[[10,2]]=>"210"|[[3,30,34,5,9]]=>"9534330"|[[0,0]]=>"0"
+Video Stitching|videoStitching(clips,time)||[[[0,2],[4,6],[8,10],[1,9],[1,5],[5,9]],10]=>3|[[[0,1],[1,2]],5]=>-1
+Maximum Length of Pair Chain|findLongestChain(pairs)||[[[1,2],[2,3],[3,4]]]=>2|[[[1,2],[7,8],[4,5]]]=>3
+Minimum Number of Operations to Make Array Empty|minOperations(nums)||[[2,3,3,2,2,4,2,3,4]]=>4|[[2,1,2,2,3,3]]=>-1
+Minimum Increment to Make Array Unique|minIncrementForUnique(nums)||[[1,2,2]]=>1|[[3,2,1,2,1,7]]=>6
+Divide Array in Sets of K Consecutive Numbers|isPossibleDivide(nums,k)||[[1,2,3,3,4,4,5,6],4]=>true|[[1,2,3,4],3]=>false
+Eliminate Maximum Number of Monsters|eliminateMaximum(dist,speed)||[[1,3,4],[1,1,1]]=>3|[[1,1,2,3],[1,1,1,1]]=>1|[[3,2,4],[5,3,2]]=>1
+Patching Array|minPatches(nums,n)||[[1,3],6]=>1|[[1,5,10],20]=>2|[[1,2,2],5]=>0
+Create Maximum Number|maxNumber(nums1,nums2,k)||[[3,4,6,5],[9,1,2,5,8,3],5]=>[9,8,6,5,3]|[[6,7],[6,0,4],5]=>[6,7,6,0,4]|[[3,9],[8,9],3]=>[9,8,9]
+Minimum Number of Taps to Open to Water a Garden|minTaps(n,ranges)||[5,[3,4,1,1,0,0]]=>1|[3,[0,0,0,0]]=>-1
+Minimum Number of Moves to Make Palindrome|minMovesToMakePalindrome(s)||["aabb"]=>2|["letelt"]=>2
+Best Meeting Point|minTotalDistance(grid)||[[[1,0,0,0,1],[0,0,0,0,0],[0,0,1,0,0]]]=>6|[[[1,1]]]=>1
+Max Chunks To Make Sorted II|maxChunksToSorted(arr)||[[5,4,3,2,1]]=>1|[[2,1,3,4,4]]=>4
+Maximum Number of Tasks You Can Assign|maxTaskAssign(tasks,workers,pills,strength)||[[3,2,1],[0,3,3],1,1]=>3|[[5,4],[0,0,0],1,5]=>1|[[10,15,30],[0,10,10,10,10],3,10]=>2
+Minimum Number of Operations to Make Array Continuous|minOperations(nums)||[[4,2,5,3]]=>0|[[1,2,3,5,6]]=>1|[[1,10,100,1000]]=>3
+Jump Game VI|maxResult(nums,k)||[[1,-1,-2,4,-7,3],2]=>7|[[10,-5,-2,4,0,3],3]=>17|[[1,-5,-20,4,-1,3,-6,-3],2]=>0
+Minimize the Maximum Difference of Pairs|minimizeMax(nums,p)||[[10,1,2,7,1,3],2]=>1|[[4,2,1,2],1]=>0
+Missing Ranges|findMissingRanges(nums,lower,upper)||[[0,1,3,50,75],0,99]=>["2","4->49","51->74","76->99"]|[[],1,1]=>["1"]
+Check If Any Two Intervals Overlap|anyOverlap(intervals)||[[[1,3],[2,4]]]=>true|[[[1,2],[2,3]]]=>false|#Touching endpoints do not overlap
+Count Overlapping Intervals|countOverlappingPairs(intervals)||[[[1,3],[2,4],[5,6]]]=>1|[[[1,5],[2,3],[4,6]]]=>2|#Count pairs of intervals that overlap
+Maximum Overlap of Intervals|maxOverlap(intervals)||[[[1,4],[2,5],[3,6]]]=>3|[[[1,2],[3,4]]]=>1
+Find Interval With Largest Length|longestInterval(intervals)||[[[1,3],[2,10],[5,6]]]=>[2,10]
+Total Length Covered by Intervals|totalCovered(intervals)||[[[1,3],[2,5],[7,8]]]=>5|[[[1,2]]]=>1
+Check If a Point Lies in Any Interval|pointCovered(intervals,p)||[[[1,3],[5,8]],6]=>true|[[[1,3],[5,8]],4]=>false
+Sort Intervals by Start Time|sortByStart(intervals)||[[[3,4],[1,2],[2,3]]]=>[[1,2],[2,3],[3,4]]
+Sort Intervals by End Time|sortByEnd(intervals)||[[[3,4],[1,5],[2,3]]]=>[[2,3],[3,4],[1,5]]
+Merge Two Sorted Interval Lists|mergeIntervalLists(a,b)||[[[1,3]],[[2,4],[6,7]]]=>[[1,4],[6,7]]|#Merge overlapping intervals in the combined list
+Find the Gap Between Intervals|intervalGaps(intervals)||[[[1,3],[5,8],[10,12]]]=>[[3,5],[8,10]]
+Count Points Covered by Intervals|countCoveredPoints(intervals)||[[[1,3],[2,5]]]=>5|#Count integer points covered by at least one interval
+Minimum Time Difference|findMinDifference(timePoints)||[["23:59","00:00"]]=>1|[["00:00","23:59","00:00"]]=>0
+Largest Gap Between Meetings|largestFreeGap(meetings)||[[[1,3],[6,8],[9,10]]]=>3
+Count Conflicts Among Meetings|countConflicts(meetings)||[[[1,4],[2,5],[6,7]]]=>1
+Count Non-Overlapping Intervals|maxNonOverlapping(intervals)||[[[1,2],[2,3],[3,4],[1,3]]]=>3|#Return the size of the largest set of non-overlapping intervals
+Count Intervals Contained in Another|countContained(intervals)||[[[1,5],[2,3],[4,6]]]=>1
+Number of Intervals Containing a Point|intervalsContaining(intervals,p)||[[[1,4],[2,3],[5,6]],3]=>2
+Intersection of Two Closed Intervals|intersectIntervals(a,b)||[[1,5],[3,8]]=>[3,5]|[[1,2],[3,4]]=>[]
+Union of Two Intervals|unionIntervals(a,b)||[[1,3],[2,5]]=>[[1,5]]|[[1,2],[4,5]]=>[[1,2],[4,5]]
+Duration of Overlap Between Two Meetings|overlapDuration(a,b)||[[1,5],[3,8]]=>2|[[1,2],[3,4]]=>0
+Check If Two Rectangles Overlap|rectanglesOverlap(r1,r2)||[[0,0,2,2],[1,1,3,3]]=>true|[[0,0,1,1],[1,0,2,1]]=>false
+Rectangle Area|computeArea(ax1,ay1,ax2,ay2,bx1,by1,bx2,by2)||[-3,0,3,4,0,-1,9,2]=>45|[-2,-2,2,2,-2,-2,2,2]=>16
+Find Free Time Between Two Meetings|freeTimeBetween(m1,m2)||[[1,3],[5,7]]=>[3,5]|[[1,6],[5,7]]=>[]
+Convert Ranges to Intervals|toIntervals(nums)||[[1,2,3,7,8,10]]=>[[1,3],[7,8],[10,10]]
+Earliest Common Slot Check|hasCommonSlot(a,b,duration)||[[[10,50],[60,120],[140,210]],[[0,15],[60,70]],8]=>true|[[[10,50],[60,120],[140,210]],[[0,15],[60,70]],12]=>false
+Interval Length Statistics|intervalStats(intervals)||[[[1,3],[2,8],[5,6]]]=>[1,6,3]|#Return [min length, max length, average length]
+Non-overlapping Intervals|eraseOverlapIntervals(intervals)||[[[1,2],[2,3],[3,4],[1,3]]]=>1|[[[1,2],[1,2],[1,2]]]=>2|[[[1,2],[2,3]]]=>0
+Meeting Rooms II|minMeetingRooms(intervals)||[[[0,30],[5,10],[15,20]]]=>2|[[[7,10],[2,4]]]=>1
+Interval List Intersections|intervalIntersection(firstList,secondList)||[[[0,2],[5,10],[13,23],[24,25]],[[1,5],[8,12],[15,24],[25,26]]]=>[[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]]|[[],[[1,5]]]=>[]
+Minimum Number of Arrows to Burst Balloons|findMinArrowShots(points)||[[[10,16],[2,8],[1,6],[7,12]]]=>2|[[[1,2],[3,4],[5,6],[7,8]]]=>4|[[[1,2],[2,3],[3,4],[4,5]]]=>2
+Car Pooling|carPooling(trips,capacity)||[[[2,1,5],[3,3,7]],4]=>false|[[[2,1,5],[3,3,7]],5]=>true
+My Calendar I|MyCalendar|d|[["MyCalendar","book","book","book"],[[],[10,20],[15,25],[20,30]]]=>[null,true,false,true]
+My Calendar II|MyCalendarTwo|d|[["MyCalendarTwo","book","book","book","book","book","book"],[[],[10,20],[50,60],[10,40],[5,15],[5,10],[25,55]]]=>[null,true,true,true,false,true,true]
+Remove Covered Intervals|removeCoveredIntervals(intervals)||[[[1,4],[3,6],[2,8]]]=>2|[[[1,4],[2,3]]]=>1
+Divide Intervals Into Minimum Number of Groups|minGroups(intervals)||[[[5,10],[6,8],[1,5],[2,3],[1,10]]]=>3|[[[1,3],[5,6],[8,10],[11,13]]]=>1
+Meeting Scheduler|minAvailableDuration(slots1,slots2,duration)||[[[10,50],[60,120],[140,210]],[[0,15],[60,70]],8]=>[60,68]|[[[10,50],[60,120],[140,210]],[[0,15],[60,70]],12]=>[]
+Range Addition|getModifiedArray(length,updates)||[5,[[1,3,2],[2,4,3],[0,2,-2]]]=>[-2,0,3,5,3]
+Corporate Flight Bookings|corpFlightBookings(bookings,n)||[[[1,2,10],[2,3,20],[2,5,25]],5]=>[10,55,45,25,25]|[[[1,2,10],[2,2,15]],2]=>[10,25]
+Add Bold Tag in String|addBoldTag(s,words)||["abcxyz123",["abc","123"]]=>"<b>abc</b>xyz<b>123</b>"|["aaabbcc",["aaa","aab","bc"]]=>"<b>aaabbc</b>c"
+Describe the Painting|splitPainting(segments)||[[[1,4,5],[4,7,7],[1,7,9]]]=>[[1,4,14],[4,7,16]]|[[[1,7,9],[6,8,15],[8,10,7]]]=>[[1,6,9],[6,7,24],[7,8,15],[8,10,7]]
+Count Days Without Meetings|countDays(days,meetings)||[10,[[5,7],[1,3],[9,10]]]=>2|[5,[[2,4],[1,3]]]=>1|[6,[[1,6]]]=>0
+Amount of New Area Painted Each Day|amountPainted(paint)||[[[1,4],[4,7],[5,8]]]=>[3,3,1]|[[[1,4],[5,8],[4,7]]]=>[3,3,1]|[[[1,5],[2,4]]]=>[4,0]
+Maximum Population Year|maximumPopulation(logs)||[[[1993,1999],[2000,2010]]]=>1993|[[[1950,1961],[1960,1971],[1970,1981]]]=>1960
+Hotel Booking Possible|hotelBookingPossible(arrive,depart,k)||[[1,3,5],[2,6,10],1]=>false|[[1,3,5],[2,4,6],1]=>true
+Find the Maximum Number of Meetings in One Room|maxMeetingsOneRoom(start,end)||[[1,3,0,5,8,5],[2,4,6,7,9,9]]=>4|[[1],[2]]=>1
+Meeting Rooms III|mostBooked(n,meetings)||[2,[[0,10],[1,5],[2,7],[3,4]]]=>0|[3,[[1,20],[2,10],[3,5],[4,9],[6,8]]]=>1
+Employee Free Time|employeeFreeTime(schedule)||[[[[1,2],[5,6]],[[1,3]],[[4,10]]]]=>[[3,4]]|[[[[1,3],[6,7]],[[2,4]],[[2,5],[9,12]]]]=>[[5,6],[7,9]]
+Minimum Interval to Include Each Query|minInterval(intervals,queries)||[[[1,4],[2,4],[3,6],[4,4]],[2,3,4,5]]=>[3,3,1,4]|[[[2,3],[2,5],[1,8],[20,25]],[2,19,5,22]]=>[2,-1,4,6]
+Rectangle Area II|rectangleArea(rectangles)||[[[0,0,2,2],[1,0,2,3],[1,0,3,1]]]=>6|[[[0,0,1000000000,1000000000]]]=>49
+Maximum Profit in Job Scheduling|jobScheduling(startTime,endTime,profit)||[[1,2,3,3],[3,4,5,6],[50,10,40,70]]=>120|[[1,2,3,4,6],[3,5,10,6,9],[20,20,100,70,60]]=>150|[[1,1,1],[2,3,4],[5,6,4]]=>6
+Falling Squares|fallingSquares(positions)||[[[1,2],[2,3],[6,1]]]=>[2,5,5]|[[[100,100],[200,100]]]=>[100,100]
+Number of Flowers in Full Bloom|fullBloomFlowers(flowers,people)||[[[1,6],[3,7],[9,12],[4,13]],[2,3,7,11]]=>[1,2,2,2]|[[[1,10],[3,3]],[3,3,2]]=>[2,2,1]
+Count Integers in Intervals|CountIntervals|d|[["CountIntervals","add","add","count","add","count"],[[],[2,3],[7,10],[],[5,8],[]]]=>[null,null,null,6,null,8]
+Perfect Rectangle|isRectangleCover(rectangles)||[[[1,1,3,3],[3,1,4,2],[3,2,4,4],[1,3,2,4],[2,3,3,4]]]=>true|[[[1,1,2,3],[1,3,2,4],[3,1,4,2],[3,2,4,4]]]=>false|[[[1,1,3,3],[3,1,4,2],[1,3,2,4],[2,2,4,4]]]=>false
+Exam Room|ExamRoom|d|[["ExamRoom","seat","seat","seat","seat","leave","seat"],[[10],[],[],[],[],[4],[]]]=>[null,0,9,4,2,null,5]
+Maximum Number of Non-Overlapping Substrings|maxNumOfSubstrings(s)|u|["adefaddaccc"]=>["e","f","ccc"]|["abbaccd"]=>["bb","cc","d"]
+`);
+        parseSpecs(`
+Reverse Bits|reverseBits(n)||[43261596]=>964176192|[4294967293]=>3221225471|#n is an unsigned 32-bit integer
+Binary Number with Alternating Bits|hasAlternatingBits(n)||[5]=>true|[7]=>false|[11]=>false
+Complement of Base 10 Integer|bitwiseComplement(n)||[5]=>2|[7]=>0|[10]=>5
+Convert a Number to Hexadecimal|toHex(num)||[26]=>"1a"|[-1]=>"ffffffff"|[0]=>"0"
+Prime Number of Set Bits in Binary Representation|countPrimeSetBits(left,right)||[6,10]=>4|[10,15]=>5
+XOR Operation in an Array|xorOperation(n,start)||[5,0]=>8|[4,3]=>8
+Decode XORed Array|decode(encoded,first)||[[1,2,3],1]=>[1,0,2,1]|[[6,2,7,3],4]=>[4,2,0,7,4]
+Check if the Kth Bit Is Set|isKthBitSet(n,k)||[5,1]=>true|[5,2]=>false|#k is 1-indexed from the right
+Set the Kth Bit|setKthBit(n,k)||[5,2]=>7|[5,1]=>5|#k is 1-indexed from the right
+Clear the Kth Bit|clearKthBit(n,k)||[5,1]=>4|[5,2]=>5|#k is 1-indexed from the right
+Toggle the Kth Bit|toggleKthBit(n,k)||[5,2]=>7|[5,1]=>4|#k is 1-indexed from the right
+Swap Two Numbers Using XOR|swapXor(a,b)||[3,5]=>[5,3]
+Check if a Number Is Even Using Bits|isEvenBits(n)||[4]=>true|[7]=>false
+Find the Only Odd-Occurring Number|oddOccurring(nums)||[[1,2,1,2,3]]=>3|[[7]]=>7
+Rightmost Set Bit Position|rightmostSetBit(n)||[12]=>3|[1]=>1|[0]=>0|#1-indexed from the right; 0 if none
+Find XOR of Numbers From 1 to N|xorUpTo(n)||[5]=>1|[4]=>4|[7]=>0
+Smallest Number With All Bits Set|smallestAllBitsSet(n)||[10]=>15|[7]=>7|[1]=>1|#Smallest number >= n whose binary form is all ones
+Check if Binary String Has At Most One Segment of Ones|checkOnesSegment(s)||["1001"]=>false|["110"]=>true
+Sort Integers by The Number of 1 Bits|sortByBits(arr)||[[0,1,2,3,4,5,6,7,8]]=>[0,1,2,4,8,3,5,6,7]
+Bitwise OR of All Elements|orAll(nums)||[[1,2,4]]=>7
+Bitwise AND of All Elements|andAll(nums)||[[7,6,5]]=>4
+Find the Position of the Only Set Bit|onlySetBitPosition(n)||[8]=>4|[6]=>-1|[0]=>-1|#1-indexed from the right; -1 if not exactly one set bit
+Single Number II|singleNumber(nums)||[[2,2,3,2]]=>3|[[0,1,0,1,0,1,99]]=>99
+Single Number III|singleNumber(nums)|u|[[1,2,1,3,2,5]]=>[3,5]|[[-1,0]]=>[-1,0]
+Bitwise AND of Numbers Range|rangeBitwiseAnd(left,right)||[5,7]=>4|[0,0]=>0|[1,2147483647]=>0
+Divide Two Integers|divide(dividend,divisor)||[10,3]=>3|[7,-3]=>-2|[-2147483648,-1]=>2147483647
+Total Hamming Distance|totalHammingDistance(nums)||[[4,14,2]]=>6|[[4,14,4]]=>4
+Maximum XOR of Two Numbers in an Array|findMaximumXOR(nums)||[[3,10,5,25,2,8]]=>28|[[14,70,53,83,49,91,36,80,92,51,66,70]]=>127
+UTF-8 Validation|validUtf8(data)||[[197,130,1]]=>true|[[235,140,4]]=>false
+XOR Queries of a Subarray|xorQueries(arr,queries)||[[1,3,4,8],[[0,1],[1,2],[0,3],[3,3]]]=>[2,7,14,8]
+Find the Original Array of Prefix Xor|findArray(pref)||[[5,2,0,3,1]]=>[5,7,2,3,2]
+Maximum Product of Word Lengths|maxProduct(words)||[["abcw","baz","foo","bar","xtfn","abcdef"]]=>16|[["a","ab","abc","d","cd","bcd","abcd"]]=>4|[["a","aa","aaa","aaaa"]]=>0
+Bitwise ORs of Subarrays|subarrayBitwiseORs(arr)||[[0]]=>1|[[1,1,2]]=>3|[[1,2,4]]=>6
+Largest Combination With Bitwise AND Greater Than Zero|largestCombination(candidates)||[[16,17,71,62,12,24,14]]=>4|[[8,8]]=>2
+Minimum Flips to Make a OR b Equal to c|minFlips(a,b,c)||[2,6,5]=>3|[4,2,7]=>1|[1,2,3]=>0
+Longest Subarray With Maximum Bitwise AND|longestSubarray(nums)||[[1,2,3,3,2,2]]=>2|[[1,2,3,4]]=>1
+Sum of All Subset XOR Totals|subsetXORSum(nums)||[[1,3]]=>6|[[5,1,6]]=>28|[[3,4,5,6,7,8]]=>480
+Count Number of Maximum Bitwise-OR Subsets|countMaxOrSubsets(nums)||[[3,1]]=>2|[[2,2,2]]=>7|[[3,2,1,5]]=>6
+Find XOR Sum of All Pairs Bitwise AND|getXORSum(arr1,arr2)||[[1,2,3],[6,5]]=>0|[[12],[4]]=>4
+Concatenation of Consecutive Binary Numbers|concatenatedBinary(n)||[1]=>1|[3]=>27|[12]=>505379714
+Minimum Array End|minEnd(n,x)||[3,4]=>6|[2,7]=>15
+Counting Bits Optimized by Last Set Bit|countBitsDP(n)||[5]=>[0,1,1,2,1,2]|[2]=>[0,1,1]|#Use dp[i] = dp[i & (i-1)] + 1
+Minimum One Bit Operations to Make Integers Zero|minimumOneBitOperations(n)||[3]=>2|[6]=>4|[0]=>0
+Maximum XOR With an Element From Array|maximizeXor(nums,queries)||[[0,1,2,3,4],[[3,1],[1,3],[5,6]]]=>[3,3,7]|[[5,2,4,6,6,3],[[12,4],[8,1],[6,3]]]=>[15,-1,5]
+Maximum Genetic Difference Query|maxGeneticDifference(parents,queries)||[[-1,0,1,1],[[0,2],[3,2],[2,5]]]=>[2,3,7]|[[3,7,-1,2,0,7,0,2],[[4,6],[1,15],[0,5]]]=>[6,14,7]
+Smallest Sufficient Team|smallestSufficientTeam(req_skills,people)|u|[["java","nodejs","reactjs"],[["java"],["nodejs"],["nodejs","reactjs"]]]=>[0,2]|[["algorithms","math","java","reactjs","csharp","aws"],[["algorithms","math","java"],["algorithms","math","reactjs"],["java","csharp","aws"],["reactjs","csharp"],["csharp","math"],["aws","java"]]]=>[1,2]
+Minimum XOR Sum of Two Arrays|minimumXORSum(nums1,nums2)||[[1,2],[2,3]]=>2|[[1,0,3],[5,3,4]]=>8
+Maximum AND Sum of Array|maximumANDSum(nums,numSlots)||[[1,2,3,4,5,6],3]=>9|[[1,3,10,4,7,1],9]=>24
+Parallel Courses II|minNumberOfSemesters(n,relations,k)||[4,[[2,1],[3,1],[1,4]],2]=>3|[5,[[2,1],[3,1],[4,1],[1,5]],2]=>4
+Maximum Students Taking Exam|maxStudents(seats)||[[["#",".","#","#",".","#"],[".","#","#","#","#","."],["#",".","#","#",".","#"]]]=>4|[[[".","#"],["#","#"],["#","."],["#","#"],[".","#"]]]=>3
+Distribute Repeating Integers|canDistribute(nums,quantity)||[[1,2,3,4],[2]]=>false|[[1,2,3,3],[2]]=>true|[[1,1,2,2],[2,2]]=>true
+Find the Maximum Sequence Value of Array|maxValue(nums,k)||[[2,6,7],1]=>5|[[4,2,5,6,7],2]=>2
+Range Sum Query - Immutable|NumArray|d|[["NumArray","sumRange","sumRange","sumRange"],[[[-2,0,3,-5,2,-1]],[0,2],[2,5],[0,5]]]=>[null,1,-1,-3]
+Get Maximum in Generated Array|getMaximumGenerated(n)||[7]=>3|[2]=>1|[3]=>2
+Fibonacci With Memoization|fibMemo(n)||[10]=>55|[50]=>12586269025
+Count Ways to Reach the Nth Stair With 1, 2 or 3 Steps|countWaysStairs(n)||[4]=>7|[3]=>4|[1]=>1
+Count Paths in a Grid (Basic)|countPathsGrid(m,n)||[3,3]=>6|[1,5]=>1
+Minimum Cost Path in a Grid (Basic)|minCostPath(grid)||[[[1,3,1],[1,5,1],[4,2,1]]]=>7|#Move only right or down
+Count Binary Strings Without Consecutive 1s|countNoConsecutiveOnes(n)||[3]=>5|[1]=>2|[4]=>8
+Maximum Sum of Non-Adjacent Elements|maxNonAdjacentSum(nums)||[[3,2,7,10]]=>13|[[5,5,10,100,10,5]]=>110
+Painting Fence Ways (Two Colors)|paintFence(n)||[3]=>6|[1]=>2|[2]=>4|#Two colors; no three consecutive posts share a color
+Count Ways to Make Change|countChange(coins,amount)||[[1,2,5],5]=>4|[[2],3]=>0|[[10],0]=>1
+Longest Common Substring Length|longestCommonSubstring(s1,s2)||["abcdxyz","xyzabcd"]=>4|["abc","def"]=>0
+Minimum Cost to Reach the End of an Array|minCostJump(cost)||[[1,2,3]]=>4|[[1,1,1,1]]=>3|#Start at index 0 and pay cost[i] for every index you land on (including the first and last); jump 1 or 2
+Count Number of Hops|countHops(n)||[4]=>7|[3]=>4|#Hops of 1, 2 or 3
+Longest Alternating Subarray|longestAlternating(nums)||[[1,2,1,2,3]]=>4|[[1,1]]=>1|#Differences must strictly alternate up/down
+Maximum Profit From Multiple Transactions (DP View)|maxProfitMulti(prices)||[[7,1,5,3,6,4]]=>7|[[1,2,3,4,5]]=>4
+Number of Ways to Climb With Forbidden Steps|climbWithForbidden(n,forbidden)||[4,[2]]=>1|[3,[]]=>3|#Steps of 1 or 2; you may not land on a forbidden stair
+Count Subsets With Sum Using Tabulation|countSubsetSumDP(nums,target)||[[1,2,3],3]=>2|[[1,1,1],2]=>3
+Minimum Number of Coins (Unbounded) for Small Amounts|minCoinsSmall(coins,amount)||[[1,5,10],12]=>3|[[2],3]=>-1
+Pascal Triangle Number of Paths Check|pascalPaths(r,c)||[4,2]=>6|[3,0]=>1|#Value at row r, column c of Pascal's triangle (0-indexed)
+Min Cost to Paint Fence With Two Colors|minPaintCost(costA,costB)||[[1,5,3],[4,2,6]]=>6|#Posts must alternate colors A and B; costA[i] / costB[i] is the cost to paint post i
+Count Paths in Grid With Blocked Cells (Basic)|countPathsBlocked(grid)||[[[0,0,0],[0,1,0],[0,0,0]]]=>2|[[[0,1],[0,0]]]=>1|#1 is blocked; move right or down
+Maximum Sum Path in a Triangle (Basic)|maxTrianglePath(triangle)||[[[3],[7,4],[2,4,6],[8,5,9,3]]]=>23
+Number of Ways to Form Target Sum With 1s and 2s|waysOneTwo(target)||[4]=>5|[1]=>1|#Ordered sequences
+Tribonacci With Tabulation|tribTab(n)||[25]=>1389537|[4]=>4
+Longest Increasing Run After One Change|longestRunAfterChange(nums)||[[1,2,3,0,5]]=>5|[[5,4,3]]=>2|#Change at most one element to any integer; run must be strictly increasing and contiguous
+Maximum Length of Repeated Subarray|findLength(nums1,nums2)||[[1,2,3,2,1],[3,2,1,4,7]]=>3|[[0,0,0,0,0],[0,0,0,0,0]]=>5
+Last Stone Weight II|lastStoneWeightII(stones)||[[2,7,4,1,8,1]]=>1|[[31,26,33,21,40]]=>5
+Ones and Zeroes|findMaxForm(strs,m,n)||[["10","0001","111001","1","0"],5,3]=>4|[["10","0","1"],1,1]=>2
+Coin Change II|change(amount,coins)||[5,[1,2,5]]=>4|[3,[2]]=>0|[10,[10]]=>1
+House Robber II|rob(nums)||[[2,3,2]]=>3|[[1,2,3,1]]=>4|[[1,2,3]]=>3
+Knight Dialer|knightDialer(n)||[1]=>10|[2]=>20|[3131]=>136006598
+Minimum Falling Path Sum|minFallingPathSum(matrix)||[[[2,1,3],[6,5,4],[7,8,9]]]=>13|[[[-19,57],[-40,-5]]]=>-59
+Maximal Square|maximalSquare(matrix)||[[["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]]=>4|[[["0","1"],["1","0"]]]=>1|[[["0"]]]=>0
+Longest Arithmetic Subsequence|longestArithSeqLength(nums)||[[3,6,9,12]]=>4|[[9,4,7,2,10]]=>3|[[20,1,15,3,10,5,8]]=>4
+Number of Longest Increasing Subsequence|findNumberOfLIS(nums)||[[1,3,5,4,7]]=>2|[[2,2,2,2,2]]=>5
+Domino and Tromino Tiling|numTilings(n)||[3]=>5|[1]=>1|[4]=>11
+Longest String Chain|longestStrChain(words)||[["a","b","ba","bca","bda","bdca"]]=>4|[["xbc","pcxbcf","xb","cxbc","pcxbc"]]=>5|[["abcd","dbqca"]]=>1
+Minimum ASCII Delete Sum for Two Strings|minimumDeleteSum(s1,s2)||["sea","eat"]=>231|["delete","leet"]=>403
+Stone Game|stoneGame(piles)||[[5,3,4,5]]=>true|[[3,7,2,3]]=>true
+Out of Boundary Paths|findPaths(m,n,maxMove,startRow,startColumn)||[2,2,2,0,0]=>6|[1,3,3,0,1]=>12
+Count Square Submatrices with All Ones|countSquares(matrix)||[[[0,1,1,1],[1,1,1,1],[0,1,1,1]]]=>15|[[[1,0,1],[1,1,0],[1,1,0]]]=>7
+Arithmetic Slices|numberOfArithmeticSlices(nums)||[[1,2,3,4]]=>3|[[1]]=>0
+Number of Dice Rolls With Target Sum|numRollsToTarget(n,k,target)||[1,6,3]=>1|[2,6,7]=>6|[30,30,500]=>222616187
+Best Time to Buy and Sell Stock with Transaction Fee|maxProfit(prices,fee)||[[1,3,2,8,4,9],2]=>8|[[1,3,7,5,10,3],3]=>6
+Maximum Number of Points with Cost|maxPoints(points)||[[[1,2,3],[1,5,1],[3,1,1]]]=>9|[[[1,5],[2,3],[4,2]]]=>11
+Matrix Chain Multiplication|matrixChainOrder(dims)||[[10,20,30]]=>6000|[[10,30,5,60]]=>4500|[[40,20,30,10,30]]=>26000
+Minimum Cost to Merge Stones|mergeStones(stones,k)||[[3,2,4,1],2]=>20|[[3,2,4,1],3]=>-1|[[3,5,1,2,6],3]=>25
+Palindrome Partitioning III|palindromePartition(s,k)||["abc",2]=>1|["aabbc",3]=>0|["leetcode",8]=>0
+Number of Ways to Form a Target String Given a Dictionary|numWays(words,target)||[["acca","bbbb","caca"],"aba"]=>6|[["abba","baab"],"bab"]=>4
+Best Time to Buy and Sell Stock IV|maxProfit(k,prices)||[2,[2,4,1]]=>2|[2,[3,2,6,5,0,3]]=>7
+Best Time to Buy and Sell Stock III|maxProfit(prices)||[[3,3,5,0,0,3,1,4]]=>6|[[1,2,3,4,5]]=>4|[[7,6,4,3,1]]=>0
+Number of Music Playlists|numMusicPlaylists(n,goal,k)||[3,3,1]=>6|[2,3,0]=>6|[2,3,1]=>2
+Paint House III|minCost(houses,cost,m,n,target)||[[0,0,0,0,0],[[1,10],[10,1],[10,1],[1,10],[5,1]],5,2,3]=>9|[[0,2,1,2,0],[[1,10],[10,1],[10,1],[1,10],[5,1]],5,2,3]=>11|[[3,1,2,3],[[1,1,1],[1,1,1],[1,1,1],[1,1,1]],4,3,3]=>-1
+Distinct Subsequences II|distinctSubseqII(s)||["abc"]=>7|["aba"]=>6|["aaa"]=>3
+Frog Jump|canCross(stones)||[[0,1,3,5,6,8,12,17]]=>true|[[0,1,2,3,4,8,9,11]]=>false
+`);
+        parseSpecs(`
+Encode and Decode Strings|Codec(strs)|enc|[["abc","de"]]=>["abc","de"]|[[""]]=>[""]|[["a#b","","c"]]=>["a#b","","c"]
+Delete Node in a Linked List|deleteNode(node)|dn|[[4,5,1,9],1]=>[4,1,9]|[[4,5,1,9],2]=>[4,5,9]|#Your function receives the node to delete (never the tail), not the head
+Intersection of Two Linked Lists|getIntersectionNode(headA,headB)|ix|[[4,1,8,4,5],[5,6,1,8,4,5],2,3]=>8|[[1,9,1,2,4],[3,2,4],3,1]=>2|[[2,6,4],[1,5],-1,0]=>null|#Input [listA, listB, skipA, skipB]: the lists share the tail starting at index skipA of A (skipA=-1 means no intersection). Return the intersecting node; its value is checked
+Copy List with Random Pointer|copyRandomList(head)|rl|[[[7,null],[13,0],[11,4],[10,2],[1,0]]]=>[[7,null],[13,0],[11,4],[10,2],[1,0]]|[[[1,1],[2,1]]]=>[[1,1],[2,1]]|#Each entry is [val, indexOfRandomNode or null]; nodes have val, next and random. Return a deep copy
+Flatten a Multilevel Doubly Linked List|flatten(head)|ml|[[1,2,3,[7,8,9],4]]=>[1,2,3,7,8,9,4]|[[1,[2,[3]]]]=>[1,2,3]|#Input is nested: an array element is the child list of the node before it. Nodes have val, prev, next and child
+Copy List With Random Pointer in O(1) Space|copyRandomListO1(head)|rl|[[[7,null],[13,0],[11,4],[10,2],[1,0]]]=>[[7,null],[13,0],[11,4],[10,2],[1,0]]|[[[1,0]]]=>[[1,0]]|#Same format as Copy List with Random Pointer; avoid a hash map
+Populating Next Right Pointers in Each Node|connect(root:T)|nr|[[1,2,3,4,5,6,7]]=>[[1],[2,3],[4,5,6,7]]|[[]]=>[]|#Perfect binary tree; set node.next to the right neighbour (null at the end of each level)
+Binary Search Tree Iterator|BSTIterator|dT|[["BSTIterator","next","next","hasNext","next","hasNext","next","hasNext","next","hasNext"],[[[7,3,15,null,null,9,20]],[],[],[],[],[],[],[],[],[]]]=>[null,3,7,true,9,true,15,true,20,false]
+Clone Graph|cloneGraph(node)|cg|[[[2,4],[1,3],[2,4],[1,3]]]=>[[2,4],[1,3],[2,4],[1,3]]|[[[]]]=>[[]]|[[]]=>[]|#Input is an adjacency list (node i+1's neighbors); nodes are {val, neighbors}
+Gray Code|grayCode(n)|gray|[2]=>"valid"|[1]=>"valid"|[3]=>"valid"|#Any valid Gray code starting at 0 is accepted
+Convert BST to Sorted Circular Doubly Linked List|treeToDoublyList(root:T)|bd|[[4,2,5,1,3]]=>[1,2,3,4,5]|[[]]=>[]|#Reuse the nodes: left = previous, right = next; return the smallest node
+Inorder Successor in BST II|inorderSuccessor(node)|sp|[[2,1,3],1]=>2|[[5,3,6,2,4,null,null,1],6]=>null|[[5,3,6,2,4,null,null,1],4]=>5|#Input [tree, valueOfGivenNode]; nodes have a parent pointer; return the successor node (its value is checked)
+Binary Search Tree Iterator II|BSTIterator|dT|[["BSTIterator","next","next","prev","next","hasNext","next","next","next","hasNext","hasPrev","prev","prev"],[[[7,3,15,null,null,9,20]],[],[],[],[],[],[],[],[],[],[],[],[]]]=>[null,3,7,3,7,true,9,15,20,false,true,15,9]
+Find Elements in a Contaminated Binary Tree|FindElements|dT|[["FindElements","find","find"],[[[-1,null,-1]],[1],[2]]]=>[null,false,true]|#The constructor receives the contaminated tree (all values -1) and recovers it: root = 0, left = 2x+1, right = 2x+2
+`);
+        /* ===== SPECS-END ===== */
         const DN = {
             E: "Easy",
             M: "Medium",
@@ -2510,7 +3622,8 @@ H|Frog Jump|Can the frog cross the river?`
                 s: a[2] || "",
                 fn: x && x[0],
                 a: x && x[1],
-                tc: x && x[2]
+                tc: x && x[2],
+                meta: (x && x[3]) || {}
             })
         });
         const TOPICS = Object.keys(RAW);
@@ -2562,7 +3675,7 @@ H|Frog Jump|Can the frog cross the river?`
             lang = localStorage.getItem("codearena_lang") === "py" ? "py" : "js"
         } catch (e) {}
         const CK = () => lang === "py" ? "p" : "c";
-        const starter = p => lang === "py" ? "# " + p.t + " (" + DN[p.d] + " | " + p.tp + ")\n# " + p.s + "\ndef " + fnName(p) + "(" + (p.a || "input") + "):\n    pass\n" : "/**\n * " + p.t + " (" + DN[p.d] + " | " + p.tp + ")\n * " + p.s + "\n */\nfunction " + fnName(p) + "(" + (p.a || "input") + ") {\n  \n}\n";
+        const starter = p => p.meta && ["d", "dT", "ser", "enc"].includes(p.meta.mode) ? (lang === "py" ? "# " + p.t + " (" + DN[p.d] + " | " + p.tp + ")\n# " + p.s + "\nclass " + p.fn + ":\n    def __init__(self):\n        pass\n" : "/**\n * " + p.t + " (" + DN[p.d] + " | " + p.tp + ")\n * " + p.s + "\n */\nclass " + p.fn + " {\n  constructor() {\n  }\n}\n") : lang === "py" ? "# " + p.t + " (" + DN[p.d] + " | " + p.tp + ")\n# " + p.s + "\ndef " + fnName(p) + "(" + (p.a || "input") + "):\n    pass\n" : "/**\n * " + p.t + " (" + DN[p.d] + " | " + p.tp + ")\n * " + p.s + "\n */\nfunction " + fnName(p) + "(" + (p.a || "input") + ") {\n  \n}\n";
 
         /* ---------- stats ---------- */
         function updSv() {
@@ -2641,10 +3754,26 @@ H|Frog Jump|Can the frog cross the river?`
             $("ln").textContent = s
         }
 
+        function noteOf(p) {
+            const m = p.meta || {},
+                n = [];
+            if (m.mode === "d" || m.mode === "dT") n.push("Implement class " + p.fn + "; the listed methods are called in order." + (m.mode === "dT" ? " The constructor receives a tree (TreeNode)." : ""));
+            if (m.mode === "ser") n.push("Implement class " + p.fn + " with serialize(root) and deserialize(data); deserialize(serialize(root)) must rebuild the tree.");
+            if (m.mode === "enc") n.push("Implement class " + p.fn + " with encode(x) and decode(s); decode(encode(x)) must return x.");
+            if (m.mode === "bal") n.push("Any valid height-balanced answer is accepted (inorder values are checked).");
+            if (m.mode === "in") n.push("Any valid BST is accepted (inorder values are checked).");
+            if (/^i\d$/.test(m.mode)) n.push("Modify the argument in place; the modified array is checked.");
+            if (m.mode === "u" || m.mode === "uu") n.push("Order of results does not matter.");
+            if ((m.tags || []).some(t => t[0] === "L")) n.push("Linked lists use {val,next} nodes (ListNode provided).");
+            if ((m.tags || []).includes("T") || m.rt === "T") n.push("Trees use {val,left,right} nodes (TreeNode provided).");
+            if (m.note) n.push(m.note + ".");
+            return n.length ? " " + n.join(" ") : ""
+        }
+
         function open(p) {
             cur = p;
             const r = rec(p.k);
-            $("prob").innerHTML = "<h2>" + esc(p.t) + '<span class="tag ' + p.d + '">' + DN[p.d] + '</span><span class="tag">' + p.tp + "</span></h2><p>" + esc(p.s) + "</p>" + (p.tc ? '<p class="mu sm">Built-in tests: ' + p.tc.length + " cases. Passing all marks it Solved automatically.</p>" : '<p class="mu sm">Write your solution, test it with console.log (JS) or print (Python), then mark it Solved yourself.</p>');
+            $("prob").innerHTML = "<h2>" + esc(p.t) + '<span class="tag ' + p.d + '">' + DN[p.d] + '</span><span class="tag">' + p.tp + "</span></h2><p>" + esc(p.s) + "</p>" + (p.tc ? '<p class="mu sm">Built-in tests: ' + p.tc.length + " cases. Passing all marks it Solved automatically." + noteOf(p) + "</p>" : '<p class="mu sm">Write your solution, test it with console.log (JS) or print (Python), then mark it Solved yourself.</p>');
             $("code").value = r[CK()] || starter(p);
             $("st").value = r.s;
             $("fname").textContent = fnName(p) + (lang === "py" ? ".py" : ".js");
@@ -2676,9 +3805,11 @@ H|Frog Jump|Can the frog cross the river?`
                         }
                     }).join(" "))
                 };
+            const pre = (/(function|class)\s+ListNode\b/.test(j.code) ? "" : "function ListNode(val,next){this.val=val===undefined?0:val;this.next=next===undefined?null:next}\n") + (/(function|class)\s+TreeNode\b/.test(j.code) ? "" : "function TreeNode(val,left,right){this.val=val===undefined?0:val;this.left=left===undefined?null:left;this.right=right===undefined?null:right}\n");
+            const pre2 = /(function|class)\s+Node\b/.test(j.code) ? "" : "function Node(val,next,random,prev,child,neighbors){this.val=val;this.next=next||null;this.random=random||null;this.prev=prev||null;this.child=child||null;this.neighbors=neighbors||[]}\n";
             let fn = null;
             try {
-                fn = new Function("console", j.code + "\n;return typeof " + j.name + "==='function'?" + j.name + ":null")(con)
+                fn = new Function("console", pre + pre2 + j.code + "\n;return typeof " + j.name + "==='function'?" + j.name + ":null")(con)
             } catch (e) {
                 return {
                     err: e.message,
@@ -2690,15 +3821,305 @@ H|Frog Jump|Can the frog cross the river?`
                 found: !!fn
             };
             if (!fn) return {
-                err: "Function " + j.name + " not found",
+                err: (["d", "dT", "ser", "enc"].includes(j.mode) ? "Class " : "Function ") + j.name + " not found",
                 logs
             };
+            const mkL = a => {
+                let h = null;
+                for (let i = a.length - 1; i >= 0; i--) h = {
+                    val: a[i],
+                    next: h
+                };
+                return h
+            };
+            const fromL = h => {
+                const r = [];
+                let n = 0;
+                while (h && n++ < 100000) {
+                    r.push(h.val);
+                    h = h.next
+                }
+                return r
+            };
+            const mkT = a => {
+                if (!a || !a.length || a[0] === null) return null;
+                const r = {
+                        val: a[0],
+                        left: null,
+                        right: null
+                    },
+                    q = [r];
+                let i = 1;
+                while (q.length && i < a.length) {
+                    const n = q.shift();
+                    if (a[i] !== null && a[i] !== undefined) {
+                        n.left = {
+                            val: a[i],
+                            left: null,
+                            right: null
+                        };
+                        q.push(n.left)
+                    }
+                    i++;
+                    if (i < a.length && a[i] !== null) {
+                        n.right = {
+                            val: a[i],
+                            left: null,
+                            right: null
+                        };
+                        q.push(n.right)
+                    }
+                    i++
+                }
+                return r
+            };
+            const fromT = t => {
+                if (!t) return [];
+                const r = [],
+                    q = [t];
+                while (q.length) {
+                    const n = q.shift();
+                    if (n) {
+                        r.push(n.val);
+                        q.push(n.left, n.right)
+                    } else r.push(null)
+                }
+                while (r.length && r[r.length - 1] === null) r.pop();
+                return r
+            };
+            const srt = a => a.slice().sort((x, y) => {
+                x = JSON.stringify(x);
+                y = JSON.stringify(y);
+                return x < y ? -1 : x > y ? 1 : 0
+            });
+            const norm = (v, m) => {
+                if (m === "u" && Array.isArray(v)) return srt(v);
+                if (m === "uu" && Array.isArray(v)) return srt(v.map(x => Array.isArray(x) ? srt(x) : x));
+                return v
+            };
+            const inord = t => {
+                const r = [];
+                (function f(n) {
+                    if (n) {
+                        f(n.left);
+                        r.push(n.val);
+                        f(n.right)
+                    }
+                })(t);
+                return r
+            };
+            const bh = n => {
+                if (!n) return 0;
+                const l = bh(n.left),
+                    r = bh(n.right);
+                return l < 0 || r < 0 || Math.abs(l - r) > 1 ? -1 : 1 + Math.max(l, r)
+            };
+            const spl = (m, a) => {
+                if (m === "dn") {
+                    const h = mkL(a[0]);
+                    let n = h;
+                    for (let i = 0; i < a[1]; i++) n = n.next;
+                    fn(n);
+                    return fromL(h)
+                }
+                if (m === "ix") {
+                    const A = mkL(a[0]);
+                    let B;
+                    if (a[2] >= 0) {
+                        let tl = A;
+                        for (let i = 0; i < a[2]; i++) tl = tl.next;
+                        B = tl;
+                        for (let i = a[3] - 1; i >= 0; i--) B = {
+                            val: a[1][i],
+                            next: B
+                        }
+                    } else B = mkL(a[1]);
+                    const r = fn(A, B);
+                    return r ? r.val : null
+                }
+                if (m === "rl") {
+                    const ns = a[0].map(x => ({
+                        val: x[0],
+                        next: null,
+                        random: null
+                    }));
+                    ns.forEach((n, i) => {
+                        n.next = ns[i + 1] || null;
+                        const r = a[0][i][1];
+                        n.random = r === null ? null : ns[r]
+                    });
+                    const orig = new Set(ns);
+                    const h = fn(ns[0] || null);
+                    const out = [],
+                        idx = new Map();
+                    for (let n = h; n; n = n.next) {
+                        if (orig.has(n)) return "not a deep copy";
+                        idx.set(n, out.length);
+                        out.push(n)
+                    }
+                    return out.map(n => [n.val, n.random ? (orig.has(n.random) ? "shares original" : idx.get(n.random)) : null])
+                }
+                if (m === "ml") {
+                    const mk = arr => {
+                        let h = null,
+                            p = null;
+                        for (const x of arr) {
+                            if (Array.isArray(x)) {
+                                p.child = mk(x)
+                            } else {
+                                const n = {
+                                    val: x,
+                                    prev: p,
+                                    next: null,
+                                    child: null
+                                };
+                                if (p) p.next = n;
+                                else h = n;
+                                p = n
+                            }
+                        }
+                        return h
+                    };
+                    const r = fn(mk(a[0]));
+                    const out = [];
+                    for (let n = r, c = 0; n && c < 10000; n = n.next, c++) out.push(n.val);
+                    return out
+                }
+                if (m === "cg") {
+                    const ns = a[0].map((_, i) => ({
+                        val: i + 1,
+                        neighbors: []
+                    }));
+                    a[0].forEach((l, i) => l.forEach(j => ns[i].neighbors.push(ns[j - 1])));
+                    const orig = new Set(ns);
+                    const r = fn(ns[0] || null);
+                    if (!r) return [];
+                    const seen = new Set([r]),
+                        q = [r],
+                        nodes = [r];
+                    while (q.length) {
+                        const n = q.shift();
+                        if (orig.has(n)) return "not a deep copy";
+                        for (const x of n.neighbors)
+                            if (!seen.has(x)) {
+                                seen.add(x);
+                                nodes.push(x);
+                                q.push(x)
+                            }
+                    }
+                    nodes.sort((p, q) => p.val - q.val);
+                    return nodes.map(n => n.neighbors.map(x => x.val))
+                }
+                if (m === "gray") {
+                    const r = fn(a[0]),
+                        n = 1 << a[0];
+                    if (!Array.isArray(r) || r.length !== n || r[0] !== 0 || new Set(r).size !== n) return "invalid";
+                    for (let i = 0; i < n; i++) {
+                        const x = r[i] ^ r[(i + 1) % n];
+                        if (x <= 0 || (x & (x - 1)) !== 0) return "invalid"
+                    }
+                    return "valid"
+                }
+                if (m === "bd") {
+                    const r = fn(mkT(a[0]));
+                    if (!r) return [];
+                    const out = [];
+                    let n = r,
+                        c = 0;
+                    do {
+                        out.push(n.val);
+                        n = n.right;
+                        c++
+                    } while (n && n !== r && c < 10000);
+                    return out
+                }
+                if (m === "sp") {
+                    const root = mkT(a[0]),
+                        nodes = [];
+                    (function f(n, p) {
+                        if (n) {
+                            n.parent = p;
+                            nodes.push(n);
+                            f(n.left, n);
+                            f(n.right, n)
+                        }
+                    })(root, null);
+                    const t = nodes.find(x => x.val === a[1]);
+                    const r = fn(t);
+                    return r ? r.val : null
+                }
+            };
+            const tags = j.tags || [],
+                rt = j.rt || "",
+                mode = j.mode || "";
             const t0 = Date.now(),
                 res = j.tests.map(c => {
                     try {
-                        const got = fn(...JSON.parse(JSON.stringify(c[0])));
+                        const args = JSON.parse(JSON.stringify(c[0]));
+                        let got, cyc = null;
+                        if (mode === "d" || mode === "dT") {
+                            const ops = args[0],
+                                aa = args[1];
+                            let inst = null;
+                            got = [];
+                            for (let i = 0; i < ops.length; i++) {
+                                if (i === 0) {
+                                    inst = new fn(...(mode === "dT" ? [mkT(aa[0][0])] : aa[0]));
+                                    got.push(null)
+                                } else {
+                                    const r = inst[ops[i]](...aa[i]);
+                                    got.push(r === undefined ? null : r)
+                                }
+                            }
+                        } else if (["dn", "ix", "rl", "ml", "cg", "gray", "bd", "sp"].includes(mode)) got = spl(mode, args);
+                        else {
+                            const ca = [];
+                            let ai = 0;
+                            if (!tags.length) ca.push(...args);
+                            else
+                                for (let k = 0; k < tags.length; k++) {
+                                    const t = tags[k];
+                                    let v = args[ai++];
+                                    if (t === "L") v = mkL(v);
+                                    else if (t === "T") v = mkT(v);
+                                    else if (t === "LL") v = v.map(mkL);
+                                    else if (t === "Lc") {
+                                        const pos = args[ai++];
+                                        v = mkL(v);
+                                        cyc = [];
+                                        for (let n = v; n; n = n.next) cyc.push(n);
+                                        if (pos >= 0 && v) {
+                                            cyc[cyc.length - 1].next = cyc[pos]
+                                        }
+                                    }
+                                    ca.push(v)
+                                }
+                            const r = (mode === "ser" || mode === "enc") ? null : fn(...ca);
+                            if (mode === "ser") {
+                                const o = new fn();
+                                got = fromT(o.deserialize(o.serialize(ca[0])))
+                            } else if (mode === "enc") {
+                                const o = new fn();
+                                got = o.decode(o.encode(ca[0]))
+                            } else if (mode === "bal") got = bh(r) < 0 ? "unbalanced" : inord(r);
+                            else if (mode === "nr") {
+                                got = [];
+                                let l = ca[0];
+                                while (l) {
+                                    const row = [];
+                                    for (let n = l; n; n = n.next) row.push(n.val);
+                                    got.push(row);
+                                    l = l.left
+                                }
+                            } else if (mode === "in") got = inord(r);
+                            else if (/^i\d$/.test(mode)) {
+                                const k = +mode[1],
+                                    t = tags[k] || "";
+                                got = t === "L" ? fromL(ca[k]) : t === "T" ? fromT(ca[k]) : ca[k]
+                            } else got = rt === "L" ? fromL(r) : rt === "T" ? fromT(r) : rt === "LL" ? r.map(fromL) : rt === "TT" ? r.map(fromT) : rt === "Ni" ? (r ? cyc.indexOf(r) : -1) : r;
+                        }
                         return {
-                            ok: JSON.stringify(got) === JSON.stringify(c[1]),
+                            ok: JSON.stringify(norm(got, mode)) === JSON.stringify(norm(c[1], mode)),
                             got: String(JSON.stringify(got))
                         }
                     } catch (e) {
@@ -2754,7 +4175,10 @@ H|Frog Jump|Can the frog cross the river?`
             const r = await (lang === "py" ? execPy : exec)({
                 code,
                 name: fnName(p),
-                tests: p.tc
+                tests: p.tc,
+                tags: p.meta.tags,
+                rt: p.meta.rt,
+                mode: p.meta.mode
             });
             if (cur !== p) return;
             const lgt = Array.isArray(r.logs) ? r.logs.join("\n") : (r.logs || "");
@@ -2779,7 +4203,7 @@ H|Frog Jump|Can the frog cross the river?`
             r.res.forEach((x, i) => {
                 if (x.ok) pass++;
                 const c = p.tc[i];
-                o += '<div class="' + (x.ok ? "ok" : "bad") + '">' + (x.ok ? "✔" : "✘") + " Case " + (i + 1) + ": " + esc(fnName(p) + "(" + c[0].map(a => JSON.stringify(a)).join(", ") + ")") + (x.ok ? "" : "\n    expected " + esc(JSON.stringify(c[1])) + ", got " + esc(x.err ? "error: " + x.err : x.got)) + "</div>"
+                o += '<div class="' + (x.ok ? "ok" : "bad") + '">' + (x.ok ? "✔" : "✘") + " Case " + (i + 1) + ": " + esc((fnName(p) + "(" + c[0].map(a => JSON.stringify(a)).join(", ") + ")").slice(0, 150)) + (x.ok ? "" : "\n    expected " + esc(JSON.stringify(c[1])) + ", got " + esc(x.err ? "error: " + x.err : x.got)) + "</div>"
             });
             const all = pass === p.tc.length;
             o += '<div class="' + (all ? "ok" : "bad") + '"><b>' + (all ? "Accepted" : "Wrong Answer") + "</b> - " + pass + "/" + p.tc.length + " passed - " + r.ms + " ms</div>" + logs;
@@ -2788,25 +4212,246 @@ H|Frog Jump|Can the frog cross the river?`
             else if (rec(p.k).s !== "done") setStatus("att");
         }
         /* ---------- Python runner (Pyodide in a Web Worker, 4s timeout) ---------- */
-        const PYRUN = `def _run(code,name,tests):
-    import sys,io,json,traceback,time
+        const PYRUN = `class ListNode:
+    def __init__(self,val=0,next=None):
+        self.val=val;self.next=next
+class TreeNode:
+    def __init__(self,val=0,left=None,right=None):
+        self.val=val;self.left=left;self.right=right
+def _mkL(a):
+    h=None
+    for v in reversed(a):
+        h=ListNode(v,h)
+    return h
+def _fromL(h):
+    r=[];n=0
+    while h is not None and n<100000:
+        r.append(h.val);h=h.next;n+=1
+    return r
+def _mkT(a):
+    if not a or a[0] is None:
+        return None
+    r=TreeNode(a[0]);q=[r];i=1
+    while q and i<len(a):
+        n=q.pop(0)
+        if a[i] is not None:
+            n.left=TreeNode(a[i]);q.append(n.left)
+        i+=1
+        if i<len(a) and a[i] is not None:
+            n.right=TreeNode(a[i]);q.append(n.right)
+        i+=1
+    return r
+def _fromT(t):
+    if t is None:
+        return []
+    r=[];q=[t]
+    while q:
+        n=q.pop(0)
+        if n is not None:
+            r.append(n.val);q.append(n.left);q.append(n.right)
+        else:
+            r.append(None)
+    while r and r[-1] is None:
+        r.pop()
+    return r
+def _inord(t):
+    r=[]
+    def f(n):
+        if n is not None:
+            f(n.left);r.append(n.val);f(n.right)
+    f(t)
+    return r
+def _bal(t):
+    if t is None:
+        return 0
+    l=_bal(t.left);r=_bal(t.right)
+    if l<0 or r<0 or abs(l-r)>1:
+        return -1
+    return 1+max(l,r)
+class Node:
+    def __init__(self,val=0,next=None,random=None,prev=None,child=None,neighbors=None):
+        self.val=val;self.next=next;self.random=random;self.prev=prev;self.child=child;self.neighbors=neighbors if neighbors is not None else []
+def _spl(fn,m,a):
+    if m=="dn":
+        h=_mkL(a[0]);n=h
+        for _ in range(a[1]):
+            n=n.next
+        fn(n)
+        return _fromL(h)
+    if m=="ix":
+        A=_mkL(a[0])
+        if a[2]>=0:
+            B=A
+            for _ in range(a[2]):
+                B=B.next
+            for i in range(a[3]-1,-1,-1):
+                B=ListNode(a[1][i],B)
+        else:
+            B=_mkL(a[1])
+        r=fn(A,B)
+        return r.val if r is not None else None
+    if m=="rl":
+        ns=[Node(x[0]) for x in a[0]]
+        for i,n in enumerate(ns):
+            n.next=ns[i+1] if i+1<len(ns) else None
+            r=a[0][i][1]
+            n.random=None if r is None else ns[r]
+        orig=set(id(n) for n in ns)
+        h=fn(ns[0] if ns else None);out=[];idx={};n=h
+        while n is not None:
+            if id(n) in orig:
+                return "not a deep copy"
+            idx[id(n)]=len(out);out.append(n);n=n.next
+        return [[n.val,None if n.random is None else ("shares original" if id(n.random) in orig else idx.get(id(n.random)))] for n in out]
+    if m=="ml":
+        def mk(arr):
+            h=None;p=None
+            for x in arr:
+                if isinstance(x,list):
+                    p.child=mk(x)
+                else:
+                    n=Node(x);n.prev=p
+                    if p is not None:
+                        p.next=n
+                    else:
+                        h=n
+                    p=n
+            return h
+        r=fn(mk(a[0]));out=[];c=0
+        while r is not None and c<10000:
+            out.append(r.val);r=r.next;c+=1
+        return out
+    if m=="cg":
+        ns=[Node(i+1) for i in range(len(a[0]))]
+        for i,l in enumerate(a[0]):
+            for j in l:
+                ns[i].neighbors.append(ns[j-1])
+        orig=set(id(n) for n in ns)
+        r=fn(ns[0] if ns else None)
+        if r is None:
+            return []
+        seen={id(r)};nodes=[r];q=[r]
+        while q:
+            n=q.pop(0)
+            if id(n) in orig:
+                return "not a deep copy"
+            for x in n.neighbors:
+                if id(x) not in seen:
+                    seen.add(id(x));nodes.append(x);q.append(x)
+        nodes.sort(key=lambda n:n.val)
+        return [[x.val for x in n.neighbors] for n in nodes]
+    if m=="gray":
+        r=fn(a[0]);n=1<<a[0]
+        if not isinstance(r,list) or len(r)!=n or r[0]!=0 or len(set(r))!=n:
+            return "invalid"
+        for i in range(n):
+            x=r[i]^r[(i+1)%n]
+            if x<=0 or (x&(x-1))!=0:
+                return "invalid"
+        return "valid"
+    if m=="bd":
+        r=fn(_mkT(a[0]))
+        if r is None:
+            return []
+        out=[];n=r;c=0
+        while True:
+            out.append(n.val);n=n.right;c+=1
+            if n is None or n is r or c>=10000:
+                break
+        return out
+    if m=="sp":
+        root=_mkT(a[0]);nodes=[]
+        def f(n,p):
+            if n is not None:
+                n.parent=p;nodes.append(n);f(n.left,n);f(n.right,n)
+        f(root,None)
+        t=[x for x in nodes if x.val==a[1]][0];r=fn(t)
+        return r.val if r is not None else None
+def _key(x):
+    import json
+    return json.dumps(x,sort_keys=True)
+def _norm(v,m):
+    if m=="u" and isinstance(v,list):
+        return sorted(v,key=_key)
+    if m=="uu" and isinstance(v,list):
+        return sorted([sorted(x,key=_key) if isinstance(x,list) else x for x in v],key=_key)
+    return v
+def _run(code,name,job):
+    import sys,io,json,traceback,time,re
     buf=io.StringIO();old=sys.stdout;sys.stdout=buf
     try:
-        g={"__name__":"__main__"}
+        g={"__name__":"__main__","ListNode":ListNode,"TreeNode":TreeNode,"Node":Node}
         try:
             exec(code,g)
         except BaseException:
             return {"err":traceback.format_exc().strip().splitlines()[-1],"logs":buf.getvalue()}
-        if not tests:
+        if not job:
             return {"logs":buf.getvalue()}
         fn=g.get(name)
         if not callable(fn):
-            return {"err":"Function "+name+" not found","logs":buf.getvalue()}
+            return {"err":("Class " if json.loads(job).get("mode") in ("d","dT","ser","enc") else "Function ")+name+" not found","logs":buf.getvalue()}
+        J=json.loads(job);tags=J["tags"];rt=J["rt"];mode=J["mode"]
         t0=time.time();res=[]
-        for a,exp in json.loads(tests):
+        for a,exp in J["tests"]:
             try:
-                got=json.loads(json.dumps(fn(*json.loads(json.dumps(a)))))
-                res.append({"ok":got==exp,"got":json.dumps(got)})
+                a=json.loads(json.dumps(a));cyc=[]
+                if mode in ("d","dT"):
+                    ops,aa=a;inst=None;got=[]
+                    for i,op in enumerate(ops):
+                        if i==0:
+                            inst=fn(*([_mkT(aa[0][0])] if mode=="dT" else aa[0]));got.append(None)
+                        else:
+                            r=getattr(inst,op)(*aa[i]);got.append(r)
+                elif mode in ("dn","ix","rl","ml","cg","gray","bd","sp"):
+                    got=_spl(fn,mode,a)
+                else:
+                    ca=[];ai=0
+                    if not tags:
+                        ca=list(a)
+                    else:
+                        for t in tags:
+                            v=a[ai];ai+=1
+                            if t=="L":
+                                v=_mkL(v)
+                            elif t=="T":
+                                v=_mkT(v)
+                            elif t=="LL":
+                                v=[_mkL(x) for x in v]
+                            elif t=="Lc":
+                                pos=a[ai];ai+=1;v=_mkL(v);cyc=[];n=v
+                                while n is not None:
+                                    cyc.append(n);n=n.next
+                                if pos>=0 and v is not None:
+                                    cyc[-1].next=cyc[pos]
+                            ca.append(v)
+                    r=None if mode in ("ser","enc") else fn(*ca)
+                    if mode=="ser":
+                        o=fn();got=_fromT(o.deserialize(o.serialize(ca[0])))
+                    elif mode=="enc":
+                        o=fn();got=o.decode(o.encode(ca[0]))
+                    elif mode=="bal":
+                        got=_inord(r) if _bal(r)>=0 else "unbalanced"
+                    elif mode=="nr":
+                        got=[];l=ca[0]
+                        while l is not None:
+                            row=[];n=l
+                            while n is not None:
+                                row.append(n.val);n=getattr(n,"next",None)
+                            got.append(row);l=l.left
+                    elif mode=="in":
+                        got=_inord(r)
+                    elif re.match(r"^i[0-9]$",mode):
+                        k=int(mode[1]);t=tags[k] if k<len(tags) else ""
+                        got=_fromL(ca[k]) if t=="L" else _fromT(ca[k]) if t=="T" else ca[k]
+                    else:
+                        if rt=="L": got=_fromL(r)
+                        elif rt=="T": got=_fromT(r)
+                        elif rt=="LL": got=[_fromL(x) for x in r]
+                        elif rt=="TT": got=[_fromT(x) for x in r]
+                        elif rt=="Ni": got=-1 if r is None else next((i for i,x in enumerate(cyc) if x is r),-1)
+                        else: got=r
+                got=json.loads(json.dumps(got))
+                res.append({"ok":_norm(got,mode)==_norm(exp,mode),"got":json.dumps(got)})
             except Exception as e:
                 res.append({"ok":False,"err":str(e)})
         return {"res":res,"logs":buf.getvalue(),"ms":int((time.time()-t0)*1000)}
@@ -2814,7 +4459,7 @@ H|Frog Jump|Can the frog cross the river?`
         sys.stdout=old
 import json as _j
 _j.dumps(_run(_code,_name,_tests))`;
-        const PYW = 'const IDX="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/";let py=null;const RUNNER=' + JSON.stringify(PYRUN) + ';onmessage=async e=>{const j=e.data;try{if(!py){importScripts(IDX+"pyodide.js");py=await loadPyodide({indexURL:IDX})}py.globals.set("_code",j.code);py.globals.set("_name",j.name);py.globals.set("_tests",j.tests?JSON.stringify(j.tests):"");postMessage(JSON.parse(await py.runPythonAsync(RUNNER)))}catch(err){postMessage({err:String((err&&err.message)||err).split("\\n").slice(-2).join(" ")})}};';
+        const PYW = 'const IDX="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/";let py=null;const RUNNER=' + JSON.stringify(PYRUN) + ';onmessage=async e=>{const j=e.data;try{if(!py){importScripts(IDX+"pyodide.js");py=await loadPyodide({indexURL:IDX})}py.globals.set("_code",j.code);py.globals.set("_name",j.name);py.globals.set("_tests",j.tests?JSON.stringify({tests:j.tests,tags:j.tags||[],rt:j.rt||"",mode:j.mode||""}):"");postMessage(JSON.parse(await py.runPythonAsync(RUNNER)))}catch(err){postMessage({err:String((err&&err.message)||err).split("\\n").slice(-2).join(" ")})}};';
         let pw = null;
 
         function execPy(job) {
